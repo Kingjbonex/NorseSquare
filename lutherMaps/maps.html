@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+   <title>Luther College - Google Maps</title> 
+</head> 
+<body onLoad="starter();">     
+	<div id="mainDiv">
+    	<div class="panel">
+                    <select id="academic" style="width:250px" onChange="selectPolygon(this);"></select></br>
+                    <select id="residential" style="width:250px" onChange="selectPolygon(this);"></select></br>
+                    <select id="recreational" style="width:250px" onChange="selectPolygon(this);"></select></br>
+                    <select id="sustainability" style="width:250px" onChange="selectMarker(this);"></select></br>
+                    <select id="parking" style="width:250px" onChange="selectPolygon(this);"></select></br>
+                    <input type="checkbox" checked name="academic" onChange="toggleCategory(this);">Academic</br>
+                    <input type="checkbox" checked name="residential" onChange="toggleCategory(this);">Residential</br>
+                    <input type="checkbox" checked name="recreational" onChange="toggleCategory(this);">Recreational</br>
+                    <input type="checkbox" checked name="sustainability" onChange="toggleCategory(this);">Sustainability</br>
+                    <input type="checkbox" checked name="parking" onChange="toggleCategory(this);">Parking</br>
+                    <input type="checkbox" checked name="roads" onChange="toggleStyle(this);">Roads</br>
+
+            </div>
+
+
+	</div>
+		<div id="map" style="width: 80%; height: 600px; float:right;"></div> 
+    </div>   
+
+</body> 
+
+   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   <script type="text/javascript" src="markers.js"> </script>
+   <script type="text/javascript" src="polygons.js"> </script>
+   <script type="text/javascript" src="mapStyles.js"> </script>
+   <script type="text/javascript" src="maps.js"></script>
+
+</html>
