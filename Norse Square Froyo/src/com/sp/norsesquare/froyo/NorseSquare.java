@@ -69,13 +69,23 @@ public class NorseSquare extends Activity {
     //Below are all top level methods called by this app
     public void locateMeCoarse(View view)
     {
+    	Location coarseLocation;
     	//Get GPS coordinates, pass to Google Maps
-    	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    	//locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
-    	System.out.println("Current value of currentLatLong = " + currentLatLong);
-    	Uri coarseLocation = Uri.parse(currentLatLong);
+    	coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
-    	Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseLocation);
+    	currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15";
+    	
+		if (currentLatLong.equals(null))
+		{
+			System.out.println("Longitude and latitude are null");
+		}
+    	
+    	Uri coarseURI = Uri.parse(currentLatLong);
+    	
+    	Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseURI);
+    	startActivity(wifiIntent);
     	
     }
     
