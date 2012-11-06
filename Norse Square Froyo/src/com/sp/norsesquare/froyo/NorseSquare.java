@@ -79,10 +79,10 @@ public class NorseSquare extends Activity {
     	
 		if (currentLatLong.equals(null))
 		{
-			System.out.println("Longitude and latitude are null");
+			System.out.println("Longitude and latitude are null ");
 		}
     	
-    	Uri coarseURI = Uri.parse(currentLatLong);
+    	Uri coarseURI = Uri.parse(currentLatLong);    //Parse latitude and longitude
     	
     	Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseURI);
     	startActivity(wifiIntent);
