@@ -1,3 +1,7 @@
+
+
+
+
 function starter() {
    var winH = 460;
 	if (document.body && document.body.offsetWidth) {
@@ -13,11 +17,11 @@ function starter() {
 	}
 
 	mapDiv = document.getElementById('map');
-	panelDiv = document.getElementById('panel');
+	//panelDiv = document.getElementById('panel');
 	//alert(myDiv.style.height + " " + winH);
 	winH = winH * .98;
 	mapDiv.style.height = winH + "px";
-	panelDiv.style.height = winH + "px";
+	//panelDiv.style.height = winH + "px";
 }
 
 function toggleBox(id){
@@ -58,31 +62,33 @@ var allowedBounds = new google.maps.LatLngBounds(
  new google.maps.LatLng(43.318705,-91.798375));
 
 // Listen for the dragend event
-//google.maps.event.addListener(map, 'dragend', function() {
-// if (allowedBounds.contains(map.getCenter())) return;
+google.maps.event.addListener(map, 'dragend', function() {
+	if (allowedBounds.contains(map.getCenter())) return;
 
- // Out of bounds - Move the map back within the bounds
+	 //Out of bounds - Move the map back within the bounds
 
-// var c = map.getCenter(),
-//	 x = c.lng(),
-//	 y = c.lat(),
-//	 maxX = allowedBounds.getNorthEast().lng(),
-//	 maxY = allowedBounds.getNorthEast().lat(),
-//	 minX = allowedBounds.getSouthWest().lng(),
-//	 minY = allowedBounds.getSouthWest().lat();
+	var c = map.getCenter(),
+		 x = c.lng(),
+		 y = c.lat(),
+		 maxX = allowedBounds.getNorthEast().lng(),
+		 maxY = allowedBounds.getNorthEast().lat(),
+		 minX = allowedBounds.getSouthWest().lng(),
+		 minY = allowedBounds.getSouthWest().lat();
 
-// if (x < minX) x = minX;
-// if (x > maxX) x = maxX;
-// if (y < minY) y = minY;
-// if (y > maxY) y = maxY;
+	if (x < minX) x = minX;
+	if (x > maxX) x = maxX;
+	if (y < minY) y = minY;
+	if (y > maxY) y = maxY;
 
-// map.setCenter(new google.maps.LatLng(y, x));
-//});
+	map.setCenter(new google.maps.LatLng(y, x));
+});
 
 // Limit the zoom level
 google.maps.event.addListener(map, 'zoom_changed', function() {
  if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
 });
+
+
 
 
 
@@ -288,7 +294,7 @@ for (polygon in polygonCoords) {
 		academicString = academicString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>';
 	}
 }
-document.getElementById("academic").innerHTML=academicString;
+//document.getElementById("academic").innerHTML=academicString;
 
 var residentialString = '<option value=""> - Residential - </option>';
 //This is making the drop down menus
@@ -297,7 +303,7 @@ for (polygon in polygonCoords) {
 		residentialString = residentialString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
 	}
 }
-document.getElementById("residential").innerHTML=residentialString;
+// document.getElementById("residential").innerHTML=residentialString;
 
 var recreationalString = '<option value=""> - Recreational - </option>';
 //This is making the drop down menus
@@ -306,14 +312,14 @@ for (polygon in polygonCoords) {
 		recreationalString = recreationalString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
 	}
 }
-document.getElementById("recreational").innerHTML=recreationalString;
+// document.getElementById("recreational").innerHTML=recreationalString;
 
 var sustainabilityString = '<option value=""> - Sustainability - </option>';
 //This is making the drop down menus
 for (marker in markerCoords) {
 	sustainabilityString = sustainabilityString + '<option value="' + gmarkers[marker].id + '">' + gmarkers[marker].polyName + '</option>' ;
 }
-document.getElementById("sustainability").innerHTML=sustainabilityString;
+// document.getElementById("sustainability").innerHTML=sustainabilityString;
 
 var parkingString = '<option value=""> - Parking - </option>';
 //This is making the drop down menus
@@ -322,4 +328,31 @@ for (polygon in polygonCoords) {
 		parkingString = parkingString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
 	}
 }
-document.getElementById("parking").innerHTML=parkingString;
+// document.getElementById("parking").innerHTML=parkingString;
+
+
+//Check if browser supports W3C Geolocation API
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    alert('Your latitude is :'+lat+' and longitude is '+long);
+    var myPosition = new google.maps.LatLng(lat, long);
+
+  marker = new google.maps.Marker({
+    map:map,
+    draggable:false,
+    animation: google.maps.Animation.DROP,
+    position: myPosition
+  });
+
+}
+
+function errorFunction(position) {
+    alert('Error!');
+}
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+} else {
+    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+}
