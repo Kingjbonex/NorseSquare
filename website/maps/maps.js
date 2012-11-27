@@ -331,19 +331,29 @@ for (polygon in polygonCoords) {
 // document.getElementById("parking").innerHTML=parkingString;
 
 
+
+
+
+
+
+
 //Check if browser supports W3C Geolocation API
 function successFunction(position) {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
-    alert('Your latitude is :'+lat+' and longitude is '+long);
+    //alert('Your latitude is :'+lat+' and longitude is '+long);
     var myPosition = new google.maps.LatLng(lat, long);
 
-  marker = new google.maps.Marker({
-    map:map,
-    draggable:false,
-    animation: google.maps.Animation.DROP,
-    position: myPosition
-  });
+	if (myPosMarker != null) {
+	  myPosMarker.setMap(null);
+	}
+
+	myPosMarker = new google.maps.Marker({
+	map:map,
+	draggable:false,
+	animation: google.maps.Animation.DROP,
+	position: myPosition
+	});
 
 }
 
@@ -351,8 +361,54 @@ function errorFunction(position) {
     alert('Error!');
 }
 
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-} else {
-    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+
+
+/**
+ * The HomeControl adds a control to the map that simply
+ * returns the user to Chicago. This constructor takes
+ * the control DIV as an argument.
+ */
+
+function findMe(controlDiv, map) {
+
+  // Set CSS styles for the DIV containing the control
+  // Setting padding to 5 px will offset the control
+  // from the edge of the map.
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to find your location';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<strong>Find Me</strong>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	} else {
+	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	}
+
+  });
 }
+
+var myPosMarker;
+var findMeDiv = document.createElement('div');
+var findMe = new findMe(findMeDiv, map);
+findMeDiv.index = 1;
+map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findMeDiv);
