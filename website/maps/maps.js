@@ -1,4 +1,36 @@
 
+//Parse Initialization
+Parse.initialize("tiOO8Xjx8mTRHHC01DcgxswW27AglPBESjO1PhD6", "jz1qxZvpfsZL6lPUx8zmuAYJY850bL3Aqgm362N9");
+
+
+//Janrain
+function janrainLogin() {
+	alert("here");
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+    
+    janrain.settings.tokenUrl = "norsesquare.appspot.com";
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://rpxnow.com/js/lib/luther-bargain-books/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/luther-bargain-books/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+}
 
 
 
@@ -334,15 +366,37 @@ for (polygon in polygonCoords) {
 
 
 
+function saveLocation(longObj, latObj){
+
+	var LocationObject = Parse.Object.extend("LocationObject");
+	var locationObject = new LocationObject();
+
+	locationObject.set("myLong", longObj);
+	locationObject.set("myLat", latObj);
+
+	locationObject.save(null, {
+	  success: function(locationObject) {
+	  	//alert("Save was successful")
+	    // The object was saved successfully.
+	  },
+	  error: function(locationObject, error) {
+	  	alert(error)
+	    // The save failed.
+	    // error is a Parse.Error with an error code and description.
+	  }
+	});
+
+}
 
 
 
 //Check if browser supports W3C Geolocation API
 function successFunction(position) {
-    var lat = position.coords.latitude;
-    var long = position.coords.longitude;
+    myLat = position.coords.latitude;
+    myLong = position.coords.longitude;
+
     //alert('Your latitude is :'+lat+' and longitude is '+long);
-    var myPosition = new google.maps.LatLng(lat, long);
+    var myPosition = new google.maps.LatLng(myLat, myLong);
 
 	if (myPosMarker != null) {
 	  myPosMarker.setMap(null);
@@ -355,6 +409,7 @@ function successFunction(position) {
 	position: myPosition
 	});
 
+	saveLocation(myLat,myLong);
 }
 
 function errorFunction(position) {
@@ -362,18 +417,7 @@ function errorFunction(position) {
 }
 
 
-
-/**
- * The HomeControl adds a control to the map that simply
- * returns the user to Chicago. This constructor takes
- * the control DIV as an argument.
- */
-
 function findMe(controlDiv, map) {
-
-  // Set CSS styles for the DIV containing the control
-  // Setting padding to 5 px will offset the control
-  // from the edge of the map.
   controlDiv.style.padding = '5px';
 
   // Set CSS for the control border.
@@ -407,8 +451,47 @@ function findMe(controlDiv, map) {
   });
 }
 
+
+
+function login(controlDiv, map) {
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to find your location';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<strong>Login</strong>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+  	    $('#janrainLink').click()
+  });
+}
+
+
+var myLat;
+var myLong;
 var myPosMarker;
 var findMeDiv = document.createElement('div');
+var loginDiv = document.createElement('div');
 var findMe = new findMe(findMeDiv, map);
+var login = new login(loginDiv, map);
 findMeDiv.index = 1;
+loginDiv.index = 1;
+map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginDiv);
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findMeDiv);
+
+
