@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">NorseSquare</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_norse_square">Norse Square</string>
+    <string name="title_activity_locate_me_coarse">Locate Me Coarse</string>
+    <string name="title_activity_locate_me_fine">Locate Me Fine</string>
+    <string name="button_locateCoarse">LOCATE (COARSE)</string>
+    <string name="button_locateFine">LOCATE (FINE)</string>
+    
+
+</resources>
