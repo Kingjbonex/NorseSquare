@@ -1,3 +1,39 @@
+
+//Parse Initialization
+Parse.initialize("tiOO8Xjx8mTRHHC01DcgxswW27AglPBESjO1PhD6", "jz1qxZvpfsZL6lPUx8zmuAYJY850bL3Aqgm362N9");
+
+
+//Janrain
+function janrainLogin() {
+	alert("here");
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+    
+    janrain.settings.tokenUrl = "norsesquare.appspot.com";
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://rpxnow.com/js/lib/luther-bargain-books/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/luther-bargain-books/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+}
+
+
+
 function starter() {
    var winH = 460;
 	if (document.body && document.body.offsetWidth) {
@@ -13,11 +49,11 @@ function starter() {
 	}
 
 	mapDiv = document.getElementById('map');
-	panelDiv = document.getElementById('panel');
+	//panelDiv = document.getElementById('panel');
 	//alert(myDiv.style.height + " " + winH);
 	winH = winH * .98;
 	mapDiv.style.height = winH + "px";
-	panelDiv.style.height = winH + "px";
+	//panelDiv.style.height = winH + "px";
 }
 
 function toggleBox(id){
@@ -58,31 +94,33 @@ var allowedBounds = new google.maps.LatLngBounds(
  new google.maps.LatLng(43.318705,-91.798375));
 
 // Listen for the dragend event
-//google.maps.event.addListener(map, 'dragend', function() {
-// if (allowedBounds.contains(map.getCenter())) return;
+google.maps.event.addListener(map, 'dragend', function() {
+	if (allowedBounds.contains(map.getCenter())) return;
 
- // Out of bounds - Move the map back within the bounds
+	 //Out of bounds - Move the map back within the bounds
 
-// var c = map.getCenter(),
-//	 x = c.lng(),
-//	 y = c.lat(),
-//	 maxX = allowedBounds.getNorthEast().lng(),
-//	 maxY = allowedBounds.getNorthEast().lat(),
-//	 minX = allowedBounds.getSouthWest().lng(),
-//	 minY = allowedBounds.getSouthWest().lat();
+	var c = map.getCenter(),
+		 x = c.lng(),
+		 y = c.lat(),
+		 maxX = allowedBounds.getNorthEast().lng(),
+		 maxY = allowedBounds.getNorthEast().lat(),
+		 minX = allowedBounds.getSouthWest().lng(),
+		 minY = allowedBounds.getSouthWest().lat();
 
-// if (x < minX) x = minX;
-// if (x > maxX) x = maxX;
-// if (y < minY) y = minY;
-// if (y > maxY) y = maxY;
+	if (x < minX) x = minX;
+	if (x > maxX) x = maxX;
+	if (y < minY) y = minY;
+	if (y > maxY) y = maxY;
 
-// map.setCenter(new google.maps.LatLng(y, x));
-//});
+	map.setCenter(new google.maps.LatLng(y, x));
+});
 
 // Limit the zoom level
 google.maps.event.addListener(map, 'zoom_changed', function() {
  if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
 });
+
+
 
 
 
@@ -288,7 +326,7 @@ for (polygon in polygonCoords) {
 		academicString = academicString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>';
 	}
 }
-document.getElementById("academic").innerHTML=academicString;
+//document.getElementById("academic").innerHTML=academicString;
 
 var residentialString = '<option value=""> - Residential - </option>';
 //This is making the drop down menus
@@ -297,7 +335,7 @@ for (polygon in polygonCoords) {
 		residentialString = residentialString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
 	}
 }
-document.getElementById("residential").innerHTML=residentialString;
+// document.getElementById("residential").innerHTML=residentialString;
 
 var recreationalString = '<option value=""> - Recreational - </option>';
 //This is making the drop down menus
@@ -306,14 +344,14 @@ for (polygon in polygonCoords) {
 		recreationalString = recreationalString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
 	}
 }
-document.getElementById("recreational").innerHTML=recreationalString;
+// document.getElementById("recreational").innerHTML=recreationalString;
 
 var sustainabilityString = '<option value=""> - Sustainability - </option>';
 //This is making the drop down menus
 for (marker in markerCoords) {
 	sustainabilityString = sustainabilityString + '<option value="' + gmarkers[marker].id + '">' + gmarkers[marker].polyName + '</option>' ;
 }
-document.getElementById("sustainability").innerHTML=sustainabilityString;
+// document.getElementById("sustainability").innerHTML=sustainabilityString;
 
 var parkingString = '<option value=""> - Parking - </option>';
 //This is making the drop down menus
@@ -322,4 +360,138 @@ for (polygon in polygonCoords) {
 		parkingString = parkingString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
 	}
 }
-document.getElementById("parking").innerHTML=parkingString;
+// document.getElementById("parking").innerHTML=parkingString;
+
+
+
+
+
+function saveLocation(longObj, latObj){
+
+	var LocationObject = Parse.Object.extend("LocationObject");
+	var locationObject = new LocationObject();
+
+	locationObject.set("myLong", longObj);
+	locationObject.set("myLat", latObj);
+
+	locationObject.save(null, {
+	  success: function(locationObject) {
+	  	//alert("Save was successful")
+	    // The object was saved successfully.
+	  },
+	  error: function(locationObject, error) {
+	  	alert(error)
+	    // The save failed.
+	    // error is a Parse.Error with an error code and description.
+	  }
+	});
+
+}
+
+
+
+//Check if browser supports W3C Geolocation API
+function successFunction(position) {
+    myLat = position.coords.latitude;
+    myLong = position.coords.longitude;
+
+    //alert('Your latitude is :'+lat+' and longitude is '+long);
+    var myPosition = new google.maps.LatLng(myLat, myLong);
+
+	if (myPosMarker != null) {
+	  myPosMarker.setMap(null);
+	}
+
+	myPosMarker = new google.maps.Marker({
+	map:map,
+	draggable:false,
+	animation: google.maps.Animation.DROP,
+	position: myPosition
+	});
+
+	saveLocation(myLat,myLong);
+}
+
+function errorFunction(position) {
+    alert('Error!');
+}
+
+
+function findMe(controlDiv, map) {
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to find your location';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<strong>Find Me</strong>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	} else {
+	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	}
+
+  });
+}
+
+
+
+function login(controlDiv, map) {
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to find your location';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<strong>Login</strong>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+  	    $('#janrainLink').click()
+  });
+}
+
+
+var myLat;
+var myLong;
+var myPosMarker;
+var findMeDiv = document.createElement('div');
+var loginDiv = document.createElement('div');
+var findMe = new findMe(findMeDiv, map);
+var login = new login(loginDiv, map);
+findMeDiv.index = 1;
+loginDiv.index = 1;
+map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginDiv);
+map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findMeDiv);
+
+
