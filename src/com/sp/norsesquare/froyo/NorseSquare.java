@@ -1,10 +1,11 @@
 package com.sp.norsesquare.froyo;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,6 +19,7 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 public class NorseSquare extends MapActivity {
@@ -26,8 +28,9 @@ public class NorseSquare extends MapActivity {
     String currentLatLong;
     LocationManager locationManager;
     MapController mapController;
-    
-    private ArrayList<OverlayItem> overlayList;
+    OverlayList itemizedoverlay;
+    List<Overlay> mapOverlays;
+
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class NorseSquare extends MapActivity {
         
         MapView mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
+        
+        mapOverlays = mapView.getOverlays();
+        Drawable drawable = this.getResources().getDrawable(R.drawable.push_pin);
+        itemizedoverlay = new OverlayList(drawable, this);
         
       
     }
@@ -78,13 +85,17 @@ public class NorseSquare extends MapActivity {
     		//System.exit(0);
     	}
     	
- 
-    	locateMeCoarse((MapView)findViewById(R.id.mapview));  //Initialize app to current wifi location  
+         
+    	GeoPoint g = locateMeCoarse((MapView)findViewById(R.id.mapview));   //Initialize app to current wifi location  
+    	OverlayItem overlayitem = new OverlayItem(g, "Test Item", "this had better work");
+        itemizedoverlay.addOverlay(overlayitem);
+        mapOverlays.add(itemizedoverlay);
+    	mapController.animateTo(g);
     }
     
     
     //Below are all top level methods called by this app
-    public void locateMeCoarse(MapView view)
+    public GeoPoint locateMeCoarse(MapView view)
     {
     	mapController = view.getController();
     	
@@ -113,9 +124,11 @@ public class NorseSquare extends MapActivity {
     	
     	Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseURI);
     	//startActivity(wifiIntent); 
-    	mapController.animateTo(geo);
+    	//mapController.animateTo(geo);
       
-    	LatLongAlert alert = new LatLongAlert(this);
+    	//LatLongAlert alert = new LatLongAlert(this);
+    	
+    	return geo;
     	
     }
     

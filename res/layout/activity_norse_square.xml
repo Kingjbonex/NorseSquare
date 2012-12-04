@@ -32,4 +32,7 @@
         android:onClick="locateMeFine"
         android:text="@string/button_locateFine" />
 -->
+
+    
+
 </RelativeLayout>
