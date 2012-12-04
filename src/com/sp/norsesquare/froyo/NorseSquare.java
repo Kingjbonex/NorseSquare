@@ -1,6 +1,8 @@
 package com.sp.norsesquare.froyo;
 
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -16,6 +18,7 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.OverlayItem;
 
 public class NorseSquare extends MapActivity {
     LocationProvider wifiProvider;
@@ -23,6 +26,8 @@ public class NorseSquare extends MapActivity {
     String currentLatLong;
     LocationManager locationManager;
     MapController mapController;
+    
+    private ArrayList<OverlayItem> overlayList;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +78,8 @@ public class NorseSquare extends MapActivity {
     		//System.exit(0);
     	}
     	
-    	/* THIS IS THE FREAKING PROBLEM PART
-    	locateMeCoarse((MapView)findViewById(R.id.mapview));  //Initialize app to current wifi location  */
+ 
+    	locateMeCoarse((MapView)findViewById(R.id.mapview));  //Initialize app to current wifi location  
     }
     
     
@@ -89,19 +94,29 @@ public class NorseSquare extends MapActivity {
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
-    	//currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15";
-    	GeoPoint geo = new GeoPoint(((Double)coarseLocation.getLatitude()).intValue(),((Double)coarseLocation.getLongitude()).intValue());
+    	currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15";
+    	System.out.println("Current lat long is: ");
+    	System.out.println(currentLatLong);
+    	Integer lat = ((Double)coarseLocation.getLatitude()).intValue();
+    	Integer longitude = ((Double)coarseLocation.getLongitude()).intValue();
+    	lat = (int) (lat * 1E6);
+    	longitude = (int) (longitude * 1E6);
     	
+    	GeoPoint geo = new GeoPoint(lat,longitude);
+    	/*
 		if (currentLatLong.equals(null))
 		{
 			System.out.println("Longitude and latitude are null ");
 		}
-    	/*
+    	*/
     	Uri coarseURI = Uri.parse(currentLatLong);    //Parse latitude and longitude
     	
     	Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseURI);
-    	startActivity(wifiIntent);  */
+    	//startActivity(wifiIntent); 
     	mapController.animateTo(geo);
+      
+    	LatLongAlert alert = new LatLongAlert(this);
+    	
     }
     
     public void locateMeFine(View view)
