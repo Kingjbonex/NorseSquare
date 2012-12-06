@@ -13,6 +13,7 @@ import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.maps.GeoPoint;
@@ -30,6 +31,9 @@ public class NorseSquare extends MapActivity {
     MapController mapController;
     OverlayList itemizedoverlay;
     List<Overlay> mapOverlays;
+    
+    /* ----- Database Location Variables ---- */
+    boolean releaseLocation = true; //TODO Initialize to false for greater security
 
     
     @Override
@@ -63,6 +67,34 @@ public class NorseSquare extends MapActivity {
         return true;
     }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) 
+        {
+            case R.id.menu_settings_reveal_location:
+                if (item.isChecked())
+                {
+                	setReleaseLocation(false);
+                	item.setChecked(false);
+                }
+                else
+                {
+                	setReleaseLocation(true);
+                	item.setChecked(true);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    public void setReleaseLocation(boolean b)
+    {
+    	releaseLocation = b;
+    }
+    
+    
     public void onStart()
     {
     	super.onStart();
@@ -89,7 +121,7 @@ public class NorseSquare extends MapActivity {
     	GeoPoint g = locateMeCoarse((MapView)findViewById(R.id.mapview));   //Initialize app to current wifi location  
     	OverlayItem overlayitem = new OverlayItem(g, "Test Item", "this had better work");
         itemizedoverlay.addOverlay(overlayitem);
-        mapOverlays.add(itemizedoverlay);
+        mapOverlays.add(itemizedoverlay);   //Does this simply get bigger as overlays are added? Use.set()?
     	mapController.animateTo(g);
     }
     
@@ -145,12 +177,13 @@ public class NorseSquare extends MapActivity {
     	{
     		//Where does this go? How can it be used?
     		currentLatLong = "geo:" +  location.getLatitude() + "," + location.getLongitude() + "?z=15";
+    		
     		if (currentLatLong.equals(null))
     		{
     			System.out.println("Longitude and latitude are null");
     		}
-    		System.out.println("Location object is:");
-    		System.out.println(location);
+    		///System.out.println("Location object is:");
+    		//System.out.println(location);
     	}
 
 		public void onProviderDisabled(String provider) {

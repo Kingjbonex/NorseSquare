@@ -7,6 +7,7 @@
     <string name="title_activity_locate_me_fine">Locate Me Fine</string>
     <string name="button_locateCoarse">LOCATE (COARSE)</string>
     <string name="button_locateFine">LOCATE (FINE)</string>
+    <string name="menu_settings_reveal_location">Enable Location Sharing</string>
     
 
 </resources>
