@@ -370,21 +370,45 @@ function saveLocation(longObj, latObj){
 
 	var LocationObject = Parse.Object.extend("LocationObject");
 	var locationObject = new LocationObject();
+	var query = new Parse.Query(LocationObject);
+	query.equalTo("myEmail", email);
+	if (email == "") {
+		alert("Your location has been found, but will not be saved unless you login.");
+		return;
+	}
 
-	locationObject.set("myLong", longObj);
-	locationObject.set("myLat", latObj);
+	query.find({
+	  success: function(results) {
+	  	if (results.length > 0) {
+		  	locationObject = results[0];
+		    alert("Successfully retrieved " + locationObject.get("myEmail") + ".");
+			locationObject.set("myLong", longObj);
+			locationObject.set("myLat", latObj);
+			locationObject.save();
 
-	locationObject.save(null, {
-	  success: function(locationObject) {
-	  	//alert("Save was successful")
-	    // The object was saved successfully.
+		} else {
+			alert("Making new entry");
+			locationObject.set("myEmail", email);
+			locationObject.set("myLong", longObj);
+			locationObject.set("myLat", latObj);
+			locationObject.save();
+
+		}
 	  },
-	  error: function(locationObject, error) {
-	  	alert(error)
-	    // The save failed.
-	    // error is a Parse.Error with an error code and description.
+	  error: function(error) {
+	    alert("Error: " + error.code + " " + error.message);
 	  }
 	});
+	// locationObject.save(null, {
+	//   success: function(locationObject) {
+	//   	alert("Save was successful")
+	//   },
+	//   error: function(locationObject, error) {
+	//   	alert(error)
+	//     // The save failed.
+	//   }
+	// });
+
 
 }
 

@@ -1,4 +1,44 @@
-<!DOCTYPE html>
+<?php
+  $rpx_api_key = "afb1996de68eb3aa1764c1bca05843a2017c7412";
+  $token = $_POST['token'];
+
+  if(strlen($token) == 40) {
+    $post_data = array('token'  => $token,
+                       'apiKey' => $rpx_api_key,
+                       'format' => 'json',
+                       'extended' => 'true');
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_URL, 'https://rpxnow.com/api/v2/auth_info');
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_FAILONERROR, true);
+    $result = curl_exec($curl);
+    if ($result == false){
+      echo "\n".'Curl error: ' . curl_error($curl);
+      echo "\n".'HTTP code: ' . curl_errno($curl);
+      echo "\n"; var_dump($post_data);
+    }
+    curl_close($curl);
+
+    $auth_info = json_decode($result, true);
+
+    if ($auth_info['stat'] == 'ok') {
+      $email = $auth_info['profile']['email'];
+      echo $email;
+    }
+  }
+?>
+
+<script type="text/javascript">
+  var email = "<?php Print($email); ?>";
+</script>
+
+
+
+
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
@@ -13,7 +53,7 @@
     if (typeof window.janrain !== 'object') window.janrain = {};
     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
     
-    janrain.settings.tokenUrl = 'http://norsesquare.bantatechsolutions.com/maps/token.php';
+    janrain.settings.tokenUrl = 'http://norsesquare.bantatechsolutions.com/maps/maps.php';
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
@@ -58,3 +98,7 @@
 
 
 </html>
+
+<?php 
+?>
+
