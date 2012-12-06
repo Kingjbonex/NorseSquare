@@ -22,6 +22,10 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.PushService;
 
 public class NorseSquare extends MapActivity {
     LocationProvider wifiProvider;
@@ -41,6 +45,8 @@ public class NorseSquare extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_norse_square);
         
+        Parse.initialize(this, "tiOO8Xjx8mTRHHC01DcgxswW27AglPBESjO1PhD6", "4pmiNQTxwipEFLkjrPv2zJFyJS8GlEVYPOhGzCjH"); 
+        
         //Get location manager reference to enable all further locating
         
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -57,6 +63,7 @@ public class NorseSquare extends MapActivity {
         mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.push_pin);
         itemizedoverlay = new OverlayList(drawable, this);
+        
         
       
     }
@@ -118,28 +125,31 @@ public class NorseSquare extends MapActivity {
     	}
     	
          
-    	GeoPoint g = locateMeCoarse((MapView)findViewById(R.id.mapview));   //Initialize app to current wifi location  
-    	OverlayItem overlayitem = new OverlayItem(g, "Test Item", "this had better work");
-        itemizedoverlay.addOverlay(overlayitem);
-        mapOverlays.add(itemizedoverlay);   //Does this simply get bigger as overlays are added? Use.set()?
-    	mapController.animateTo(g);
+    	try 
+    	{
+			locateMeCoarse((MapView)findViewById(R.id.mapview));
+		} 
+    	catch (ParseException e) 
+    	{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   //Initialize app to current wifi location  
+
     }
     
     
     //Below are all top level methods called by this app
-    public GeoPoint locateMeCoarse(MapView view)
+    public void locateMeCoarse(View view) throws ParseException
     {
-    	mapController = view.getController();
+    	mapController = ((MapView) view).getController();
     	
     	Location coarseLocation;
     	//Get GPS coordinates, pass to Google Maps
-    	//locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    	
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
-    	currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15";
-    	System.out.println("Current lat long is: ");
-    	System.out.println(currentLatLong);
+    	//currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15";
     	Integer lat = ((Double)coarseLocation.getLatitude()).intValue();
     	Integer longitude = ((Double)coarseLocation.getLongitude()).intValue();
     	lat = (int) (lat * 1E6);
@@ -152,16 +162,45 @@ public class NorseSquare extends MapActivity {
 			System.out.println("Longitude and latitude are null ");
 		}
     	*/
-    	Uri coarseURI = Uri.parse(currentLatLong);    //Parse latitude and longitude
+    	//Uri coarseURI = Uri.parse(currentLatLong);    //Parse latitude and longitude
     	
-    	Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseURI);
+    	//Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseURI);
     	//startActivity(wifiIntent); 
     	//mapController.animateTo(geo);
       
     	//LatLongAlert alert = new LatLongAlert(this);
     	
-    	return geo;
     	
+    	String message = ("Latitude = " + (Integer)(geo.getLatitudeE6())).toString() + "\n" + "Longitude = " + ((Integer)((geo.getLongitudeE6()))).toString();
+    	OverlayItem overlayitem = new OverlayItem(geo, "My Current Location", message);
+    	itemizedoverlay.addOverlay(overlayitem);
+        mapOverlays.add(itemizedoverlay);  
+    	
+        if (releaseLocation)
+        {
+           //If user desires to release location, send to Parse database	
+        	
+        	ParseObject longObject = new ParseObject("LocationObject");
+            longObject.put("myLong", geo.getLongitudeE6());
+            ParseObject latObject = new ParseObject("LocationObject");
+            latObject.put("myLat", (geo.getLatitudeE6()));
+            
+            longObject.save();
+            latObject.save();
+        }
+         //Build and send Parseobject
+        
+        
+
+    	
+    	mapController.animateTo(geo);
+    	
+    	
+    }
+    
+    public void locateMeCoarseListener(View view) throws ParseException
+    {
+    	locateMeCoarse(findViewById(R.id.mapview));     //Use listener methods that call others, avoid problems with specifications for button listeners
     }
     
     public void locateMeFine(View view)

@@ -4,10 +4,12 @@
         android:orderInCategory="100" >
         
         <menu android:id="@+id/menu_settings_mainmenu">
+            
            <item android:id="@+id/menu_settings_reveal_location"
                  android:title="@string/menu_settings_reveal_location"
                  android:checkable="true"
                  android:checked="true"/>
+           
         </menu>
                
      </item>
