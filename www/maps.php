@@ -1,4 +1,5 @@
 <?php
+  ini_set('display_errors', 'On');
   $rpx_api_key = "afb1996de68eb3aa1764c1bca05843a2017c7412";
   $token = $_POST['token'];
 
@@ -53,12 +54,8 @@
     if (typeof window.janrain !== 'object') window.janrain = {};
     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
     
-<<<<<<< HEAD
-    janrain.settings.tokenUrl = 'http://norsesquare.bantatechsolutions.com/maps/maps.php';
-=======
     //janrain.settings.tokenUrl = 'http://norsesquare.bantatechsolutions.com/maps/maps.php';
-    janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps/maps.php';//switch to internal server
->>>>>>> 184ae4515bb0bfda4cef950d4afb793eec6006a7
+    janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
