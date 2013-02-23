@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.google.android.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:apiKey="0JjqoRvv2gAlTPIfZm6LlzBwTOZVfeb8DtyziWA"
+        android:clickable="true" />
+
+    <!-- sign with debug key till release -->
+
+    <Button
+        android:id="@+id/button_locate_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="locateMeCoarseListener"
+        android:text="@string/button_locateCoarse" />
+<!-- 
+    <Button
+        android:id="@+id/Button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="locateMeFine"
+        android:text="@string/button_locateFine" />
+-->
+
+    
+
+</RelativeLayout>
