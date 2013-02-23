@@ -125,10 +125,8 @@ public class NorseSquare extends MapActivity {
     	}
     	
 
-         /*
-=======
-         
->>>>>>> 184ae4515bb0bfda4cef950d4afb793eec6006a7
+
+     
     	try 
     	{
 			locateMeCoarse((MapView)findViewById(R.id.mapview));
@@ -138,8 +136,6 @@ public class NorseSquare extends MapActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}   //Initialize app to current wifi location  
-<<<<<<< HEAD
-*/
 
     }
     
@@ -183,7 +179,7 @@ public class NorseSquare extends MapActivity {
     	OverlayItem overlayitem = new OverlayItem(geo, "My Current Location", message);
     	itemizedoverlay.addOverlay(overlayitem);
         mapOverlays.add(itemizedoverlay);  
-    	
+    	/*
         if (releaseLocation)
         {
            //If user desires to release location, send to Parse database	
@@ -197,7 +193,7 @@ public class NorseSquare extends MapActivity {
             latObject.save();
         }
          //Build and send Parseobject
-        
+        */
         
 
     	
