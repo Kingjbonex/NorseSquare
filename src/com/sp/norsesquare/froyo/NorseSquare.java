@@ -124,7 +124,7 @@ public class NorseSquare extends MapActivity {
     		//System.exit(0);
     	}
     	
-<<<<<<< HEAD
+
          /*
 =======
          
@@ -140,9 +140,7 @@ public class NorseSquare extends MapActivity {
 		}   //Initialize app to current wifi location  
 <<<<<<< HEAD
 */
-=======
 
->>>>>>> 184ae4515bb0bfda4cef950d4afb793eec6006a7
     }
     
     
@@ -157,22 +155,15 @@ public class NorseSquare extends MapActivity {
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
-    	//currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15";
-<<<<<<< HEAD
-    	Double lat = ((Double)coarseLocation.getLatitude());
-    	Double longitude = ((Double)coarseLocation.getLongitude());
-    	lat = (lat * 1E6);
-    	longitude = (longitude * 1E6);
+    	//currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15"
+
+    	Integer latInt = ((Double)coarseLocation.getLatitude()).intValue();
+    	Integer longitudeInt = ((Double)coarseLocation.getLongitude()).intValue();
+    	Integer lat = (int) (latInt * 1E6);
+    	Integer longitude = (int) (longitudeInt * 1E6);
     	
-    	GeoPoint geo = new GeoPoint(lat.intValue(),longitude.intValue());
-=======
-    	Integer lat = ((Double)coarseLocation.getLatitude()).intValue();
-    	Integer longitude = ((Double)coarseLocation.getLongitude()).intValue();
-    	lat = (int) (lat * 1E6);
-    	longitude = (int) (longitude * 1E6);
-    	
-    	GeoPoint geo = new GeoPoint(lat,longitude);
->>>>>>> 184ae4515bb0bfda4cef950d4afb793eec6006a7
+    	GeoPoint geo = new GeoPoint(latInt,longitudeInt);
+
     	/*
 		if (currentLatLong.equals(null))
 		{
