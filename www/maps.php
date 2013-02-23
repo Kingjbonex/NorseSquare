@@ -54,7 +54,7 @@
     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
     
     //janrain.settings.tokenUrl = 'http://norsesquare.bantatechsolutions.com/maps/maps.php';
-    janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
+    janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/token.php';//switch to internal server
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
