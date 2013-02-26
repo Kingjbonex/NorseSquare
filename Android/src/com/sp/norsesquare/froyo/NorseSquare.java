@@ -1,255 +1,74 @@
 package com.sp.norsesquare.froyo;
 
-
-import java.util.List;
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
-import android.net.Uri;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.PushService;
+/**
+ * This shows how to create a simple activity with a map and a marker on the map.
+ * <p>
+ * Notice how we deal with the possibility that the Google Play services APK is not
+ * installed/enabled/updated on a user's device.
+ */
+public class NorseSquare extends FragmentActivity {
+    /**
+     * Note that this may be null if the Google Play services APK is not available.
+     */
+    private GoogleMap mMap;
 
-public class NorseSquare extends MapActivity {
-    LocationProvider wifiProvider;
-    LocationProvider gpsProvider;
-    String currentLatLong;
-    LocationManager locationManager;
-    MapController mapController;
-    OverlayList itemizedoverlay;
-    List<Overlay> mapOverlays;
-    
-    /* ----- Database Location Variables ---- */
-    boolean releaseLocation = true; //TODO Initialize to false for greater security
-
-    
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_norse_square);
-        
-        Parse.initialize(this, "tiOO8Xjx8mTRHHC01DcgxswW27AglPBESjO1PhD6", "4pmiNQTxwipEFLkjrPv2zJFyJS8GlEVYPOhGzCjH"); 
-        
-        //Get location manager reference to enable all further locating
-        
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        
-        //Get WiFi provider
-        wifiProvider = locationManager.getProvider(LocationManager.NETWORK_PROVIDER);
-        //Get GPS provider
-        gpsProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
-        //Can also use Criteria class to pick a provider based on certain criteria
-        
-        MapView mapView = (MapView) findViewById(R.id.mapview);
-        mapView.setBuiltInZoomControls(true);
-        
-        mapOverlays = mapView.getOverlays();
-        Drawable drawable = this.getResources().getDrawable(R.drawable.push_pin);
-        itemizedoverlay = new OverlayList(drawable, this);
-        
-        
-      
+        setUpMapIfNeeded();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_norse_square, menu);
-        return true;
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
     }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) 
-        {
-            case R.id.menu_settings_reveal_location:
-                if (item.isChecked())
-                {
-                	setReleaseLocation(false);
-                	item.setChecked(false);
-                }
-                else
-                {
-                	setReleaseLocation(true);
-                	item.setChecked(true);
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+    /**
+     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
+     * installed) and the map has not already been instantiated.. This will ensure that we only ever
+     * call {@link #setUpMap()} once when {@link #mMap} is not null.
+     * <p>
+     * If it isn't installed {@link SupportMapFragment} (and
+     * {@link com.google.android.gms.maps.MapView
+     * MapView}) will show a prompt for the user to install/update the Google Play services APK on
+     * their device.
+     * <p>
+     * A user can return to this Activity after following the prompt and correctly
+     * installing/updating/enabling the Google Play services. Since the Activity may not have been
+     * completely destroyed during this process (it is likely that it would only be stopped or
+     * paused), {@link #onCreate(Bundle)} may not be called again so we should call this method in
+     * {@link #onResume()} to guarantee that it will be called.
+     */
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+               // setUpMap();
+            } 
         }
     }
-    
-    public void setReleaseLocation(boolean b)
-    {
-    	releaseLocation = b;
+
+    /**
+     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
+     * just add a marker near Africa.
+     * <p>
+     * This should only be called once and when we are sure that {@link #mMap} is not null.
+     */
+    private void setUpMap() {
+        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
-    
-    
-    public void onStart()
-    {
-    	super.onStart();
-    	
-    	// Reobtain location manager at restart of activity
-    	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-    	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    	
-    	
-    	if (!wifiEnabled)
-    	{
-    		//put alert box here, for now exit
-    		//System.exit(0);
-    	}
-    	
-    	if (!gpsEnabled)
-    	{
-    		//put alert box here, for now exit
-    		//System.exit(0);
-    	}
-    	
-
-
-     
-    	try 
-    	{
-			locateMeCoarse((MapView)findViewById(R.id.mapview));
-		} 
-    	catch (ParseException e) 
-    	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   //Initialize app to current wifi location  
-
-    }
-    
-    
-    //Below are all top level methods called by this app
-    public void locateMeCoarse(View view) throws ParseException
-    {
-    	mapController = ((MapView) view).getController();
-    	
-    	Location coarseLocation;
-    	//Get GPS coordinates, pass to Google Maps
-    	
-    	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
-    	coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-    	
-    	//currentLatLong = "geo:" +  coarseLocation.getLatitude() + "," + coarseLocation.getLongitude() + "?z=15"
-
-    	Integer latInt = ((Double)coarseLocation.getLatitude()).intValue();
-    	Integer longitudeInt = ((Double)coarseLocation.getLongitude()).intValue();
-    	Integer lat = (int) (latInt * 1E6);
-    	Integer longitude = (int) (longitudeInt * 1E6);
-    	
-    	GeoPoint geo = new GeoPoint(latInt,longitudeInt);
-
-    	/*
-		if (currentLatLong.equals(null))
-		{
-			System.out.println("Longitude and latitude are null ");
-		}
-    	*/
-    	//Uri coarseURI = Uri.parse(currentLatLong);    //Parse latitude and longitude
-    	
-    	//Intent wifiIntent = new Intent(Intent.ACTION_VIEW,coarseURI);
-    	//startActivity(wifiIntent); 
-    	//mapController.animateTo(geo);
-      
-    	//LatLongAlert alert = new LatLongAlert(this);
-    	
-    	
-    	String message = ("Latitude = " + (Integer)(geo.getLatitudeE6())).toString() + "\n" + "Longitude = " + ((Integer)((geo.getLongitudeE6()))).toString();
-    	OverlayItem overlayitem = new OverlayItem(geo, "My Current Location", message);
-    	itemizedoverlay.addOverlay(overlayitem);
-        mapOverlays.add(itemizedoverlay);  
-    	/*
-        if (releaseLocation)
-        {
-           //If user desires to release location, send to Parse database	
-        	
-        	ParseObject longObject = new ParseObject("LocationObject");
-            longObject.put("myLong", geo.getLongitudeE6());
-            ParseObject latObject = new ParseObject("LocationObject");
-            latObject.put("myLat", (geo.getLatitudeE6()));
-            
-            longObject.save();
-            latObject.save();
-        }
-         //Build and send Parseobject
-        */
-        
-
-    	
-    	mapController.animateTo(geo);
-    	
-    	
-    }
-    
-    public void locateMeCoarseListener(View view) throws ParseException
-    {
-    	locateMeCoarse(findViewById(R.id.mapview));     //Use listener methods that call others, avoid problems with specifications for button listeners
-    }
-    
-    public void locateMeFine(View view)
-    {
-    	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 10, locationListener);
-    	Uri fineLocation = Uri.parse(currentLatLong);  
-    	Intent gpsIntent = new Intent(Intent.ACTION_VIEW,fineLocation);
-    }
-    
-    private final LocationListener locationListener = new LocationListener()
-    {
-    	public void onLocationChanged(Location location)
-    	{
-    		//Where does this go? How can it be used?
-    		currentLatLong = "geo:" +  location.getLatitude() + "," + location.getLongitude() + "?z=15";
-    		
-    		if (currentLatLong.equals(null))
-    		{
-    			System.out.println("Longitude and latitude are null");
-    		}
-    		///System.out.println("Location object is:");
-    		//System.out.println(location);
-    	}
-
-		public void onProviderDisabled(String provider) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void onProviderEnabled(String provider) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-			// TODO Auto-generated method stub
-			
-		}
-    };
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-    
-
 }
