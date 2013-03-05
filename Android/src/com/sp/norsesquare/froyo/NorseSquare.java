@@ -1,12 +1,19 @@
 package com.sp.norsesquare.froyo;
 
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 
 /**
  * This shows how to create a simple activity with a map and a marker on the map.
@@ -19,18 +26,74 @@ public class NorseSquare extends FragmentActivity {
      * Note that this may be null if the Google Play services APK is not available.
      */
     private GoogleMap mMap;
+    private CameraUpdate cUpdate;
+    boolean releaseLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_norse_square);
+        
+        
+        
         setUpMapIfNeeded();
+        Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+    }
+    /*
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) 
+    {
+        inflater.inflate(R.menu.menu_main_settings, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    } */
+    
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+    	getMenuInflater().inflate(R.menu.menu_main_settings, menu);
+    	return true;
+    }
+    
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) 
+        {
+            case R.id.menu_settings_reveal_location:
+                if (item.isChecked())
+                {
+                	setReleaseLocation(false);
+                	item.setChecked(false);
+                }
+                else
+                {
+                	setReleaseLocation(true);
+                	item.setChecked(true);
+                }
+                return true;
+            case R.id.menu_settings_david_duba:
+            {
+            	if (item.isChecked())
+            	{
+            		Toast toast = Toast.makeText(this, "Hi Duba!!!", Toast.LENGTH_LONG);
+            		toast.show();
+            	}
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    public void setReleaseLocation(boolean b)
+    {
+    	releaseLocation = b;
     }
 
     /**
@@ -55,11 +118,40 @@ public class NorseSquare extends FragmentActivity {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-               // setUpMap();
-            } 
-        }
+            //Set onCameraChangeListener to allow for boundaries to be used after "layout"(?)
+            mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener()
+			{
+				
+				@Override
+				public void onCameraChange(CameraPosition arg0)
+				{
+					//TODO - Don't recalculate every time, only calculate decorah bounds after layout
+					LatLng boundSW = new LatLng(43.282454,-91.827679);
+			        LatLng boundNE = new LatLng(43.309191,-91.766739);
+			        
+			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+			        builder.include(boundSW);
+			        builder.include(boundNE);
+			        
+			        //LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
+			        /*Code for limiting map to Decorah area */
+			        //cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
+					
+					mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5));
+	                mMap.setOnCameraChangeListener(null);
+					
+				}
+			});
+            
+         }
+            
+            setUpMap();
+         // Check if we were successful in obtaining the map.
+         if (mMap != null) 
+         {
+               setUpMap();
+         } 
+        
     }
 
     /**
@@ -68,7 +160,14 @@ public class NorseSquare extends FragmentActivity {
      * <p>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
-    private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+    private void setUpMap() 
+    {
+       mMap.moveCamera(cUpdate);
     }
+    
+    /*Points with which to limit view of map:
+     Southwest: Lat - 43.282454  Long - -91.827679
+     Northeast: Lat - 43.309191  Long - -91.766739
+     */
+    
 }
