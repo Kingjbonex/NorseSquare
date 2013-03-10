@@ -9,6 +9,7 @@
     <string name="button_locateFine">Pinpoint GPS Location</string>
     <string name="menu_settings_reveal_location">Enable Location Sharing</string>
     <string name="menu_settings_david_duba">David Duba</string>
+    <string name="wifi_locate">Get Location from Wifi</string>
     
 
 </resources>

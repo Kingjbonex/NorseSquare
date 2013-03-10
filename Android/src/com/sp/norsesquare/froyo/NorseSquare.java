@@ -32,7 +32,7 @@ public class NorseSquare extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_norse_square);
+        setContentView(R.layout.layout_relative_map);
         
         
         
@@ -116,7 +116,7 @@ public class NorseSquare extends FragmentActivity {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.main_map))
                     .getMap();
             //Set onCameraChangeListener to allow for boundaries to be used after "layout"(?)
             mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener()
@@ -137,7 +137,7 @@ public class NorseSquare extends FragmentActivity {
 			        /*Code for limiting map to Decorah area */
 			        //cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
 					
-					mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5));
+					//mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5));
 	                mMap.setOnCameraChangeListener(null);
 					
 				}
@@ -162,7 +162,7 @@ public class NorseSquare extends FragmentActivity {
      */
     private void setUpMap() 
     {
-       mMap.moveCamera(cUpdate);
+       
     }
     
     /*Points with which to limit view of map:
