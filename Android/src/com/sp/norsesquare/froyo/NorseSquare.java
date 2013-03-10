@@ -21,7 +21,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Notice how we deal with the possibility that the Google Play services APK is not
  * installed/enabled/updated on a user's device.
  */
-public class NorseSquare extends FragmentActivity {
+public class NorseSquare extends FragmentActivity 
+{
     /**
      * Note that this may be null if the Google Play services APK is not available.
      */
@@ -125,6 +126,7 @@ public class NorseSquare extends FragmentActivity {
 				@Override
 				public void onCameraChange(CameraPosition arg0)
 				{
+					 /*Code for limiting map to Decorah area */
 					//TODO - Don't recalculate every time, only calculate decorah bounds after layout
 					LatLng boundSW = new LatLng(43.282454,-91.827679);
 			        LatLng boundNE = new LatLng(43.309191,-91.766739);
@@ -133,11 +135,11 @@ public class NorseSquare extends FragmentActivity {
 			        builder.include(boundSW);
 			        builder.include(boundNE);
 			        
-			        //LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
-			        /*Code for limiting map to Decorah area */
-			        //cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
+			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
+			   
+			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
 					
-					//mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5));
+					mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5));
 	                mMap.setOnCameraChangeListener(null);
 					
 				}
