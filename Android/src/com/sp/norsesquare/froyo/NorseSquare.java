@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -17,6 +18,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * This shows how to create a simple activity with a map and a marker on the map.
@@ -28,12 +31,15 @@ public class NorseSquare extends FragmentActivity
 {
     /**
      * Note that this may be null if the Google Play services APK is not available.
+     * TODO - Add dependency for Google Maps app, must be installed for Maps API to work
      */
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
     boolean releaseLocation;
     private LocationManager locationManager;
-    private Location currentLocation;
+    private LatLng currentLocation;
+    
+    public LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +69,7 @@ public class NorseSquare extends FragmentActivity
   	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
   	
   	
-  	LocationListener locationListener = new LocationListener() 
+  	locationListener = new LocationListener() 
   	{
   		
   		
@@ -247,21 +253,35 @@ public class NorseSquare extends FragmentActivity
     
     
     
-    public void wifiLocate()
+    public void wifiLocate(View v)
     {
     	//Called from Control Panel button Wifi Locate
-    	locationManager.getLastKnownLocation(WIFI_SERVICE);
+    	//TODO - Zoom in closer on current location
+    	
+    	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
+    	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+    	
+    	updateLocation(coarseLocation);
     	
     }
     
-    public void placeMarker()
+    public void placeMarker(View v)
     {
+    	//TODO - See if need to we do something with the passed in view
+    	//TODO - Programmatically alter marker contents for a more in depth user experience
+    	Marker cl = mMap.addMarker(new MarkerOptions().position(currentLocation)
+    			                                      .title("Current Location")
+    			                                      .snippet("This where I am now."));
     	
     }
     
     public void updateLocation(Location l)
     {
     	//Primary method to update location in the map. All other methods should call this one, regardless of provider.
+    	
+    	//Set current location. This is called from both listeners and buttons, and is done to avoid having to get the location anew every time.
+    	//TODO - See if this is already cached and easily available, refer to location startegies
+    	currentLocation = new LatLng(l.getLatitude(),l.getLongitude());
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
