@@ -11,5 +11,9 @@
     <string name="menu_settings_david_duba">David Duba</string>
     <string name="wifi_locate">Get Location from Wifi</string>
     
+    <string name="list_1">Hello</string>
+    <string name="list_2">Jeremy Clarkson</string>
+    <string name="list_3">Lamborghini</string>
+    
 
 </resources>

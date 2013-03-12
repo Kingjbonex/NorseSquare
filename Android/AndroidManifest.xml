@@ -15,8 +15,6 @@
     
     
     <!-- Permissions for Google Maps -->
-    
-    
     <!-- API key for Maps 2.0 can only be used with one certificate at a time, 
     makes sure to put in your own API key for the compiling certificate before running -->
     
