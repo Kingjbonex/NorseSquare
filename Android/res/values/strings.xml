@@ -5,11 +5,20 @@
     <string name="title_activity_norse_square">Norse Square</string>
     <string name="title_activity_locate_me_coarse">Locate Me Coarse</string>
     <string name="title_activity_locate_me_fine">Locate Me Fine</string>
+    
+    <string name="button_place_marker">Mark Current Location</string>
     <string name="button_locateCoarse">Pinpoint WiFi Location</string>
     <string name="button_locateFine">Pinpoint GPS Location</string>
+    
     <string name="menu_settings_reveal_location">Enable Location Sharing</string>
     <string name="menu_settings_david_duba">David Duba</string>
     <string name="wifi_locate">Get Location from Wifi</string>
+    
+    
+    
+    <string name="list_1">Hello</string>
+    <string name="list_2">Jeremy Clarkson</string>
+    <string name="list_3">Lamborghini</string>
     
 
 </resources>
