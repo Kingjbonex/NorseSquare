@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   
+            
+           <item android:id="@+id/menu_settings_reveal_location"
+                 android:title="@string/menu_settings_reveal_location"
+                 android:checkable="true"
+                 android:checked="true"/>
+           
+           <item android:id="@+id/menu_settings_david_duba"
+                 android:title="@string/menu_settings_david_duba"
+                 android:checkable="true"
+                 android:checked="true"/>
+               
+   
+</menu>
