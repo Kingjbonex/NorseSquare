@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <fragment 
+       android:id="@+id/main_map"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       class="com.google.android.gms.maps.SupportMapFragment"
+        />
+    
+     <!-- Control panel fragment - V1.0 -->
+    <fragment
+        android:id="@+id/main_control_panel"
+        android:name="com.sp.norsesquare.froyo.ControlPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
+
+
+
+<!--  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" > -->
+
+    <!-- sign with debug key till release -->
+
+    <!--  <Button
+        android:id="@+id/button_locate_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="locateMeCoarseListener"
+        android:text="@string/button_locateCoarse" /> -->
+<!-- 
+    <Button
+        android:id="@+id/Button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="locateMeFine"
+        android:text="@string/button_locateFine" />
+-->
+
+    
+
+<!--  </RelativeLayout>-->
