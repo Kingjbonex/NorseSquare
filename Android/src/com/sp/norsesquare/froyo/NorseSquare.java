@@ -21,12 +21,14 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 /**
  * This shows how to create a simple activity with a map and a marker on the map.
  * <p>
  * Notice how we deal with the possibility that the Google Play services APK is not
  * installed/enabled/updated on a user's device.
  */
+
 public class NorseSquare extends FragmentActivity 
 {
     /**
