@@ -33,7 +33,7 @@ public class NorseSquare extends FragmentActivity
 {
     /**
      * Note that this may be null if the Google Play services APK is not available.
-     * TODO - Add dependency for Google Maps app, must be installed for Maps API to work
+     * TODO - Add dependency for Google Maps application, must be installed for Maps API to work
      */
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
@@ -65,7 +65,7 @@ public class NorseSquare extends FragmentActivity
 	  
   	super.onStart();
   	
-  	// Reobtain location manager at restart of activity
+  	// obtain location manager at restart of activity
   	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
   	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
   	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
