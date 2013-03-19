@@ -40,6 +40,9 @@ public class NorseSquare extends FragmentActivity
     private LatLng currentLocation;
     
     public LocationListener locationListener;
+    
+    //Get context for use in inner classes
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class NorseSquare extends FragmentActivity
   			// Called when a new location is found by the network location provider.
   			//TODO - Find how often this is called, determine if it is too frequent.
   			updateLocation(location);
+  			Toast.makeText(context, "Location is being updated", Toast.LENGTH_SHORT).show();
   		}
   	
 
@@ -116,17 +120,6 @@ public class NorseSquare extends FragmentActivity
   		//System.exit(0);
   	}
 
-   /*
-  	try 
-  	{
-			locateMeCoarse((MapView)findViewById(R.id.mapview));
-		} 
-  	catch (ParseException e) 
-  	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   //Initialize app to current wifi location  
-   */
   }
     
     
