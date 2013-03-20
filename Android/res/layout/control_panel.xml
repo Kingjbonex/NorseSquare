@@ -12,6 +12,12 @@
         android:textStyle="italic"
         android:onClick="wifiLocate"
         android:text="@string/wifi_locate" />
+    <!-- <EditText
+        android:id="@+id/text_box"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_box" /> -->
+
     
 
 </LinearLayout>
