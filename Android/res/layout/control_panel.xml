@@ -20,4 +20,12 @@
         android:onClick="placeMarker" 
         android:text="@string/button_place_marker"
         />
+    
+    <Button
+        android:id="@+id/button_Ping_Url"
+        android:layout_height="match_parent"
+        android:layout_width="150sp"
+        android:onClick="pingURL" 
+        android:text="@string/button_Ping_Url"
+        />
 </LinearLayout>
