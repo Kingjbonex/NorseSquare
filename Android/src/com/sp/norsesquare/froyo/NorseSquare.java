@@ -279,14 +279,15 @@ public class NorseSquare extends FragmentActivity
     	
     }
     
-    public void placeMarker(View v)
+    public void placeMarker(View v,LatLng latlong)
     {
+    	mMap.clear(); //TODO - Make to selectively clear marker per user
     	//TODO - See if need to we do something with the passed in view
     	//TODO - Programmatically alter marker contents for a more in depth user experience
     	mMap.clear();
     	Marker cl = mMap.addMarker(new MarkerOptions().position(currentLocation)
-    			                                      .title("Current Location")
-    			                                      .snippet("This where I am now."));
+    			                                      .title("Current Location")			                                      
+    			                                      .snippet(latlong.toString()));
     	
     	
     }
@@ -300,6 +301,7 @@ public class NorseSquare extends FragmentActivity
     	currentLocation = new LatLng(l.getLatitude(),l.getLongitude());
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
+    	placeMarker(this.findViewById(R.id.RelativeMapLayout),ll);
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
     	
     }

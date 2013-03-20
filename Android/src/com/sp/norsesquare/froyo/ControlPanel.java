@@ -61,23 +61,29 @@ public class ControlPanel extends Fragment implements OnGestureListener
 		
 		//Reobtain reference to main activity after reloading. 
 		//TODO - Efficiency? Necessary?
-		ns = (NorseSquare) this.getActivity();	
+		ns = (NorseSquare) this.getActivity();
 	}
 	
-	public void placeMarker()
-	{
-		//Call main activity to place marker at current location
-		ns.placeMarker(this.getView());
-	}
+
 	
 	public void wifiLocate()
 	{
 		//Call method from main activity
 	    ns.wifiLocate(this.getView());
 	}
+	
+	
+	/*joel is fiddling with these methods*/
+	
+//	public void popUp()
+//	{
+//		//pops up toast full of text from textbox.
+//		
+//	}
 
 	/*Methods for gesture detection*/
 	
+
 	@Override
 	public boolean onDown(MotionEvent arg0)
 	{

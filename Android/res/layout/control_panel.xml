@@ -3,7 +3,7 @@
     android:layout_width="170sp"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:visibility="visible" >"
+    android:visibility="visible" >
     
     <Button 
         android:id="@+id/button_wifi_locate"
@@ -12,14 +12,14 @@
         android:textStyle="italic"
         android:onClick="wifiLocate"
         android:text="@string/wifi_locate" />
+    <!-- <EditText
+        android:id="@+id/text_box"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_box" /> -->
+
     
-    <Button
-        android:id="@+id/button_place_marker"
-        android:layout_height="match_parent"
-        android:layout_width="150sp"
-        android:onClick="placeMarker" 
-        android:text="@string/button_place_marker"
-        />
+
     
     <Button
         android:id="@+id/button_Ping_Url"
