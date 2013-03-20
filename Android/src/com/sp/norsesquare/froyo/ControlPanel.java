@@ -64,11 +64,7 @@ public class ControlPanel extends Fragment implements OnGestureListener
 		ns = (NorseSquare) this.getActivity();	
 	}
 	
-	public void placeMarker()
-	{
-		//Call main activity to place marker at current location
-		ns.placeMarker(this.getView());
-	}
+
 	
 	public void wifiLocate()
 	{
