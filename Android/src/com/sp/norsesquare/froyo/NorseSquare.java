@@ -50,7 +50,7 @@ public class NorseSquare extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_relative_map);
-        
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         setUpMapIfNeeded();
         Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
     }
@@ -58,6 +58,9 @@ public class NorseSquare extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
+        
+        //Get location manager
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         setUpMapIfNeeded();
     }
     
@@ -69,7 +72,7 @@ public class NorseSquare extends FragmentActivity
   	super.onStart();
   	
   	// Reobtain location manager at restart of activity
-  	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+  	
   	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
   	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
   	
