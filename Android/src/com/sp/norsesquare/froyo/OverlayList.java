@@ -21,6 +21,7 @@ public class OverlayList extends ItemizedOverlay<OverlayItem>
 	
 	public OverlayList(Drawable defaultMarker, Context context) 
 	{
+	
 		  super(boundCenterBottom(defaultMarker));
 		  mContext = context;
 	}
