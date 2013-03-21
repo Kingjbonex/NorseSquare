@@ -43,7 +43,7 @@
         
         <meta-data
            android:name="com.google.android.maps.v2.API_KEY"
-           android:value="AIzaSyDBlEkN2XRZ_N5_NGazeHIx7xRPJMkBpaQ" />
+           android:value="AIzaSyC5XS4dHik_4KpOLiIgj7opMxhtWtlkYqU" />
         <activity
             android:name=".NorseSquare"
             android:label="@string/title_activity_norse_square" >
