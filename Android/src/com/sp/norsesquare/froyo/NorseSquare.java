@@ -289,7 +289,7 @@ public class NorseSquare extends FragmentActivity
     			                                      .title("Current Location")			                                      
     			                                      .snippet(latlong.toString()));
     	
-    	
+    
     }
     
     public void updateLocation(Location l)
@@ -308,70 +308,9 @@ public class NorseSquare extends FragmentActivity
     
   
     //Listener classes for location management
-    
-    public void pingURL(View w)
-    {
+    public void pingURL(View w){
     	
-    	try {
-            HttpClient client = new DefaultHttpClient();  
-            String postURL = "http://somepostaddress.com";
-            HttpPost post = new HttpPost(postURL); 
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("user", "kris"));
-                params.add(new BasicNameValuePair("pass", "xyz"));
-                UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params,HTTP.UTF_8);
-                post.setEntity(ent);
-                HttpResponse responsePOST = client.execute(post);  
-                HttpEntity resEntity = responsePOST.getEntity();  
-                if (resEntity != null) {    
-                    Log.i("RESPONSE",EntityUtils.toString(resEntity));
-                }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    	
-    	
-    	
-    	/*
-    	//Connecting to database code -- starting here
-    	//creating HTTP client
-    	HttpClient httpClient = new DefaultHttpClient();
-    
-    	//creating HTTP Post
-    	HttpPost httpPost = new HttpPost("http://norsesquare.luther.edu/services/");
-    
-    	//building post parameters, key and value pair
-    	List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-    	nameValuePair.add(new BasicNameValuePair("email","user@gmail.com"));
-    	nameValuePair.add(new BasicNameValuePair("message","Hi tesing this out to get a HTTP post!"));
-    
-    	//URL Encoding the POST parameters 
-    	try
-    	{
-    		httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-    	}
-    	catch (UnsupportedEncodingException e){
-    		//write error to log
-    		e.printStackTrace();
-    	}
-    	
-    	//making HTTP request
-    	try{
-    		HttpResponse response = httpClient.execute(httpPost);
-    		
-    		//write response to log
-    		Log.d("Http response: ", response.toString());
-    	}
-    	catch (ClientProtocolException e){
-    		//write to log
-    		e.printStackTrace();
-    	}
-    	catch (IOException e){
-    		//write to log
-    		e.printStackTrace();
-    	}
-    	
-    	*/
+    	new DatabaseTask().execute((String[])null);
     	
     }
 }

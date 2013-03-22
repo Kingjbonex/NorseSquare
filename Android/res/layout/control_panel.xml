@@ -18,9 +18,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_box" /> -->
 
-    
-
-    
     <Button
         android:id="@+id/button_Ping_Url"
         android:layout_height="match_parent"
