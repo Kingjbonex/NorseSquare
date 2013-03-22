@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 import static android.view.View.*;
 
 /*UI interface class to allow user interaction with critical map functions. Will be able to be hidden on offscreen swipe */
@@ -73,12 +75,14 @@ public class ControlPanel extends Fragment implements OnGestureListener
 	}
 	
 	
-	/*joel is fiddling with these methods*/
-	
+	/*joel is fiddling with these methods.*/
+//	this isn't necessary anymore - since the control panel .xml file calls the norsesquare.java
 //	public void popUp()
 //	{
 //		//pops up toast full of text from textbox.
-//		
+////		EditText text = (EditText)findViewById(R.id.text_box);
+////		String value = text.getText().toString();
+////		ns.popUp(this.getView());s
 //	}
 
 	/*Methods for gesture detection*/

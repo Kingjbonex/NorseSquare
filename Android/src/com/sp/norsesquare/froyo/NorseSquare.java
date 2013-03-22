@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -285,6 +286,16 @@ public class NorseSquare extends FragmentActivity
     	
     }
     
+    //Joel's classes/etc for not location related things.
+
+//	public void popUp(View v)
+//	{
+//		//pops up toast full of text from textbox.
+//		EditText text = (EditText)findViewById(R.id.text_box);
+//		String value = text.getText().toString();
+//		Toast toast = Toast.makeText(this, value, Toast.LENGTH_LONG);
+//		toast.show();
+//	}
     
     
     //Listener classes for location management
