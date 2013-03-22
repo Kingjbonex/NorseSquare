@@ -60,7 +60,7 @@ public class ControlPanel extends Fragment implements OnGestureListener
 		super.onStart();
 		
 		//Reobtain reference to main activity after reloading. 
-		//TODO - Efficiency? Necessary?
+		//TODO - Efficiency?
 		ns = (NorseSquare) this.getActivity();
 	}
 	
