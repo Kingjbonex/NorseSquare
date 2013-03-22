@@ -21,6 +21,7 @@
     <string name="list_1">Hello</string>
     <string name="list_2">Jeremy Clarkson</string>
     <string name="list_3">Lamborghini</string>
+    <string name="button_Ping_Url">request url</string>
     
 
 </resources>

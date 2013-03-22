@@ -62,7 +62,7 @@ public class ControlPanel extends Fragment implements OnGestureListener
 		super.onStart();
 		
 		//Reobtain reference to main activity after reloading. 
-		//TODO - Efficiency? Necessary?
+		//TODO - Efficiency?
 		ns = (NorseSquare) this.getActivity();
 	}
 	
@@ -74,6 +74,10 @@ public class ControlPanel extends Fragment implements OnGestureListener
 	    ns.wifiLocate(this.getView());
 	}
 	
+	public void pingURL(){
+		
+		ns.pingURL(this.getView());
+	}
 	
 	/*joel is fiddling with these methods.*/
 //	this isn't necessary anymore - since the control panel .xml file calls the norsesquare.java

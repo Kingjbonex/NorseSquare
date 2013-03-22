@@ -29,6 +29,11 @@
         android:layout_height="match_parent"
         android:text="@string/find_all"/>
 
-    
-
+    <Button
+        android:id="@+id/button_Ping_Url"
+        android:layout_height="match_parent"
+        android:layout_width="150sp"
+        android:onClick="pingURL" 
+        android:text="@string/button_Ping_Url"
+        />
 </LinearLayout>

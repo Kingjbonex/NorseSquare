@@ -1,11 +1,31 @@
 package com.sp.norsesquare.froyo;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +54,7 @@ public class NorseSquare extends FragmentActivity
 {
     /**
      * Note that this may be null if the Google Play services APK is not available.
-     * TODO - Add dependency for Google Maps app, must be installed for Maps API to work
+     * TODO - Add dependency for Google Maps application, must be installed for Maps API to work
      */
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
@@ -44,6 +64,9 @@ public class NorseSquare extends FragmentActivity
     
     public LocationListener locationListener;
     
+    
+    private ArrayList<MapMarker> storedMarkerList;
+    
     //Get context for use in inner classes
     Context context = this;
 
@@ -52,14 +75,25 @@ public class NorseSquare extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_relative_map);
         
-        setUpMapIfNeeded();
+        
+        //Set up relevant services and listeners for GoogleMap
+        storedMarkerList = new ArrayList<MapMarker>();
+        
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        
+        setUpMap();
         Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
+        
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() 
+    {
         super.onResume();
-        setUpMapIfNeeded();
+        
+        //Get location manager
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        setUpMap();
     }
     
     
@@ -69,8 +103,10 @@ public class NorseSquare extends FragmentActivity
 	  
   	super.onStart();
   	
-  	// Reobtain location manager at restart of activity
+  	// obtain location manager at restart of activity
   	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+  	
+  	//TODO - Determine why all providers are seen as true, all the time
   	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
   	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
   	
@@ -111,6 +147,7 @@ public class NorseSquare extends FragmentActivity
   		
   	};
   	
+  	//TODO - Add dialogfragment to force user to enable the given provider.
   	if (!wifiEnabled)
   	{
   		Toast.makeText(this, "Wifi is not enabled", Toast.LENGTH_LONG).show();
@@ -125,7 +162,8 @@ public class NorseSquare extends FragmentActivity
 
   }
     
-    
+   /*Functions for options menus*/  
+  
     /*
     @Override
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) 
@@ -182,13 +220,17 @@ public class NorseSquare extends FragmentActivity
     }
 
     
-    private void setUpMapIfNeeded() {
+    //Functions for GoogleMap
+    
+    private void setUpMap() 
+    {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) 
         {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.main_map))
-                    .getMap();
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.main_map)).getMap();
+            
+            
             //Set onCameraChangeListener to allow for boundaries to be used after "layout"(?)
             mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener()
 			{
@@ -226,32 +268,15 @@ public class NorseSquare extends FragmentActivity
 			});
             
          }
-            
-         // Check if we were successful in obtaining the map.
-         if (mMap != null) 
-         {
-               setUpMap();
-         } 
         
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
-    private void setUpMap() 
-    {
-       //TODO - Do something clever here, like add markers
-    }
-    
-    
-    
+
+    //Methods called from ControlPanel classes
     
     public void wifiLocate(View v)
     {
-    	//Called from Control Panel button Wifi Locate
+    	//Called from Control Panel button Wifi Locate, gets wifi location
     	//TODO - Zoom in closer on current location
     	
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
@@ -261,15 +286,46 @@ public class NorseSquare extends FragmentActivity
     	
     }
     
-    public void placeMarker(View v,LatLng latlong)
+    public void findAll(View v)
     {
-    	mMap.clear(); //TODO - Make to selectively clear marker per user
+       //Gets list of friends and places markers for all of them
+    	//TODO - Should we allow for persistent friend locations?
+    	
+    	/* For now, clear all friend locations before reloading from database */
+    	storedMarkerList.clear();
+    	
+    	/* Add all found friends to database */
+    	
+    	//Put all found friends in the map
+        placeStoredMarkers();
+    }
+    
+    public void placeSingleMarker(View v,LatLng latlong)
+    {
+    	mMap.clear();
+    	
+    	//TODO - Make to selectively clear marker per user
     	//TODO - See if need to we do something with the passed in view
     	//TODO - Programmatically alter marker contents for a more in depth user experience
+    	
     	Marker cl = mMap.addMarker(new MarkerOptions().position(currentLocation)
     			                                      .title("Current Location")			                                      
     			                                      .snippet(latlong.toString()));
     	
+    
+    }
+    
+    public void placeStoredMarkers()
+    {
+    	mMap.clear();
+    	
+    	Iterator i = storedMarkerList.iterator();
+    	
+    	while (i.hasNext())
+    	{
+    	   MapMarker m = (MapMarker) i.next();
+    	   mMap.addMarker(m.getMarkerOptions());
+    	}
     }
     
     public void updateLocation(Location l)
@@ -277,11 +333,14 @@ public class NorseSquare extends FragmentActivity
     	//Primary method to update location in the map. All other methods should call this one, regardless of provider.
     	
     	//Set current location. This is called from both listeners and buttons, and is done to avoid having to get the location anew every time.
-    	//TODO - See if this is already cached and easily available, refer to location startegies
+    	//TODO - See if this is lready cached and easily available, refer to location strategies
     	currentLocation = new LatLng(l.getLatitude(),l.getLongitude());
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
-    	placeMarker(this.findViewById(R.id.RelativeMapLayout),ll);
+    
+    	
+    	placeSingleMarker(this.findViewById(R.id.RelativeMapLayout),ll);
+    	
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
     	
     }
@@ -301,5 +360,10 @@ public class NorseSquare extends FragmentActivity
     //Listener classes for location management
     
 
+    public void pingURL(View w){
+    	
+    	new DatabaseTask().execute((String[])null);
+    	
+    }
 }
  
