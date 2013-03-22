@@ -1,5 +1,21 @@
 package com.sp.norsesquare.froyo;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -9,6 +25,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +53,7 @@ public class NorseSquare extends FragmentActivity
 {
     /**
      * Note that this may be null if the Google Play services APK is not available.
-     * TODO - Add dependency for Google Maps app, must be installed for Maps API to work
+     * TODO - Add dependency for Google Maps application, must be installed for Maps API to work
      */
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
@@ -65,6 +82,7 @@ public class NorseSquare extends FragmentActivity
         
         setUpMap();
         Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
+        
     }
 
     @Override
@@ -84,7 +102,7 @@ public class NorseSquare extends FragmentActivity
 	  
   	super.onStart();
   	
-  	// Reobtain location manager at restart of activity
+  	// obtain location manager at restart of activity
   	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
   	
   	//TODO - Determine why all providers are seen as true, all the time
@@ -293,6 +311,7 @@ public class NorseSquare extends FragmentActivity
     			                                      .title("Current Location")			                                      
     			                                      .snippet(latlong.toString()));
     	
+    
     }
     
     public void placeStoredMarkers()
@@ -325,10 +344,12 @@ public class NorseSquare extends FragmentActivity
     	
     }
     
-    
-    
+  
 
-    
-
+    public void pingURL(View w){
+    	
+    	new DatabaseTask().execute((String[])null);
+    	
+    }
 }
  

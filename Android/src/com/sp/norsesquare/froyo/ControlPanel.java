@@ -72,6 +72,10 @@ public class ControlPanel extends Fragment implements OnGestureListener
 	    ns.wifiLocate(this.getView());
 	}
 	
+	public void pingURL(){
+		
+		ns.pingURL(this.getView());
+	}
 	
 	/*joel is fiddling with these methods*/
 	
