@@ -13,9 +13,10 @@
     <string name="menu_settings_reveal_location">Enable Location Sharing</string>
     <string name="menu_settings_david_duba">David Duba</string>
     <string name="wifi_locate">Get Location from Wifi</string>
-<!--     <string name="text_box">Here\'s a textbox</string>
- -->    
-    
+    <string name="text_box">Enter Something!</string>
+    <string name="display_above_text">Display that!</string>
+    <string name="find_all">Find All</string>
+
     
     <string name="list_1">Hello</string>
     <string name="list_2">Jeremy Clarkson</string>

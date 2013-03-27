@@ -16,7 +16,18 @@
         android:id="@+id/text_box"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/text_box" /> -->
+        android:hint="@string/text_box" />
+    <Button 
+        android:id="@+id/button_edit_box"
+        android:layout_width="150sp"
+        android:layout_height="match_parent"
+        android:onClick="popUp"
+        android:text="@string/display_above_text"/> -->
+    <Button 
+        android:id="@+id/button_find_all"
+        android:layout_width="150sp"
+        android:layout_height="match_parent"
+        android:text="@string/find_all"/>
 
     <Button
         android:id="@+id/button_Ping_Url"
