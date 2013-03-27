@@ -21,43 +21,56 @@ import android.view.View;
 
 
 /*Class to allow for backround database calls to be made in alternate threads */
-public class DatabaseTask extends AsyncTask<String, Void, Integer>
+public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
 {
 
 	/**
 	 * @param args
 	 */
 	//Be sure that the parameters for the AsyncTask fit in with the appropriate methods, see AsyncTask reference. EG. 
-
+	protected void onPreExecute(){
+		Log.i("BEGIN","Starting the connection");
+	}
+	
 	@Override
-	protected Integer doInBackground(String... args)
+	protected HttpEntity doInBackground(String... args)
 	{
 		// TODO Add database calls, differentiation.
 	    	try {
 	            HttpClient client = new DefaultHttpClient();  
 	            String postURL = "http://norsesquare.luther.edu/services/findAll.php";
 	            HttpPost post = new HttpPost(postURL); 
-	                List<NameValuePair> params = new ArrayList<NameValuePair>();
-	                params.add(new BasicNameValuePair("user", "kris"));
-	                params.add(new BasicNameValuePair("pass", "xyz"));
-	                UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params,HTTP.UTF_8);
-	                post.setEntity(ent);
-	                HttpResponse responsePOST = client.execute(post);  
-	                HttpEntity resEntity = responsePOST.getEntity();  
-	                if (resEntity != null) {    
-	                    Log.i("RESPONSE",EntityUtils.toString(resEntity));
-	                }
+	            List<NameValuePair> params = new ArrayList<NameValuePair>();
+	            params.add(new BasicNameValuePair("user", "kris"));
+	            params.add(new BasicNameValuePair("pass", "xyz"));
+	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params,HTTP.UTF_8);
+	            post.setEntity(ent);
+	            HttpResponse responsePOST = client.execute(post);  
+	            HttpEntity resEntity = responsePOST.getEntity();  
+	            if (resEntity != null) {    
+	                //Log.i("RESPONSE",EntityUtils.toString(resEntity));
+	                Log.i("DEBUG","Debugging, are you there??");
+	                return resEntity;
+	            }
+	            
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            Log.i("msg","Hello, my name is Tom Riddle...");
 	          }
-		
-		return 1;
+	    	
+	    return null;
 	
 	}
 	
+	protected void onProgressUpdate(Integer... progress){
+		Log.i("PROGRESS","Getting somewhere");
+		}
+	
 	protected void onPostExecute(Long result) {
         Log.i("Yes", "gems are truly outrageous..");
+        //showDialog("Recieved info from Database");
     }
+	
+	
 
 }
