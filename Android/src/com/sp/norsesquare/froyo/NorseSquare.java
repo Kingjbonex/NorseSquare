@@ -382,30 +382,29 @@ public class NorseSquare extends FragmentActivity
             Document doc = db.parse(inStream);  
 
             String playcount = "empty";
-            NodeList nl = doc.getElementsByTagName("person");
-            //System.out.println(nl.item(0).getTextContent());
-            /*for(int i = 0; i < nl.getLength(); i++) {
-                if (nl.item(i).getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                     org.w3c.dom.Element nameElement = (org.w3c.dom.Element) nl.item(i);
-                     playcount = nameElement.getFirstChild().getNodeValue().trim();
-                 }
-            }*/
+            NodeList nlist = doc.getElementsByTagName("person");
+            
+            for(int i = 0; i < nlist.getLength();i++){
+	            NodeList UserInfo = nlist.item(i).getChildNodes();
+	        	String fname = UserInfo.item(0).getTextContent();
+	        	String lname = UserInfo.item(1).getTextContent();
+	        	String username = UserInfo.item(2).getTextContent();
+	        	String googleid = UserInfo.item(3).getTextContent();
+	        	String time = UserInfo.item(4).getTextContent();
+	        	Double longitude = Double.parseDouble(UserInfo.item(5).getTextContent());
+	        	Double latitude = Double.parseDouble(UserInfo.item(6).getTextContent());
+	        	
+	        	LatLng locP = new LatLng(longitude,latitude);
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
+	        	storedMarkerList.add(newmark);
+            }
+          
+        	placeStoredMarkers();
+            
     	}
     	catch(Exception e){
     		Log.i("ERROR", "error in response answer");
     	}
-    	
-    	//<person>
-    	//	<fname>
-    	//	<lname>
-    	//	<username>
-    	//	<googleid>
-    	//	<time>
-    	//	<longitute>
-    	//	<latitude>
-    		
-    	
-    	
     	
     }
 }
