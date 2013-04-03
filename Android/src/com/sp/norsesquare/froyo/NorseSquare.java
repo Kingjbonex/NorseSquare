@@ -394,7 +394,7 @@ public class NorseSquare extends FragmentActivity
 	        	Double longitude = Double.parseDouble(UserInfo.item(5).getTextContent());
 	        	Double latitude = Double.parseDouble(UserInfo.item(6).getTextContent());
 	        	
-	        	LatLng locP = new LatLng(longitude,latitude);
+	        	LatLng locP = new LatLng(latitude,longitude);
 	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
 	        	storedMarkerList.add(newmark);
             }
