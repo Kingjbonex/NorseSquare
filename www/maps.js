@@ -1,39 +1,3 @@
-
-//Parse Initialization
-Parse.initialize("tiOO8Xjx8mTRHHC01DcgxswW27AglPBESjO1PhD6", "jz1qxZvpfsZL6lPUx8zmuAYJY850bL3Aqgm362N9");
-
-
-//Janrain
-function janrainLogin() {
-	alert("here");
-    if (typeof window.janrain !== 'object') window.janrain = {};
-    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-    
-    janrain.settings.tokenUrl = "norsesquare.appspot.com";
-
-    function isReady() { janrain.ready = true; };
-    if (document.addEventListener) {
-      document.addEventListener("DOMContentLoaded", isReady, false);
-    } else {
-      window.attachEvent('onload', isReady);
-    }
-
-    var e = document.createElement('script');
-    e.type = 'text/javascript';
-    e.id = 'janrainAuthWidget';
-
-    if (document.location.protocol === 'https:') {
-      e.src = 'https://rpxnow.com/js/lib/luther-bargain-books/engage.js';
-    } else {
-      e.src = 'http://widget-cdn.rpxnow.com/js/lib/luther-bargain-books/engage.js';
-    }
-
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(e, s);
-}
-
-
-
 function starter() {
    var winH = 460;
 	if (document.body && document.body.offsetWidth) {
@@ -364,82 +328,144 @@ for (polygon in polygonCoords) {
 
 
 
+function saveLocation(lat, long)
+{
 
-
-function saveLocation(longObj, latObj){
-
-	var LocationObject = Parse.Object.extend("LocationObject");
-	var locationObject = new LocationObject();
-	var query = new Parse.Query(LocationObject);
-	query.equalTo("myEmail", email);
-	if (email == "") {
-		alert("Your location has been found, but will not be saved unless you login.");
-		return;
-	}
-
-	query.find({
-	  success: function(results) {
-	  	if (results.length > 0) {
-		  	locationObject = results[0];
-		    alert("Successfully retrieved " + locationObject.get("myEmail") + ".");
-			locationObject.set("myLong", longObj);
-			locationObject.set("myLat", latObj);
-			locationObject.save();
-
-		} else {
-			alert("Making new entry");
-			locationObject.set("myEmail", email);
-			locationObject.set("myLong", longObj);
-			locationObject.set("myLat", latObj);
-			locationObject.save();
-
-		}
-	  },
-	  error: function(error) {
-	    alert("Error: " + error.code + " " + error.message);
-	  }
-	});
-	// locationObject.save(null, {
-	//   success: function(locationObject) {
-	//   	alert("Save was successful")
-	//   },
-	//   error: function(locationObject, error) {
-	//   	alert(error)
-	//     // The save failed.
-	//   }
-	// });
-
+	jQuery.post("./services/checkIn.php", {lat:lat,long:long,email:email}, function(data){/*alert(data)*/});
 
 }
 
-
-
-//Check if browser supports W3C Geolocation API
-function successFunction(position) {
-    myLat = position.coords.latitude;
-    myLong = position.coords.longitude;
-
-    //alert('Your latitude is :'+lat+' and longitude is '+long);
-    var myPosition = new google.maps.LatLng(myLat, myLong);
-
-	if (myPosMarker != null) {
-	  myPosMarker.setMap(null);
+function successFunction(position){
+	var image;	
+	if (email == "") {
+		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
+	} else {
+		var UID = gid;
+		jQuery.ajax({
+			type: "POST",
+			url: "./services/getPhoto.php",
+			data: {UID:UID}, 
+			async: false,
+			success: function(data){
+				if (!data){image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');}
+				else {
+				 	image = new google.maps.MarkerImage(
+						data,
+						new google.maps.Size(50, 50), // desired size
+						new google.maps.Point(0, 0), // offset within the scaled sprite
+						null, // anchor point is half of the desired size
+						new google.maps.Size(50, 50) // scaled size of the entire sprite
+					   )
+				}
+		}});
 	}
 
-	myPosMarker = new google.maps.Marker({
+	myLat = position.coords.latitude;
+	myLong = position.coords.longitude;
+
+	var myPosition = new google.maps.LatLng(myLat, myLong);
+	var myPosMarker = new google.maps.Marker({
 	map:map,
 	draggable:false,
+	icon: image,
 	animation: google.maps.Animation.DROP,
 	position: myPosition
 	});
 
-	saveLocation(myLat,myLong);
+	myPosMarkers.push(myPosMarker);
+
+	if (email == "") {
+		alert("Your location has been found, but will not be saved unless you login.");
+	} else {	
+		saveLocation(myLat,myLong);
+	}
+
 }
 
 function errorFunction(position) {
     alert('Error!');
 }
 
+function showFriends(data) {
+    for (var i = 0; i < myPosMarkers.length; i++ ) {
+    	myPosMarkers[i].setMap(null);
+    }
+    myPosMarkers = [];
+    var xml = data,
+    xmlDoc = $.parseXML( xml ),
+    $xml = $( xmlDoc ),
+    $person = $xml.find( "response person" ).each(
+	function(){
+		var fname = $(this).find("fname").text(),
+		lname = $(this).find("lname").text(),
+		lat = $(this).find("latitude").text(),
+		long = $(this).find("longitude").text(),
+		time = $(this).find("time").text(),
+		gid = $(this).find("googleid").text();
+		
+		var friendImage;
+		jQuery.ajax({
+			type: "POST",
+			url:"./services/getPhoto.php",
+			data: {UID:gid},
+			async: false, 
+			success: function(data){
+				if (!data){image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');}
+				else {
+					friendImage = new google.maps.MarkerImage(
+						data,
+						new google.maps.Size(50, 50), // desired size
+						new google.maps.Point(0, 0), // offset within the scaled sprite
+						null, // anchor point is half of the desired size
+						new google.maps.Size(50, 50) // scaled size of the entire sprite
+				   );
+				}
+		}});
+
+		var myPosition = new google.maps.LatLng(lat, long);
+		var myPosMarker = new google.maps.Marker({
+			map:map,
+			draggable:false,
+			icon: friendImage,
+			title: fname + " " + lname + " @ " + time,
+			animation: google.maps.Animation.DROP,
+			position: myPosition
+		});
+		
+		myPosMarkers.push(myPosMarker);
+	});
+		
+}
+
+function findAll(controlDiv, map) {
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to find your location';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<strong>Find ALL!</strong>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+
+	users = jQuery.post("./services/findAll.php",{}, function(data){showFriends(data);},'text');
+
+  });
+}
 
 function findMe(controlDiv, map) {
   controlDiv.style.padding = '5px';
@@ -499,23 +525,31 @@ function login(controlDiv, map) {
   controlText.innerHTML = '<strong>Login</strong>';
   controlUI.appendChild(controlText);
 
-  // Setup the click event listeners: simply set the map to Chicago.
+  // Setup the click event listeners:.
   google.maps.event.addDomListener(controlUI, 'click', function() {
   	    $('#janrainLink').click()
   });
+
+
+
 }
 
-
+var here = 'outside';
+var friendImage;
 var myLat;
 var myLong;
-var myPosMarker;
+var myPosMarkers = [];
 var findMeDiv = document.createElement('div');
+var findAllDiv = document.createElement('div');
 var loginDiv = document.createElement('div');
 var findMe = new findMe(findMeDiv, map);
+var findAll = new findAll(findAllDiv, map);
 var login = new login(loginDiv, map);
 findMeDiv.index = 1;
+findAllDiv.index = 1;
 loginDiv.index = 1;
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginDiv);
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findMeDiv);
+map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findAllDiv);
 
 

@@ -1,5 +1,5 @@
 body {
-	background-color:#69C;
+	background-color:#003399;
 }
 
 .div{
@@ -9,7 +9,7 @@ body {
 }
 
 .panel{
-	background-color:#69C; 
+	background-color:#003399; 
 	width: 15%; 
 	height: 600px;
 	float:left;
