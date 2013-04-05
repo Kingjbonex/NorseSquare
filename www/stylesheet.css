@@ -13,7 +13,10 @@ body {
 }
 
 #mainPageContainer {
-	background-color:#95c39a;
+	background-color:#208e22;
+	padding-bottom: 25px;
+	padding-left: 25px;
+	padding-right: 25px;
 	width:100%;
 	min-height:90%;
 	overflow:hidden;
