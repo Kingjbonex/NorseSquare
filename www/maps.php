@@ -95,6 +95,7 @@
         
         <div id="header">
             <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+            <button>toggle</button>
         </div><!--header-->
         
         <div id="navBar">
