@@ -36,12 +36,16 @@ body {
 	width: 70%;
 	height: 600px; 
 	float:left;
-	padding:0 0 25px 25px;	
+	padding:0 0 25px 25px;
+	border-style:solid;
+	border-color: 1f1ffd;	
 }
 #tabs {
 	width: 25%;
 	padding:0 25px 25px 0;
-	float: right;	
+	float: right;
+	border-style:solid;
+	border-color: 1f1ffd;	
 }
 .extend-map {
 	width: 100%;
