@@ -100,9 +100,9 @@
         <div id="navBar">
         	<div id="tabs">
             	<ul>
-                	<li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
-                    <li><a href="#plans"><img src="PlansButton.png" alt="plans button" /></a></li>
-                    <li><a href="#settings"><img src="SettingsButton.png" alt="settings button" /></a></li>
+                	<li><a href="#friends"></a></li>
+                    <li><a href="#plans"></a></li>
+                    <li><a href="#settings"></a></li>
                 </ul>
                 <div id="friends">
                     <p>Where our friends section will be placed.</p>
