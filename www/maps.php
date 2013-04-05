@@ -33,7 +33,6 @@
 	      $fname = $auth_info['profile']['name']['givenName'];
 	      $lname = $auth_info['profile']['name']['familyName'];
 	      $gid = $auth_info['profile']['googleUserId'];
-	      echo "Email: " . $email . ", First Name: " . $fname . ", Last Name: " . $lname . ", Google ID: " . $gid;
 	    }
 	  }
   }
