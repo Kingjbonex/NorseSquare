@@ -48,23 +48,20 @@
   var uid = "<?php   if(isset($_POST['token'])){Print($uid);} ?>";
 </script>
 
-
-
-
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
-   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
-   <title>NorseSquare</title> 
-
-
-
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript">
-(function() {
-    if (typeof window.janrain !== 'object') window.janrain = {};
-    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+	<title>NorseSquare</title> 
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+    (function() {
+        if (typeof window.janrain !== 'object') window.janrain = {};
+        if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+        
+        janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
     
+
     janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
 
     function isReady() { janrain.ready = true; };
@@ -92,15 +89,13 @@
 })();
 </script>
 
-
-
 </head> 
 <body onLoad="starter();">     
 	<div id="mainDiv">
-  <a id="janrainLink" class="janrainEngage" href="#"></a>
+	<a id="janrainLink" class="janrainEngage" href="#"></a>
 	<div id="map" style="width: 100%; height: 600px; float:right;"></div> 
   
-  </div>   
+	</div>   
 </body> 
 
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -108,9 +103,6 @@
    <script type="text/javascript" src="polygons.js"> </script>
    <script type="text/javascript" src="mapStyles.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
-
-
-
 </html>
 
 <?php 
