@@ -95,7 +95,6 @@
         
         <div id="header">
             <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-            <button>toggle</button>
         </div><!--header-->
         
         <div id="navBar">
@@ -118,7 +117,7 @@
 		</div><!--navBar-->
             
         <a id="janrainLink" class="janrainEngage" href="#"></a>
-        <div id="map"></div> 
+        <div id="map"><button>toggle</button></div> 
      
     </div><!--mainDiv-->
 </body> 
