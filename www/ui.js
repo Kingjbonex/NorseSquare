@@ -3,7 +3,7 @@ $('#tabs').tabs();
 $('button').toggle(
 
 function() {
-	$('#map').css('left', '0')
+	$('#map').css('right', '0')
 }, function() {
-	$('#map').css('left', '200px')
+	$('#map').css('right', '400px')
 });
