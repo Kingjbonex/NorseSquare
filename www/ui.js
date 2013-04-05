@@ -1,9 +1,7 @@
 $('#tabs').tabs();
 
-$('button').toggle(
+$('button').click(
 
 function() {
-	$('#map').css('right', '0')
-}, function() {
-	$('#map').css('right', '400px')
+	$('#map').toggle("fast")
 });

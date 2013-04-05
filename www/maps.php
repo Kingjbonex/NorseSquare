@@ -103,6 +103,7 @@
                 	<li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
                     <li><a href="#plans"><img src="PlansButton.png" alt="plans button" /></a></li>
                     <li><a href="#settings"><img src="SettingsButton.png" alt="settings button" /></a></li>
+                    <li><a href="#toggle">Toggle</a></li>
                 </ul>
                 <div id="friends">
                     <p>Where our friends section will be placed.</p>
@@ -113,11 +114,14 @@
                 <div id="settings">
                     <p>Where our settings section will be placed.</p>
                 </div>
+                <div id="toggle">
+                    <p>Where our settings section will be placed.</p>
+                </div>
              </div><!--jQueryTabs-->      
 		</div><!--navBar-->
             
         <a id="janrainLink" class="janrainEngage" href="#"></a>
-        <div id="map"><button>toggle</button></div> 
+        <div id="map"></div> 
      
     </div><!--mainDiv-->
 </body> 
