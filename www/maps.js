@@ -1,6 +1,6 @@
 function starter() {
 	mapDiv = document.getElementById('map');
-	mapDiv.style.height = "600px";
+	mapDiv.style.height = "100%";
 }
 
 function toggleBox(id){
