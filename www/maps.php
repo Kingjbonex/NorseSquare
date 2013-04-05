@@ -41,10 +41,10 @@
 ?>
 
 <script type="text/javascript">
-	var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
-	var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
-	var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
-	var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
+  var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
+  var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
+  var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
+  var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
 </script>
 
 <html> 
@@ -60,30 +60,33 @@
         
         janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
     
-        function isReady() { janrain.ready = true; };
-        if (document.addEventListener) {
-          document.addEventListener("DOMContentLoaded", isReady, false);
-        } else {
-          window.attachEvent('onload', isReady);
-        }
-    
-        var e = document.createElement('script');
-        e.type = 'text/javascript';
-        e.id = 'janrainAuthWidget';
-    
-        if (document.location.protocol === 'https:') {
-          e.src = 'https://rpxnow.com/js/lib/luther-bargain-books/engage.js';
-        } else {
-          e.src = 'http://widget-cdn.rpxnow.com/js/lib/luther-bargain-books/engage.js';
-        }
-    
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(e, s);
-    
-        //Calling function to create new user
-        if(email != "") {jQuery.post("./services/newUser.php", {fname:fname, lname:lname, email:email, gid:gid});}
-    })();
-    </script>
+
+    janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://rpxnow.com/js/lib/luther-bargain-books/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/luther-bargain-books/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+
+    //Calling function to create new user
+    if(email != "") {var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});}
+})();
+</script>
 
 </head> 
 <body onLoad="starter();">        
