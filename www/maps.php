@@ -98,19 +98,21 @@
                 
         	<div id="navBar">
             	<div id="tabs">
-                	<li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
-                    <li><a href="#plans"><img src="PlansButton.png" alt="plans button" /></a></li>
-                	<li><a href="#settings"><img src="SettingsButton.png" alt="settings button" /></a></li>
+                	<ul>
+                        <li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
+                        <li><a href="#plans"><img src="PlansButton.png" alt="plans button" /></a></li>
+                        <li><a href="#settings"><img src="SettingsButton.png" alt="settings button" /></a></li>
+                    </ul>
+                    <div id="friends">
+                        <p>Where our friends section will be placed.</p>
+                    </div>
+                    <div id="plans">
+                        <p>Where our plans section will be placed.</p>
+                    </div>
+                    <div id="settings">
+                        <p>Where our settings section will be placed.</p>
+                    </div>
                 </div><!--jQueryTabs-->
-                <div id="friends">
-                	<p>Where our friends section will be placed.</p>
-                </div>
-                <div id="plans">
-                	<p>Where our plans section will be placed.</p>
-                </div>
-                <div id="settings">
-                	<p>Where our settings section will be placed.</p>
-                </div>
                 
         	</div><!--navBar-->
         </div><!--header-->
