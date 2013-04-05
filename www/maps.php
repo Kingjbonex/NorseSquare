@@ -29,7 +29,6 @@
 	    $auth_info = json_decode($result, true);
 
 	    if ($auth_info['stat'] == 'ok') {
-	      print_r($auth_info);
 	      $email = $auth_info['profile']['email'];
 	      $fname = $auth_info['profile']['name']['givenName'];
 	      $lname = $auth_info['profile']['name']['familyName'];
