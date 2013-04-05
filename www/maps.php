@@ -45,7 +45,6 @@
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
-  var uid = "<?php   if(isset($_POST['token'])){Print($uid);} ?>";
 </script>
 
 <html> 
@@ -85,7 +84,7 @@
     s.parentNode.insertBefore(e, s);
 
     //Calling function to create new user
-    if(email != "") {uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});}
+    if(email != "") {var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});}
 })();
 </script>
 
