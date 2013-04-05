@@ -50,6 +50,7 @@
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+	<link rel="stylesheet" type="text/css" href="css/no-theme/jquery-ui-1.10.2.custom.css" />
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
 	<title>NorseSquare</title> 
 	<script type="text/javascript" src="jquery.js"></script>
@@ -120,6 +121,8 @@
     </div><!--mainDiv-->
 </body> 
 
+   <script type="text/javascript" src="jquery-ui.js"></script>
+   <script type="text/javascript" src="ui.js"></script>
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
    <script type="text/javascript" src="markers.js"> </script>
    <script type="text/javascript" src="polygons.js"> </script>
