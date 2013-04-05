@@ -50,11 +50,13 @@ body {
 .map {
 	 width: 600px;
 	 height: 600px; 
-	 float:left;	
+	 float:left;
+	 background: green;	
 }
 #tabs {
 	width: 360px;
 	float: right;	
+	background: orange;
 }
 .extend-map {
 	width: 960px;
