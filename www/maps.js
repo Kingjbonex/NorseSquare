@@ -1,23 +1,6 @@
 function starter() {
-   var winH = 460;
-	if (document.body && document.body.offsetWidth) {
-		winH = document.body.offsetHeight;
-	}
-	if (document.compatMode=='CSS1Compat' &&
-		document.documentElement &&
-		document.documentElement.offsetWidth ) {
-	 winH = document.documentElement.offsetHeight;
-	}
-	if (window.innerWidth && window.innerHeight) {
-	 winH = window.innerHeight;
-	}
-
 	mapDiv = document.getElementById('map');
-	//panelDiv = document.getElementById('panel');
-	//alert(myDiv.style.height + " " + winH);
-	winH = winH * .98;
-	mapDiv.style.height = winH + "px";
-	//panelDiv.style.height = winH + "px";
+	mapDiv.style.height = "600px";
 }
 
 function toggleBox(id){
