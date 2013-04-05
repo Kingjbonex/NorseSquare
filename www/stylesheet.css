@@ -4,7 +4,7 @@
 
 /* ----- GLOBAL STYLES ----- */
 body {
-	background-color:#80838f;
+	background-color:#ee979a;
 	width:100%;
 	font-size:12px;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -12,16 +12,15 @@ body {
 }
 
 #mainPageContainer {
-	background-color:#3b3c40;
-	width:960px;
-	margin:auto;
+	background-color:#95c39a;
+	width:100%;
+	margin:25px;
 }
 
 /* ----- HEADER STYLES ----- */
 #header {
 	background:url(HeaderBackground.jpg);
 	height:150px;
-	width:100%;
 }
 
 #norseSquareLogo {
@@ -32,14 +31,14 @@ body {
 
 /* ----- MAIN STYLES ----- */
 .map {
-	 width: 600px;
+	 width: 70%;
 	 height: 600px; 
 	 float:left;	
 }
 #tabs {
-	width: 360px;
+	width: 25%;
 	float: right;	
 }
 .extend-map {
-	width: 960px;
+	width: 100%;
 }

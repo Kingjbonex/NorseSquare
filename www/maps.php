@@ -95,7 +95,11 @@
             <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
             <button>Toggle</button>
         </div><!--header-->
-        
+        	
+            <div id="personalStatus">
+            	<!--picture, fname, lname, position-->
+            </div>
+        	
         	<div id="tabs">
             	<ul>
                 	<li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
