@@ -49,14 +49,12 @@ body {
 /* ----- MAIN STYLES ----- */
 .map {
 	 width: 600px;
-	 height: 600px; 
-	 float:left;
-	 background:green;	
+	 height: 400px; 
+	 float:left;	
 }
 #tabs {
 	width: 360px;
 	float: right;	
-	background: orange;
 }
 .extend-map {
 	width: 960px;
