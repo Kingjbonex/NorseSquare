@@ -95,6 +95,7 @@
         
         <div id="header">
             <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+            <button>Toggle</button>
         </div><!--header-->
         
         <div id="navBar">
@@ -103,7 +104,6 @@
                 	<li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
                     <li><a href="#plans"><img src="PlansButton.png" alt="plans button" /></a></li>
                     <li><a href="#settings"><img src="SettingsButton.png" alt="settings button" /></a></li>
-                    <li><a href="#toggle">Toggle</a></li>
                 </ul>
                 <div id="friends">
                     <p>Where our friends section will be placed.</p>
@@ -112,9 +112,6 @@
                     <p>Where our plans section will be placed.</p>
                 </div>
                 <div id="settings">
-                    <p>Where our settings section will be placed.</p>
-                </div>
-                <div id="toggle">
                     <p>Where our settings section will be placed.</p>
                 </div>
              </div><!--jQueryTabs-->      

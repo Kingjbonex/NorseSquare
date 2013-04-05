@@ -47,21 +47,17 @@ body {
 }
 
 /* ----- MAIN STYLES ----- */
-#sidePane {
-	float:right;
-	width:320px;
-	height:600px;
-	background-color:#999999;	
-}
 .map {
-	 width: 100%;
+	 width: 600px;
 	 height: 600px; 
-	 right: 400px;
-	 float:right;
+	 float:left;
 	 background:green;	
 }
 #tabs {
-	width: 400px;	
+	width: 360px;
+	float: right;	
 	background: orange;
 }
-
+.extend-map {
+	width: 960px;
+}
