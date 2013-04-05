@@ -86,12 +86,35 @@
     </script>
 
 </head> 
-<body onLoad="starter();">     
-	<div id="mainDiv">
-	<a id="janrainLink" class="janrainEngage" href="#"></a>
-	<div id="map" style="width: 100%; height: 600px; float:right;"></div> 
-  
-	</div>   
+<body onLoad="starter();">        
+    <div id="mainPageContainer">
+        
+        <div id="header">
+            <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+                
+        	<div id="navBar">
+            	<div id="tabs">
+                	<li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
+                    <li><a href="#plans"><img src="PlansButton.png" alt="plans button" /></a></li>
+                	<li><a href="#settings"><img src="SettingsButton.png" alt="settings button" /></a></li>
+                </div><!--jQueryTabs-->
+                <div id="friends">
+                	<p>Where our friends section will be placed.</p>
+                </div>
+                <div id="plans">
+                	<p>Where our plans section will be placed.</p>
+                </div>
+                <div id="settings">
+                	<p>Where our settings section will be placed.</p>
+                </div>
+                
+        	</div><!--navBar-->
+        </div><!--header-->
+            
+        <a id="janrainLink" class="janrainEngage" href="#"></a>
+        <div id="map"></div> 
+     
+    </div><!--mainDiv-->
 </body> 
 
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>

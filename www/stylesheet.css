@@ -1,20 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/* ----- GLOBAL STYLES ----- */
 body {
-	background-color:#003399;
+	background-color:#3b3c40;
+	width:960px;
+	font-size:12px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	margin:0;
 }
 
-.div{
-	overflow: auto;
-	max-height: 300px;
-	max-width: 360px
+#mainPageContainer {
+	width:960px;
+	margin:auto;
 }
 
-.panel{
-	background-color:#003399; 
-	width: 15%; 
-	height: 600px;
+/* ----- HEADER STYLES ----- */
+#header {
+	background:url(HeaderBackground.jpg);
+	height:150px;
+	width:100%;
+}
+
+#norseSquareLogo {
+	float:left;
+	margin:30px 0px 0px 70px;
+	clear:both;
+}
+
+#navBar{
+	float:right;
+	list-style:none;
+}
+
+.navButtons {
+	margin:77px 50px 0px 0px;
+	list-style:none;
+	float:right;	
+}
+
+.navButtons li {
+	margin:0 5px 0 5px;
 	float:left;
 }
-a:link {color:#000000;}      /* unvisited link */
-a:visited {color:#000000;}  /* visited link */
-a:hover {color:#000000;}  /* mouse over link */
-a:active {color:#000000;}  /* selected link */
+
+/* ----- MAIN STYLES ----- */
+#sidePane {
+	float:right;
+	width:320px;
+	height:600px;
+	background-color:#999999;	
+}
+.map {
+	 width: 100%;
+	 height: 600px; 
+	 float:right;	
+}
+#tabs {
+	width: 400px;	
+}
+
