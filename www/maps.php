@@ -98,7 +98,6 @@
             <button>Toggle</button>
         </div><!--header-->
         
-        <div id="navBar">
         	<div id="tabs">
             	<ul>
                 	<li><a href="#friends"><img src="FriendsButton.png" alt="friend button" /></a></li>
@@ -115,7 +114,6 @@
                     <p>Where our settings section will be placed.</p>
                 </div>
              </div><!--jQueryTabs-->      
-		</div><!--navBar-->
             
         <a id="janrainLink" class="janrainEngage" href="#"></a>
         <div id="map"></div> 

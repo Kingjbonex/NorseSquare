@@ -30,22 +30,6 @@ body {
 	clear:both;
 }
 
-#navBar{
-	float:right;
-	list-style:none;
-}
-
-.navButtons {
-	margin:77px 50px 0px 0px;
-	list-style:none;
-	float:right;	
-}
-
-.navButtons li {
-	margin:0 5px 0 5px;
-	float:left;
-}
-
 /* ----- MAIN STYLES ----- */
 .map {
 	 width: 600px;
