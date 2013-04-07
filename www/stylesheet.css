@@ -49,10 +49,10 @@ body {
 	border-color: 1f1ffd;
 	collapsible: true;	
 }
-.toggleBut {
+.toggleBut button {
 	float:right;
-	width: 10px;
-	min-height: 75px;
+	width: 25px;
+	height: 400px;
 		
 }
 .extend-map {
