@@ -108,8 +108,8 @@
 							if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png'}
 							else {friendImage = data};
 						}
-					friendsData = "Testing friendsData";
 					}					
+					friendsData = "Testing friendsData";
 			});				
 			document.getElementById("friends").innerHTML=friendsData;
 		});
