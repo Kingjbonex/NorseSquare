@@ -93,7 +93,6 @@
         
         <div id="header">
             <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-            <button>Toggle</button>
         </div><!--header-->
         	
             <div id="personalStatus">
@@ -101,6 +100,7 @@
             </div>
         	
         	<div id="tabs">
+            <button>Toggle</button> 
             	<ul>
                 	<li><a href="#friends">friends</a></li>
                     <li><a href="#plans">plans</a></li>
@@ -115,7 +115,8 @@
                 <div id="settings">
                     <p>Where our settings section will be placed.</p>
                 </div>
-             </div><!--jQueryTabs-->      
+             </div><!--jQueryTabs-->
+     
             
         <a id="janrainLink" class="janrainEngage" href="#"></a>
         <div id="map"></div> 
