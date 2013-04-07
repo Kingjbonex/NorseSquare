@@ -109,7 +109,7 @@
 					data: {UID:gid},
 					async: false, 
 					success: function(data){
-						if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png');}
+						if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png'}
 						else {friendImage = data};
 					}
 				}
