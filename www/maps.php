@@ -57,10 +57,10 @@
         if (typeof window.janrain !== 'object') window.janrain = {};
         if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
         
-        janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
+        janrain.settings.tokenUrl = 'http://norsesquare.luther.edu/maps.php';//switch to internal server
     
 
-    janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
+    janrain.settings.tokenUrl = 'http://norsesquare.luther.edu/maps.php';//switch to internal server
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
@@ -87,7 +87,7 @@
 		var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
-			var friendsData;
+			var friendsData = "test";
 			var friendImage;
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
