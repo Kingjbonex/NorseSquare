@@ -182,11 +182,11 @@ for (polygon in polygonCoords) {
 		gpolygons.push(lutherPolygon);
 		
 		// Add a listener for the click event
-		google.maps.event.addListener(lutherPolygon, 'click', mouseInfoWindow);
+		/*google.maps.event.addListener(lutherPolygon, 'click', mouseInfoWindow);
 		
 		infowindow = new google.maps.InfoWindow({
 			maxWidth: 100,
-			maxHeight: 100	
+			maxHeight: 100	*/
 		});
 		  
 };
