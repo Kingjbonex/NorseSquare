@@ -85,9 +85,6 @@ google.maps.event.addListener(map, 'zoom_changed', function() {
 });
 
 
-
-
-
 //START OF lutherPolygon
 
 //Event called on selection event
@@ -211,7 +208,6 @@ function errorFunction(position) {
 }
 
 function showFriends(data) {
-	document.getElementById("friends").innerHTML=data;
     for (var i = 0; i < myPosMarkers.length; i++ ) {
     	myPosMarkers[i].setMap(null);
     }
@@ -288,7 +284,6 @@ function findAll(controlDiv, map) {
   google.maps.event.addDomListener(controlUI, 'click', function() {
 
 	users = jQuery.post("./services/findAll.php",{}, function(data){showFriends(data);},'text');
-
   });
 }
 
@@ -355,9 +350,9 @@ function login(controlDiv, map) {
   	    $('#janrainLink').click()
   });
 
-
-
 }
+
+
 
 var here = 'outside';
 var friendImage;
