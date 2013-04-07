@@ -107,13 +107,15 @@
 						success: function(data){
 							if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png'}
 							else {friendImage = data};
-					}
+						}
+					});
 					
 					friendsData = "Testing friendsData";
-				});
+				}
+			);
 			document.getElementById("friends").innerHTML=friendsData;
 					
-			});				
+		});				
 
 	}
 
