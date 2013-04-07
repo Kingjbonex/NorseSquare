@@ -48,7 +48,8 @@ body {
 	padding:0 25px 25px 0;
 	float: right;
 	border-style:solid;
-	border-color: 1f1ffd;	
+	border-color: 1f1ffd;
+	collapsible: true;	
 }
 .extend-map {
 	width: 100%;
