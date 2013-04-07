@@ -192,10 +192,10 @@ for (polygon in polygonCoords) {
 		var tooltip = document.createElement('div'); //attempting to add tooltip mouseover
     		tooltip.innerHTML = name;
 
-    		google.maps.event.addListener(polygon,'mouseover',function(){
+    		google.maps.event.addListener(lutherPolygon,'mouseover',function(){
         		tooltip.style.visibility = 'visible';
     		});
-    		google.maps.event.addListener(polygon,'mouseout',function(){
+    		google.maps.event.addListener(lutherPolygon,'mouseout',function(){
         		tooltip.style.visibility = 'hidden';
     		});
 		  
