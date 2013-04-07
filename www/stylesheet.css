@@ -14,8 +14,9 @@ body {
 
 #mainPageContainer {
 	background-color:#208e22;
-	width:100%;
+	width:90%;
 	min-height:85%;
+	margin: 0 5% 0%;
 	overflow:hidden;
 }
 
