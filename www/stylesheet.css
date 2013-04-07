@@ -17,14 +17,13 @@ body {
 	padding-bottom: 25px;
 	padding-left: 25px;
 	padding-right: 25px;
-	width:90%;
+	width:100%;
 	min-height:90%;
 	overflow:hidden;
 }
 
 /* ----- HEADER STYLES ----- */
 #header {
-	background:url(HeaderBackground.jpg);
 	height:150px;
 }
 
