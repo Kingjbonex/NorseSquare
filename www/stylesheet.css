@@ -14,11 +14,8 @@ body {
 
 #mainPageContainer {
 	background-color:#208e22;
-	padding-bottom: 5%;
-	padding-left: 5%;
-	padding-right: 5%;
-	width:90%;
-	min-height:95%;
+	width:100%;
+	min-height:100%;
 	overflow:hidden;
 }
 
