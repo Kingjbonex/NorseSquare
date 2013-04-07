@@ -23,17 +23,17 @@
         android:layout_height="match_parent"
         android:onClick="popUp"
         android:text="@string/display_above_text"/> -->
-    <Button 
+    <!--  <Button 
         android:id="@+id/button_find_all"
         android:layout_width="150sp"
         android:layout_height="match_parent"
-        android:text="@string/find_all"/>
+        android:text="@string/find_all"/> -->
 
     <Button
-        android:id="@+id/button_Ping_Url"
+        android:id="@+id/button_find_all"
         android:layout_height="match_parent"
         android:layout_width="150sp"
-        android:onClick="pingURL" 
-        android:text="@string/button_Ping_Url"
+        android:onClick="findAll" 
+        android:text="@string/find_all"
         />
 </LinearLayout>
