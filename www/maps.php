@@ -98,9 +98,12 @@
             <div id="personalStatus">
             	<!--picture, fname, lname, position-->
             </div>
-        	
+            
+        	<div class="toggleBut">
+            	<button>Toggle</button>
+            </div>
+            
         	<div id="tabs">
-            <button>Toggle</button> 
             	<ul>
                 	<li><a href="#friends">friends</a></li>
                     <li><a href="#plans">plans</a></li>
