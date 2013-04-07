@@ -186,8 +186,8 @@ for (polygon in polygonCoords) {
 		
 		infowindow = new google.maps.InfoWindow({
 			maxWidth: 100,
-			maxHeight: 100	*/
-		});
+			maxHeight: 100	
+		});*/
 		  
 };
 
