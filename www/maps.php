@@ -86,6 +86,7 @@
     if(email != "") {
 		var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
 		var friendsData;
+		var friendImage;
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
 			var xml = data,
@@ -98,7 +99,6 @@
 				uid = $(this).find("uid").text(),
 				gid = $(this).find("googleid").text();
 				
-				var friendImage;
 				jQuery.ajax({
 					type: "POST",
 					url:"./services/getPhoto.php",
