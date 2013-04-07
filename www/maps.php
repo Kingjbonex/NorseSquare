@@ -87,20 +87,20 @@
 		var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
-			var friendsData = "test";
-			var friendImage;
+			var friendsData = "";
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
 			$xml = $( xmlDoc ),
 			$person = $xml.find( "response person" ).each(
 				function(){
+					var friendImage;
 					var fname = $(this).find("fname").text(),
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
 					gid = $(this).find("googleid").text();
-					
+					console.log(gid);
 					jQuery.ajax({
-						type: "POST",
+						type: "GET",
 						url:"./services/getPhoto.php",
 						data: {UID:gid},
 						async: false, 
@@ -110,12 +110,13 @@
 						}
 					});
 					
-					friendsData = "Testing friendsData";
+					friendsData = friendsData + "<img src='" + friendImage + "' style='width:50px;height:50px;'>" + " " + fname + " " + lname + "</br>";
+
 				}
 			);
 			document.getElementById("friends").innerHTML=friendsData;
 					
-		});				
+		}, 'text');				
 
 	}
 
