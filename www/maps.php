@@ -174,6 +174,10 @@
    <script type="text/javascript" src="mapStyles.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
    <script type="text/javascript" src="ui.js"></script>
+   <script>
+   		google.maps.event.trigger(map, 'resize');
+		map.setZoom( map.getZoom() );
+	</script>
 </html>
 
 <?php 
