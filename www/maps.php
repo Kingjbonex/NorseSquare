@@ -113,7 +113,7 @@
 						else {friendImage = data};
 					}
 				}
-			var friendsData = friendsData + "<img src='" + friendImage + "'>" +  fname + " " + lname + "/n";
+			friendsData = friendsData + "<img src='" + friendImage + "'>" +  fname + " " + lname + "/n";
 				
 			});
 			 
