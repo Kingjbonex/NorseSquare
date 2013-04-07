@@ -231,7 +231,7 @@ function showFriends(data) {
 			data: {UID:gid},
 			async: false, 
 			success: function(data){
-				if (!data){image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');}
+				if (!data){friendImage = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');}
 				else {
 					friendImage = new google.maps.MarkerImage(
 						data,
@@ -371,5 +371,4 @@ loginDiv.index = 1;
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginDiv);
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findMeDiv);
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findAllDiv);
-
 
