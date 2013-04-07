@@ -93,28 +93,24 @@
 			xmlDoc = $.parseXML( xml ),
 			$xml = $( xmlDoc ),
 			$person = $xml.find( "response person" ).each(
-			function(){
-				var fname = $(this).find("fname").text(),
-				lname = $(this).find("lname").text(),
-				uid = $(this).find("uid").text(),
-				gid = $(this).find("googleid").text();
-				
-				jQuery.ajax({
-					type: "POST",
-					url:"./services/getPhoto.php",
-					data: {UID:gid},
-					async: false, 
-					success: function(data){
-						if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png'}
-						else {friendImage = data};
-					}
-				}
-			friendsData = friendsData + "<img src='" + friendImage + "'>" +  fname + " " + lname + "/n";
-				
-			});
-			 
-			
-				
+				function(){
+					var fname = $(this).find("fname").text(),
+					lname = $(this).find("lname").text(),
+					uid = $(this).find("uid").text(),
+					gid = $(this).find("googleid").text();
+					
+					jQuery.ajax({
+						type: "POST",
+						url:"./services/getPhoto.php",
+						data: {UID:gid},
+						async: false, 
+						success: function(data){
+							if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png'}
+							else {friendImage = data};
+						}
+					friendsData = friendsData + "<img src='" + friendImage + "'>" +  fname + " " + lname + "/n";
+					}					
+			});				
 			document.getElementById("friends").innerHTML=friendsData;
 		});
 	}
