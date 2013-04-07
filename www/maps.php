@@ -29,12 +29,10 @@
 	    $auth_info = json_decode($result, true);
 
 	    if ($auth_info['stat'] == 'ok') {
-	      print_r($auth_info);
 	      $email = $auth_info['profile']['email'];
 	      $fname = $auth_info['profile']['name']['givenName'];
 	      $lname = $auth_info['profile']['name']['familyName'];
 	      $gid = $auth_info['profile']['googleUserId'];
-	      echo "Email: " . $email . ", First Name: " . $fname . ", Last Name: " . $lname . ", Google ID: " . $gid;
 	    }
 	  }
   }
@@ -47,23 +45,21 @@
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
 </script>
 
-
-
-
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
-   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
-   <title>NorseSquare</title> 
-
-
-
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript">
-(function() {
-    if (typeof window.janrain !== 'object') window.janrain = {};
-    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+	<link rel="stylesheet" type="text/css" href="css/no-theme/jquery-ui-1.10.2.custom.css" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+	<title>NorseSquare</title> 
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+    (function() {
+        if (typeof window.janrain !== 'object') window.janrain = {};
+        if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+        
+        janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
     
+
     janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
 
     function isReady() { janrain.ready = true; };
@@ -87,29 +83,54 @@
     s.parentNode.insertBefore(e, s);
 
     //Calling function to create new user
-    if(email != "") {jQuery.post("./services/newUser.php", {fname:fname, lname:lname, email:email, gid:gid});}
+    if(email != "") {var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});}
 })();
 </script>
 
-
-
 </head> 
-<body onLoad="starter();">     
-	<div id="mainDiv">
-  <a id="janrainLink" class="janrainEngage" href="#"></a>
-	<div id="map" style="width: 100%; height: 600px; float:right;"></div> 
-  
-  </div>   
+<body onLoad="starter();">        
+    <div id="mainPageContainer">
+        
+        <div id="header">
+            <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+        </div><!--header-->
+        	
+            <div id="personalStatus">
+            	<!--picture, fname, lname, position-->
+            </div>
+        	
+        	<div id="tabs">
+            <button>Toggle</button> 
+            	<ul>
+                	<li><a href="#friends">friends</a></li>
+                    <li><a href="#plans">plans</a></li>
+                    <li><a href="#settings">settings</a></li>
+                </ul>
+                <div id="friends">
+                    <p>Where our friends section will be placed.</p>
+                </div>
+                <div id="plans">
+                    <p>Where our plans section will be placed.</p>
+                </div>
+                <div id="settings">
+                    <p>Where our settings section will be placed.</p>
+                </div>
+             </div><!--jQueryTabs-->
+     
+            
+        <a id="janrainLink" class="janrainEngage" href="#"></a>
+        <div id="map"></div> 
+     
+    </div><!--mainDiv-->
 </body> 
 
+   <script type="text/javascript" src="jquery-ui.js"></script>
+   <script type="text/javascript" src="ui.js"></script>
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
    <script type="text/javascript" src="markers.js"> </script>
    <script type="text/javascript" src="polygons.js"> </script>
    <script type="text/javascript" src="mapStyles.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
-
-
-
 </html>
 
 <?php 

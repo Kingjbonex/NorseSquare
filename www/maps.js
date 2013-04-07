@@ -1,24 +1,25 @@
 function starter() {
-   var winH = 460;
-	if (document.body && document.body.offsetWidth) {
-		winH = document.body.offsetHeight;
-	}
-	if (document.compatMode=='CSS1Compat' &&
-		document.documentElement &&
-		document.documentElement.offsetWidth ) {
-	 winH = document.documentElement.offsetHeight;
-	}
-	if (window.innerWidth && window.innerHeight) {
-	 winH = window.innerHeight;
-	}
+  var winH = 460;
+  if (document.body && document.body.offsetWidth) {
+    winH = document.body.offsetHeight;
+  }
+  if (document.compatMode=='CSS1Compat' &&
+    document.documentElement &&
+    document.documentElement.offsetWidth ) {
+    winH = document.documentElement.offsetHeight;
+  }
+  if (window.innerWidth && window.innerHeight) {
+   winH = window.innerHeight;
+  }
 
-	mapDiv = document.getElementById('map');
-	//panelDiv = document.getElementById('panel');
-	//alert(myDiv.style.height + " " + winH);
-	winH = winH * .98;
-	mapDiv.style.height = winH + "px";
-	//panelDiv.style.height = winH + "px";
-}
+  mapDiv = document.getElementById('map');
+  //panelDiv = document.getElementById('panel');
+  //alert(myDiv.style.height + " " + winH);
+  winH = winH * .85;
+  mapDiv.style.height = winH + "px";
+  mapDiv.checkResize()
+  //panelDiv.style.height = winH + "px";
+ }
 
 function toggleBox(id){
 	if (document.getElementById(id).style.display == "") {
@@ -181,12 +182,22 @@ for (polygon in polygonCoords) {
 		gpolygons.push(lutherPolygon);
 		
 		// Add a listener for the click event
-		google.maps.event.addListener(lutherPolygon, 'click', mouseInfoWindow);
+		/*google.maps.event.addListener(lutherPolygon, 'click', mouseInfoWindow);
 		
 		infowindow = new google.maps.InfoWindow({
 			maxWidth: 100,
 			maxHeight: 100	
-		});
+		});*/
+
+		var tooltip = document.createElement('div'); //attempting to add tooltip mouseover
+    		tooltip.innerHTML = name;
+
+    		google.maps.event.addListener(lutherPolygon,'mouseover',function(){
+        		tooltip.style.visibility = 'visible';
+    		});
+    		google.maps.event.addListener(lutherPolygon,'mouseout',function(){
+        		tooltip.style.visibility = 'hidden';
+    		});
 		  
 };
 
