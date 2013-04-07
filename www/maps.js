@@ -189,13 +189,14 @@ for (polygon in polygonCoords) {
 			maxHeight: 100	
 		});*/
 
+		var tooltip = document.createElement('div'); //attempting to add tooltip mouseover
     		tooltip.innerHTML = name;
 
     		google.maps.event.addListener(lutherPolygon,'mouseover',function(){
-        		tooltip.show("<strong>"+name+"</strong>")
+        		tooltip.style.visibility = 'visible';
     		});
     		google.maps.event.addListener(lutherPolygon,'mouseout',function(){
-        		tooltip.hide();
+        		tooltip.style.visibility = 'hidden';
     		});
 		  
 };
