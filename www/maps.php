@@ -85,8 +85,39 @@
     //Calling function to create new user
     if(email != "") {
 		var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
-		var friendsData = jQuery.get("./services/users.php", {page:'1'}, function(data){document.getElementById("friends").innerHTML=data});
-		}
+		var friendsData;
+		jQuery.get("./services/users.php", {page:'1'}, function(data){
+			
+			var xml = data,
+			xmlDoc = $.parseXML( xml ),
+			$xml = $( xmlDoc ),
+			$person = $xml.find( "response person" ).each(
+			function(){
+				var fname = $(this).find("fname").text(),
+				lname = $(this).find("lname").text(),
+				uid = $(this).find("uid").text(),
+				gid = $(this).find("googleid").text();
+				
+				var friendImage;
+				jQuery.ajax({
+					type: "POST",
+					url:"./services/getPhoto.php",
+					data: {UID:gid},
+					async: false, 
+					success: fuction(data){
+						if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png');}
+						else {friendImage = data};
+					}
+				}
+			var friendsData = friendsData + "<img src='" + friendImage + "'>" +  fname + " " + lname + "/n";
+				
+			});
+			 
+			
+				
+			document.getElementById("friends").innerHTML=friendsData;
+		});
+	}
 })();
 </script>
 
