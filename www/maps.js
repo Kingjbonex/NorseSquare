@@ -17,7 +17,6 @@ function starter() {
   //alert(myDiv.style.height + " " + winH);
   winH = winH * .85;
   mapDiv.style.height = winH + "px";
-  mapDiv.checkResize()
   //panelDiv.style.height = winH + "px";
  }
 
