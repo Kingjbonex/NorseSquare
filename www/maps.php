@@ -100,8 +100,8 @@
             	<!--picture, fname, lname, position-->
             </div>
         	
-        	<div id="tabs">
-            	<ul>
+        	<div id="tabs-centre">
+            	<ul class="ui-tabs-nav">
                 	<li><a href="#friends">friends</a></li>
                     <li><a href="#plans">plans</a></li>
                     <li><a href="#settings">settings</a></li>

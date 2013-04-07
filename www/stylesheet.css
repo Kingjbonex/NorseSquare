@@ -50,6 +50,16 @@ body {
 	border-style:solid;
 	border-color: 1f1ffd;	
 }
+#tabs-centre .ui-tabs-nav { 
+    height: 2.35em; 
+    text-align: center; 
+} 
+#tabs-centre .ui-tabs-nav li { 
+    display: inline-block; 
+    float: none; 
+    top: 0px; 
+    margin: 0em; 
+}
 .extend-map {
 	width: 100%;
 }
