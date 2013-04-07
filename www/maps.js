@@ -91,36 +91,6 @@ google.maps.event.addListener(map, 'zoom_changed', function() {
 
 //START OF lutherPolygon
 
-
-//Event called on Click event
-/*function mouseInfoWindow(event) {
-
-  var contentString = "<b>"+this.polyName+"</b></br>";
-  contentString += this.polyDesc + "</br>";
-	  
-  try {
-		var coords = event.latLng;
-  } catch(err) {
-		var vertices = this.getPath();
-		var bounds = new google.maps.LatLngBounds();
-
-		for (var i =0; i < vertices.length; i++) {
-			var xy = vertices.getAt(i);
-			bounds.extend(new google.maps.LatLng(xy.lat(), xy.lng()));
-		}
-
-		var coords = bounds.getCenter();
-  }
-  
-  map.panTo(coords);
-  
-  // Replace our Info Window's content and position
-  infowindow.setContent(contentString);
-  infowindow.setPosition(coords);
-
-  infowindow.open(map);
-};*/
-
 //Event called on selection event
 function showArrays(event) {
 
@@ -153,7 +123,6 @@ var lutherPolygon;
 for (polygon in polygonCoords) {
 	var name = polygonCoords[polygon][0];
 	var coords = polygonCoords[polygon][1];
-	//var desc = polygonCoords[polygon][2];
 	var cat = polygonCoords[polygon][2];
 	if (cat == "academic") tempColor = aColor;
 	if (cat == "recreational") tempColor = recColor;
@@ -170,7 +139,6 @@ for (polygon in polygonCoords) {
 		fillColor: tempColor,
 		fillOpacity: 0.35,
 		polyName: name,
-		//polyDesc: desc,
 		category: cat,
 		id: polygon
 		
@@ -181,26 +149,10 @@ for (polygon in polygonCoords) {
 		lutherPolygon.setVisible(true);
 		gpolygons.push(lutherPolygon);
 		
-		// Add a listener for the click event
-		/*google.maps.event.addListener(lutherPolygon, 'click', mouseInfoWindow);
-		
-		infowindow = new google.maps.InfoWindow({
-			maxWidth: 100,
-			maxHeight: 100	
-		});*/
-
-		var tooltip = document.createElement('div'); //attempting to add tooltip mouseover
-    		tooltip.innerHTML = name;
-
-    		google.maps.event.addListener(lutherPolygon,'mouseover',function(){
-        		tooltip.style.visibility = 'visible';
-    		});
-    		google.maps.event.addListener(lutherPolygon,'mouseout',function(){
-        		tooltip.style.visibility = 'hidden';
-    		});
 		  
 };
 
+/*
 var lutherMarker;
 // Creating a MARKER and positioning it on the map
 for (marker in markerCoords) {
@@ -337,7 +289,7 @@ for (polygon in polygonCoords) {
 }
 // document.getElementById("parking").innerHTML=parkingString;
 
-
+*/
 
 function saveLocation(lat, long)
 {
