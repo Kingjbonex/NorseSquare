@@ -6,7 +6,7 @@
 body {
 	background-color:#ee979a;
 	width:100%;
-	min-height:90%;
+	min-height:100%;
 	font-size:12px;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	margin:0;
@@ -14,11 +14,11 @@ body {
 
 #mainPageContainer {
 	background-color:#208e22;
-	padding-bottom: 25px;
-	padding-left: 25px;
-	padding-right: 25px;
-	width:100%;
-	min-height:90%;
+	padding-bottom: 5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	width:90%;
+	min-height:95%;
 	overflow:hidden;
 }
 
