@@ -90,36 +90,6 @@ google.maps.event.addListener(map, 'zoom_changed', function() {
 
 //START OF lutherPolygon
 
-
-//Event called on Click event
-/*function mouseInfoWindow(event) {
-
-  var contentString = "<b>"+this.polyName+"</b></br>";
-  contentString += this.polyDesc + "</br>";
-	  
-  try {
-		var coords = event.latLng;
-  } catch(err) {
-		var vertices = this.getPath();
-		var bounds = new google.maps.LatLngBounds();
-
-		for (var i =0; i < vertices.length; i++) {
-			var xy = vertices.getAt(i);
-			bounds.extend(new google.maps.LatLng(xy.lat(), xy.lng()));
-		}
-
-		var coords = bounds.getCenter();
-  }
-  
-  map.panTo(coords);
-  
-  // Replace our Info Window's content and position
-  infowindow.setContent(contentString);
-  infowindow.setPosition(coords);
-
-  infowindow.open(map);
-};*/
-
 //Event called on selection event
 function showArrays(event) {
 
@@ -152,7 +122,6 @@ var lutherPolygon;
 for (polygon in polygonCoords) {
 	var name = polygonCoords[polygon][0];
 	var coords = polygonCoords[polygon][1];
-	//var desc = polygonCoords[polygon][2];
 	var cat = polygonCoords[polygon][2];
 	if (cat == "academic") tempColor = aColor;
 	if (cat == "recreational") tempColor = recColor;
@@ -169,7 +138,6 @@ for (polygon in polygonCoords) {
 		fillColor: tempColor,
 		fillOpacity: 0.35,
 		polyName: name,
-		//polyDesc: desc,
 		category: cat,
 		id: polygon
 		
@@ -180,162 +148,8 @@ for (polygon in polygonCoords) {
 		lutherPolygon.setVisible(true);
 		gpolygons.push(lutherPolygon);
 		
-		// Add a listener for the click event
-		/*google.maps.event.addListener(lutherPolygon, 'click', mouseInfoWindow);
-		
-		infowindow = new google.maps.InfoWindow({
-			maxWidth: 100,
-			maxHeight: 100	
-		});*/
-
-		var tooltip = document.createElement('div'); //attempting to add tooltip mouseover
-    		tooltip.innerHTML = name;
-
-    		google.maps.event.addListener(lutherPolygon,'mouseover',function(){
-        		tooltip.style.visibility = 'visible';
-    		});
-    		google.maps.event.addListener(lutherPolygon,'mouseout',function(){
-        		tooltip.style.visibility = 'hidden';
-    		});
 		  
 };
-
-var lutherMarker;
-// Creating a MARKER and positioning it on the map
-for (marker in markerCoords) {
-	var name = markerCoords[marker][0];
-	var coords = markerCoords[marker][1];
-	var desc = markerCoords[marker][2];
-	lutherMarker = new google.maps.Marker({
-		position: coords,
-		polyName: name,
-		polyDesc: desc,
-		map: map,
-		id: marker
-		 });
-
-		gmarkers.push(lutherMarker);
-		//Set it on the Map
-		//lutherMarker.setMap(map);
-		lutherMarker.setVisible(false);
-		// Add a listener for the click event
-		google.maps.event.addListener(lutherMarker, 'click', showArrays);
-		
-		infowindow = new google.maps.InfoWindow();
-
-};
-
-function selectMarker(mySel) {
-	id = mySel.options[mySel.selectedIndex].value;
-	for (var i=0; i<gmarkers.length; i++) {
-		if (gmarkers[i].id == id) {
-			google.maps.event.trigger(gmarkers[i],'click');
-		}
-	}
-	//Resets option back to default
-	mySel.selectedIndex = 0;
-};
-
-function selectPolygon(mySel) {
-	id = mySel.options[mySel.selectedIndex].value;
-	for (var i=0; i<gpolygons.length; i++) {
-		if (gpolygons[i].id == id) {
-			google.maps.event.trigger(gpolygons[i],'click');
-		}
-	}
-	//Resets option back to default
-	mySel.selectedIndex = 0;
-};
-
-function toggleCategory(mySel) {
-	category = mySel.name;
-	for (var i=0; i<gpolygons.length; i++) {
-		thisPolygon = gpolygons[i];
-		if (thisPolygon.category == category) {
-			if (thisPolygon.getVisible()) {
-				thisPolygon.setVisible(false);
-			} else {
-				thisPolygon.setVisible(true);
-			}
-		}
-	}
-};
-
-function toggleStyle(mySel) {
-	category = mySel.name;
-	for (var i=0; i<gpolygons.length; i++) {
-		thisPolygon = gpolygons[i];
-		if (thisPolygon.category == category) {
-			if (thisPolygon.getVisible()) {
-				thisPolygon.setVisible(false);
-			} else {
-				thisPolygon.setVisible(true);
-			}
-		}
-	}
-};
-
-//This sorts the lists
-var temp1 = []
-var temp2 = []
-for (p in polygonCoords) temp1.push(gpolygons[p].polyName);
-temp1.sort();
-for (p in temp1) for (c in gpolygons) if (temp1[p]==gpolygons[c].polyName) temp2.push(gpolygons[c]);
-gpolygons=temp2;
-
-//This sorts the lists
-var temp1 = []
-var temp2 = []
-for (p in markerCoords) temp1.push(gmarkers[p].polyName);
-temp1.sort();
-for (p in temp1) for (c in gmarkers) if (temp1[p]==gmarkers[c].polyName) temp2.push(gmarkers[c]);
-gmarkers=temp2;
-
-
-//Building Lists
-var academicString = '<option value=""> - Academic - </option>';
-//This is making the drop down menus
-for (polygon in polygonCoords) {
-	if (gpolygons[polygon].category == 'academic') {
-		academicString = academicString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>';
-	}
-}
-//document.getElementById("academic").innerHTML=academicString;
-
-var residentialString = '<option value=""> - Residential - </option>';
-//This is making the drop down menus
-for (polygon in polygonCoords) {
-	if (gpolygons[polygon].category == 'residential') {
-		residentialString = residentialString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
-	}
-}
-// document.getElementById("residential").innerHTML=residentialString;
-
-var recreationalString = '<option value=""> - Recreational - </option>';
-//This is making the drop down menus
-for (polygon in polygonCoords) {
-	if (gpolygons[polygon].category == 'recreational') {
-		recreationalString = recreationalString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
-	}
-}
-// document.getElementById("recreational").innerHTML=recreationalString;
-
-var sustainabilityString = '<option value=""> - Sustainability - </option>';
-//This is making the drop down menus
-for (marker in markerCoords) {
-	sustainabilityString = sustainabilityString + '<option value="' + gmarkers[marker].id + '">' + gmarkers[marker].polyName + '</option>' ;
-}
-// document.getElementById("sustainability").innerHTML=sustainabilityString;
-
-var parkingString = '<option value=""> - Parking - </option>';
-//This is making the drop down menus
-for (polygon in polygonCoords) {
-	if (gpolygons[polygon].category == 'parking') {
-		parkingString = parkingString + '<option value="' + gpolygons[polygon].id + '">' + gpolygons[polygon].polyName + '</option>' ;
-	}
-}
-// document.getElementById("parking").innerHTML=parkingString;
-
 
 
 function saveLocation(lat, long)
