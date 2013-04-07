@@ -7,4 +7,4 @@ function() {
 }, function() {
 	$('#tabs').toggle()
 	$('#map').toggleClass('extend-map');
-}, google.maps.event.trigger(maps,"resize"));
+}, google.maps.event.trigger(map,"resize"));
