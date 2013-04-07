@@ -110,7 +110,12 @@
                     <li><a href="#settings">settings</a></li>
                 </ul>
                 <div id="friends">
-                    <p>Where our friends section will be placed.</p>
+                
+                
+                
+                
+                
+                
                 </div>
                 <div id="plans">
                     <p>Where our plans section will be placed.</p>

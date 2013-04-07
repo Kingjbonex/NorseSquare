@@ -397,6 +397,7 @@ function errorFunction(position) {
 }
 
 function showFriends(data) {
+	document.getElementById("friends").innerHTML=data;
     for (var i = 0; i < myPosMarkers.length; i++ ) {
     	myPosMarkers[i].setMap(null);
     }
