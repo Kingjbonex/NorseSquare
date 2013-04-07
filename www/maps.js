@@ -93,7 +93,7 @@ google.maps.event.addListener(map, 'zoom_changed', function() {
 
 
 //Event called on Click event
-function mouseInfoWindow(event) {
+/*function mouseInfoWindow(event) {
 
   var contentString = "<b>"+this.polyName+"</b></br>";
   contentString += this.polyDesc + "</br>";
@@ -119,7 +119,7 @@ function mouseInfoWindow(event) {
   infowindow.setPosition(coords);
 
   infowindow.open(map);
-};
+};*/
 
 //Event called on selection event
 function showArrays(event) {
@@ -153,8 +153,8 @@ var lutherPolygon;
 for (polygon in polygonCoords) {
 	var name = polygonCoords[polygon][0];
 	var coords = polygonCoords[polygon][1];
-	var desc = polygonCoords[polygon][2];
-	var cat = polygonCoords[polygon][3];
+	//var desc = polygonCoords[polygon][2];
+	var cat = polygonCoords[polygon][2];
 	if (cat == "academic") tempColor = aColor;
 	if (cat == "recreational") tempColor = recColor;
 	if (cat == "residential") tempColor = resColor;
@@ -170,7 +170,7 @@ for (polygon in polygonCoords) {
 		fillColor: tempColor,
 		fillOpacity: 0.35,
 		polyName: name,
-		polyDesc: desc,
+		//polyDesc: desc,
 		category: cat,
 		id: polygon
 		
