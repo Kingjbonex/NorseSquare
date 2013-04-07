@@ -104,7 +104,7 @@
 					url:"./services/getPhoto.php",
 					data: {UID:gid},
 					async: false, 
-					success: fuction(data){
+					success: function(data){
 						if(!data){friendImage = 'http://maps.google.com/mapfiles/marker.png');}
 						else {friendImage = data};
 					}
