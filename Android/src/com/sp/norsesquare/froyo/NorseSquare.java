@@ -1,32 +1,21 @@
 package com.sp.norsesquare.froyo;
 
-import java.io.IOException;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -38,9 +27,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -76,13 +65,38 @@ public class NorseSquare extends FragmentActivity
     
     private ArrayList<MapMarker> storedMarkerList;
     
+    //Authentication variables
+    AccountManager mAccountManager;
+    String[] accountList;
+    
     //Get context for use in inner classes
     Context context = this;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
+       String lutherAccount = null;    	
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_relative_map);
+        
+        //Get accounts
+        accountList = getAccountNames();
+        
+        
+        //TODO Make a case that handles if there is no luther.edu account on the phone.
+        for (int i=0;i<accountList.length;i++)
+        {
+        	Log.i("AUTHTEST",accountList[i]);
+        	
+        	if (accountList[i].contains("@luther.edu"))
+        	{
+        		Log.i("AUTHTEST","Luther Account = " + accountList[i]);
+        		lutherAccount = accountList[i];
+        		i = accountList.length;
+        	}
+        	
+        }
         
         
         //Set up relevant services and listeners for GoogleMap
@@ -92,6 +106,22 @@ public class NorseSquare extends FragmentActivity
         
         setUpMap();
         Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
+        
+        AsyncTask<String, Void, String> logemail = new LoginAsyncTask(lutherAccount).execute();
+        try
+		{
+			String authentoken = logemail.get();
+			Log.i("RESPONSE","token = " +authentoken);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (ExecutionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
     }
 
@@ -228,6 +258,20 @@ public class NorseSquare extends FragmentActivity
     	releaseLocation = b;
     }
 
+    private String[] getAccountNames() 
+    {
+    	
+    	//Enumerate all Google accounts on a device
+        mAccountManager = AccountManager.get(this);
+        
+        Account[] accounts = mAccountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+        String[] names = new String[accounts.length];
+        for (int i = 0; i < names.length; i++) 
+        {
+            names[i] = accounts[i].name;
+        }
+        return names;
+    }
     
     //Functions for GoogleMap
     
@@ -294,21 +338,7 @@ public class NorseSquare extends FragmentActivity
     	updateLocation(coarseLocation);
     	
     }
-    
-    public void findAll(View v)
-    {
-       //Gets list of friends and places markers for all of them
-    	//TODO - Should we allow for persistent friend locations?
-    	
-    	/* For now, clear all friend locations before reloading from database */
-    	storedMarkerList.clear();
-    	
-    	/* Add all found friends to database */
-    	
-    	//Put all found friends in the map
-        placeStoredMarkers();
-    }
-    
+
     public void placeSingleMarker(View v,LatLng latlong)
     {
     	mMap.clear();
@@ -369,7 +399,7 @@ public class NorseSquare extends FragmentActivity
     //Listener classes for location management
     
 
-    public void pingURL(View w){
+    public void findAll(View w){
     	
     	AsyncTask<String, Void, HttpEntity> Task = new DatabaseTask().execute((String[])null);
     	try{
