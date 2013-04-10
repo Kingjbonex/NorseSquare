@@ -471,7 +471,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 			
 			Log.e("GOOGLEAUTH","UserRecoverableException Triggered");
 		    Intent recoveryIntent = recoverableException.getIntent();
-		    startActivity(recoveryIntent);
+		    startActivityForResult(recoveryIntent,1701);  //Return 1701 if activity for ameliorating action is started
 		     // Use the intent to create a Notification.
 		 } catch (GoogleAuthException authEx) {
 		     // This is likely unrecoverable.
