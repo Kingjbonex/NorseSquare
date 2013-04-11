@@ -57,10 +57,10 @@
         if (typeof window.janrain !== 'object') window.janrain = {};
         if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
         
-        janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
+        janrain.settings.tokenUrl = 'http://norsesquare.luther.edu/maps.php';//switch to internal server
     
 
-    janrain.settings.tokenUrl = 'http://norsesquare.internal.luther.edu/maps.php';//switch to internal server
+    janrain.settings.tokenUrl = 'http://norsesquare.luther.edu/maps.php';//switch to internal server
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
@@ -83,7 +83,43 @@
     s.parentNode.insertBefore(e, s);
 
     //Calling function to create new user
-    if(email != "") {var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});}
+    if(email != "") {
+		var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
+		jQuery.get("./services/users.php", {page:'1'}, function(data){
+			
+			var friendsData = "";
+			var xml = data,
+			xmlDoc = $.parseXML( xml ),
+			$xml = $( xmlDoc ),
+			$person = $xml.find( "response person" ).each(
+				function(){
+					var friendImage;
+					var fname = $(this).find("fname").text(),
+					lname = $(this).find("lname").text(),
+					uid = $(this).find("uid").text(),
+					gid = $(this).find("googleid").text();
+					console.log(gid);
+					jQuery.ajax({
+						type: "GET",
+						url:"./services/getPhoto.php",
+						data: {UID:gid},
+						async: false, 
+						success: function(data){
+							if(!data){friendImage = './imageThumb.gif'}
+							else {friendImage = data};
+						}
+					});
+					
+					friendsData = friendsData + "<img src='" + friendImage + "' style='width:50px;height:50px;'>" + " " + fname + " " + lname + "</br>";
+
+				}
+			);
+			document.getElementById("friends").innerHTML=friendsData;
+					
+		}, 'text');				
+
+	}
+
 })();
 </script>
 
@@ -98,16 +134,24 @@
             <div id="personalStatus">
             	<!--picture, fname, lname, position-->
             </div>
-        	
+            
+        	<div class="toggleBut">
+            	<button>Toggle</button>
+            </div>
+            
         	<div id="tabs">
-            <button>Toggle</button> 
             	<ul>
                 	<li><a href="#friends">friends</a></li>
                     <li><a href="#plans">plans</a></li>
                     <li><a href="#settings">settings</a></li>
                 </ul>
                 <div id="friends">
-                    <p>Where our friends section will be placed.</p>
+                
+                
+                
+                
+                
+                
                 </div>
                 <div id="plans">
                     <p>Where our plans section will be placed.</p>
@@ -125,12 +169,11 @@
 </body> 
 
    <script type="text/javascript" src="jquery-ui.js"></script>
-   <script type="text/javascript" src="ui.js"></script>
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-   <script type="text/javascript" src="markers.js"> </script>
    <script type="text/javascript" src="polygons.js"> </script>
    <script type="text/javascript" src="mapStyles.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
+   <script type="text/javascript" src="ui.js"></script>
 </html>
 
 <?php 
