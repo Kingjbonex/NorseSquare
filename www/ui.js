@@ -3,7 +3,7 @@ $('#tabs').tabs();
 $('button').click(
 
 	function() {
-		var butt = document.getElementById("toggleBut");
+		var butt = document.getElementById("toggleButText");
 		if (butt.value==">>") butt.value = "<<";
 		else butt.value = ">>";
 	},
