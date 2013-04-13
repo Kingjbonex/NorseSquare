@@ -3,6 +3,12 @@ $('#tabs').tabs();
 $('button').click(
 
 	function() {
+		var butt = document.getElementById("toggleBut");
+		if (butt.value==">>") butt.value = "<<";
+		else butt.value = ">>";
+	},
+
+	function() {
 		$('#map').toggle();
 		google.maps.event.trigger(map, 'resize');
 		map.setZoom( map.getZoom() );
