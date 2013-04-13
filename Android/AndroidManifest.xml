@@ -16,13 +16,14 @@
     
     
     <!-- Permissions for Google Maps -->
-    <!-- API key for Maps 2.0 can only be used with one certificate at a time, 
-    makes sure to put in your own API key for the compiling certificate before running -->
     
     <uses-permission android:name="com.sp.norsesquare.froyo.permission.MAPS_RECEIVE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"  />
+    
+    <!-- Permissions for OAuth2.0 Google+ API -->
+    <uses-permission android:name="com.norsesquare.froyo.permission.ACCOUNT_MANAGER" />
     
     <!-- App specific permissions for allowing NS to be used as intent receiver -->
     <permission
@@ -43,6 +44,7 @@
         <meta-data
            android:name="com.google.android.maps.v2.API_KEY"
            android:value="AIzaSyC5XS4dHik_4KpOLiIgj7opMxhtWtlkYqU" />
+        
         <activity
             android:name="NorseSquare"
             android:label="@string/title_activity_norse_square" >
