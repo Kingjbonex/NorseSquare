@@ -48,7 +48,7 @@
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
-	<link rel="stylesheet" type="text/css" href="css/no-theme/jquery-ui-1.10.2.custom.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.2.custom.min" />
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
 	<title>NorseSquare</title> 
 	<script type="text/javascript" src="jquery.js"></script>
@@ -110,11 +110,11 @@
 						}
 					});
 					
-					friendsData = friendsData + "<img src='" + friendImage + "' style='width:50px;height:50px;'>" + " " + fname + " " + lname + "</br>";
-
+					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div></div>');
+					
 				}
 			);
-			document.getElementById("friends").innerHTML=friendsData;
+
 					
 		}, 'text');				
 
@@ -136,23 +136,18 @@
             </div>
             
         	<div class="toggleBut">
-            	<button id="toggleButText">>></button>
+            	<button id="toggleButText">><br>></button>
             </div>
             
         	<div id="tabs">
             	<ul>
-                	<li><a href="#friends">friends</a></li>
-                    <li><a href="#plans">plans</a></li>
-                    <li><a href="#settings">settings</a></li>
+                	<li><a href="#friends">Friends</a></li>
+                    <li><a href="#plans">Plans</a></li>
+                    <li><a href="#settings">Settings</a></li>
                 </ul>
                 <div id="friends">
                 
-                
-                
-                
-                
-                
-                </div>
+                </div><!-- friends -->  
                 <div id="plans">
                     <p>Where our plans section will be placed.</p>
                 </div>
@@ -167,6 +162,18 @@
      
     </div><!--mainDiv-->
 </body> 
+
+   <script type="text/javascript">
+   $('#toggleButText').click(function() {
+	   
+	   $('<div class="list-item">\
+							<div class="list-item-main">\
+								<div class="profile-image"><img src="' + friendImage + '"></div>\
+								<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>\
+							</div>\<div class="right-icon"><img src="x.jpg"></div>\</div>').appendTo('friends');
+   });
+   
+   </script>
 
    <script type="text/javascript" src="jquery-ui.js"></script>
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
