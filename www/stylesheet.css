@@ -4,7 +4,7 @@
 
 /* ----- GLOBAL STYLES ----- */
 body {
-	background-color:#95c39a;
+	background-color:#b9b9bb;
 	width:100%;
 	min-height:90%;
 	font-size:12px;
@@ -13,7 +13,7 @@ body {
 }
 
 #mainPageContainer {
-	background-color:#208e22;
+	background-color:#8c8d8f;
 	width:98%;
 	min-height:80%;
 	margin: 0 1% 1% 1%;
