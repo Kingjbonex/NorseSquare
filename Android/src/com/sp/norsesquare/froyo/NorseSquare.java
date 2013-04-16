@@ -1,5 +1,6 @@
 package com.sp.norsesquare.froyo;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,6 +18,7 @@ import org.xml.sax.InputSource;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,10 +29,12 @@ import android.util.Log;
 
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
 import android.view.View;
 
 
 import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -71,6 +75,7 @@ public class NorseSquare extends NSBaseActivity
     //Authentication variables
     AccountManager mAccountManager;
     String[] accountList;
+    String googleAuthToken;
     
     //Get context for use in inner classes
     Context context = this;
@@ -82,13 +87,14 @@ public class NorseSquare extends NSBaseActivity
     @Override
 	public void onCreate(Bundle savedInstanceState) 
     {
-        String lutherAccount = null;    	
+       String lutherAccount = "";    	
     	
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_relative_map);
         setSlidingActionBarEnabled(true);
         //Get accounts
+        AccountManager accountManager = AccountManager.get(this);
         accountList = getAccountNames();
         super.setUpSlidingMenu();
 
@@ -97,16 +103,21 @@ public class NorseSquare extends NSBaseActivity
         //TODO Make a case that handles if there is no luther.edu account on the phone.
         for (int i=0;i<accountList.length;i++)
         {
-        	Log.i("AUTHTEST",accountList[i]);
+        	Log.i("GOOGLEAUTH",accountList[i]);
         	
         	if (accountList[i].contains("@luther.edu"))
         	{
-        		Log.i("AUTHTEST","Luther Account = " + accountList[i]);
+        		Log.i("GOOGLEAUTH","Luther Account = " + accountList[i]);
         		lutherAccount = accountList[i];
         		i = accountList.length;
         	}
         	
         }
+        
+       //Get authToken for luther.edu account 
+       new LoginAsyncTask(lutherAccount,this).execute();
+       Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);
+       
         
         
         //Set up relevant services and listeners for GoogleMap
@@ -116,6 +127,7 @@ public class NorseSquare extends NSBaseActivity
         
         setUpMap();
         Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
+    }
         //TODO Uncomment this and figure out why LoginAsyncTask isn't resolved, etc.
 //        AsyncTask<String, Void, String> logemail = new LoginAsyncTask(lutherAccount).execute();
 //        try
@@ -133,8 +145,6 @@ public class NorseSquare extends NSBaseActivity
 //			e.printStackTrace();
 //		}
         
-        Log.i(TAG, "OnCreate");
-    }
 
     @Override
     protected void onResume() 
@@ -452,5 +462,83 @@ public class NorseSquare extends NSBaseActivity
     	}
     	
     }
+
+
+
+
+/*Class to allow for background database calls to be made in alternate threads */
+public class LoginAsyncTask extends AsyncTask<String, Void, String>
+{
+	String lutherEmail;
+	String mScope;
+	String authToken;
+	Context context;
+	Bundle bundle;
+	
+	public LoginAsyncTask(String le,Context c)
+	{
+
+		lutherEmail = le;
+		context = c;
+		bundle = new Bundle();
+	}
+	
+	protected void onPreExecute()
+	{
+		Log.i("BEGIN","Getting authtoken");
+	}
+	
+	protected String doInBackground(String... args)
+	{
+		try 
+		{
+			authToken = GoogleAuthUtil.getToken(context, lutherEmail, "oauth2:"+"https://www.googleapis.com/auth/userinfo.profile", bundle);
+			Log.i("MESSAGEGEGEGE","YOUR TOKEN = "+authToken);
+			
+		}
+		catch (UserRecoverableAuthException recoverableException) {
+			
+			Log.e("GOOGLEAUTH","UserRecoverableException Triggered");
+		    Intent recoveryIntent = recoverableException.getIntent();
+		    startActivityForResult(recoveryIntent,1701);  //Return 1701 if activity for ameliorating action is started
+		     // Use the intent to create a Notification.
+		 } catch (GoogleAuthException authEx) {
+		     // This is likely unrecoverable.
+		     Log.e("MESSAAGEGEG", "Unrecoverable authentication exception: " + authEx.getMessage(), authEx);
+		 } catch (IOException ioEx) {
+		     Log.i("MESSAGEGEGE", "transient error encountered: " + ioEx.getMessage());
+		     //doExponentialBackoff();
+		 }
+	       catch (Exception e) {
+	    	   e.printStackTrace();
+	       }
+		return authToken;
+	}
+	
+	protected void onProgressUpdate(Integer... progress)
+	{
+		Log.i("PROGRESS","Getting somewhere");
+    }
+	
+	protected void onPostExecute(String result) 
+	{
+		
+        Log.i("GOOGLEAUTH", "Returning Received Google Token");
+        googleAuthToken = result;
+       
+    }
+
+
+	
+	
+	
 }
+
+}
+
+
+
+
+
+
  
