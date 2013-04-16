@@ -136,7 +136,7 @@
             </div>
             
         	<div class="toggleBut">
-            	<button id="toggleButText">>></button>
+            	<button id="toggleButText">><br>></button>
             </div>
             
         	<div id="tabs">

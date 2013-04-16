@@ -28,7 +28,7 @@ body {
 
 #norseSquareLogo {
 	float:left;
-	margin:30px 0px 0px 70px;
+	margin:25px 0px 0px 70px;
 	clear:both;
 }
 
@@ -54,6 +54,8 @@ body {
 /* ----- TAB STYLES ----- */
 #tabs {
 	width: 25%;
+	min-height: 82%;
+	max-height: 82%;
 	padding:0 25px 25px 0;
 	float: right;
 	border-style:solid;
