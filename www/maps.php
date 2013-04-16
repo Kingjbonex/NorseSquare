@@ -48,7 +48,7 @@
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
-	<link rel="stylesheet" type="text/css" href="css/no-theme/jquery-ui-1.10.2.custom.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.2.custom.min" />
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
 	<title>NorseSquare</title> 
 	<script type="text/javascript" src="jquery.js"></script>
@@ -141,9 +141,9 @@
             
         	<div id="tabs">
             	<ul>
-                	<li><a href="#friends">friends</a></li>
-                    <li><a href="#plans">plans</a></li>
-                    <li><a href="#settings">settings</a></li>
+                	<li><a href="#friends">Friends</a></li>
+                    <li><a href="#plans">Plans</a></li>
+                    <li><a href="#settings">Settings</a></li>
                 </ul>
                 <div id="friends">
                 
