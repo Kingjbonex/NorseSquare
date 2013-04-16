@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="slidingMenuContents">
+        <item>Get Location From Wifi</item>
+        <item>Find All</item>
+        <item>More</item>
+		<item>Menu</item>
+		<item>Items</item>
+		<item>More</item>
+		<item>Menu</item>
+		<item>Items</item>
+		
+    </string-array>
+    
+</resources>

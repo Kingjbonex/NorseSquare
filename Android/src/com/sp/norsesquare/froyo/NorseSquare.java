@@ -26,13 +26,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
-import android.view.View;
-
-
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.maps.CameraUpdate;
@@ -127,24 +125,10 @@ public class NorseSquare extends NSBaseActivity
         
         setUpMap();
         Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
-    }
-        //TODO Uncomment this and figure out why LoginAsyncTask isn't resolved, etc.
-//        AsyncTask<String, Void, String> logemail = new LoginAsyncTask(lutherAccount).execute();
-//        try
-//		{
-//			String authentoken = logemail.get();
-//			Log.i("RESPONSE","token = " +authentoken);
-//		} catch (InterruptedException e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			
-//		} catch (ExecutionException e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+    
         
+        Log.i(TAG, "OnCreate");
+    }
 
     @Override
     protected void onResume() 
@@ -434,7 +418,7 @@ public class NorseSquare extends NSBaseActivity
             DocumentBuilder db = factory.newDocumentBuilder();
             InputSource inStream = new InputSource();
             inStream.setCharacterStream(new StringReader(xmlString));
-            Document doc = db.parse(inStream);  
+            Document doc = db.parse(inStream);
 
             String playcount = "empty";
             NodeList nlist = doc.getElementsByTagName("person");
@@ -457,7 +441,7 @@ public class NorseSquare extends NSBaseActivity
         	placeStoredMarkers();
             
     	}
-    	catch(Exception e){
+    	catch(Exception e) {
     		Log.i("ERROR", "error in response answer");
     	}
     	
