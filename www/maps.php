@@ -114,7 +114,8 @@
 						<div class="list-item-main">\
 							<div class="profile-image"><img src="' + friendImage + '"></div>\
 							<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>\
-						</div>\<div class="right-icon"><img src="x.jpg"></div>\</div>').appendTo('friends');
+						</div>\
+						</div>').appendTo('friends');
 				}
 			);
 
@@ -149,25 +150,7 @@
                     <li><a href="#settings">Settings</a></li>
                 </ul>
                 <div id="friends">
-
-                    <div class="list-item">
-                        <div class="list-item-main">
-                            <div class="profile-image">
-                                <img src="x.jpg">
-                            </div><!-- profile-image -->
-                        
-                            <div class="list-item-text">
-                                <span class="name">
-                                    James Penning
-                                </span><!-- name -->
-                            </div><!-- list-item-text"-->
-                        </div><!-- list-item-main -->
-                        
-                        <div class="right-icon">
-                        	<img src="x.png">
-                        </div><!-- right-icon -->
-                        
-                	</div><!-- list-item -->                   
+                
                 </div><!-- friends -->  
                 <div id="plans">
                     <p>Where our plans section will be placed.</p>
