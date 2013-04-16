@@ -37,9 +37,7 @@ body {
 	width: 70%;
 	height: 600px; 
 	float:left;
-	padding:0 0 25px 25px;
-	border-style:solid;
-	border-color: 1f1ffd;	
+	padding:0 0 25px 25px;	
 }
 .toggleBut button {
 	float:right;
@@ -57,10 +55,7 @@ body {
 	min-height: 82%;
 	max-height: 82%;
 	padding:0 25px 25px 0;
-	float: right;
-	border-style:solid;
-	border-color: 1f1ffd;
-	collapsible: true;	
+	float: right;	
 }
 .profile-image img {
 	width: 50px;
