@@ -110,12 +110,7 @@
 						}
 					});
 					
-					$('<div class="list-item">\
-						<div class="profile-image"><img src="' + friendImage + '"></div>\
-						<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>\
-						</div>').appendTo('.friends');
-					$('#friends').append('<div class="list-item-text"><span class="name">'+ fname + lname + '</span>
-						</div>');
+					$('#friends').append('<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>');
 				}
 			);
 
