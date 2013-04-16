@@ -60,7 +60,7 @@ body {
 	border-color: 1f1ffd;
 	collapsible: true;	
 }
-.profile-image {
+.profile-image img {
 	width: 50px;
 	height: 50px;
 		
