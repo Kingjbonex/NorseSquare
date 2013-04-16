@@ -1,0 +1,96 @@
+package com.sp.norsesquare.froyo;
+
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockListFragment;
+//import com.actionbarsherlock.view.*;
+
+public class SlideList extends SherlockListFragment {
+	
+	private final String TAG = "Sliding Menu Fragment";
+	
+	ListView listView;
+	
+	String[] listCont;
+	
+	Context context;
+	
+	String[] list_contents = {
+			"Poop",
+			"item 2",
+			"item 3",
+			"item 4",
+			"item 5"
+	};
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		listView  = (ListView) inflater.inflate(R.layout.list, container, false);
+		
+		return listView;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		context = getActivity();
+		
+		listCont = context.getResources().getStringArray(R.array.slidingMenuContents);
+		
+		//for args 2 and 3 of this arrayadapter -- R.layout.list_view_row, R.id.listText
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),  R.layout.list_view_row, R.id.listText, listCont);
+		
+		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener(new ListClickHandler());
+		
+		
+		
+		
+	}
+	private class ListClickHandler implements OnItemClickListener
+	{
+
+		@Override
+		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) 
+		{
+			TextView listText = (TextView) view.findViewById(R.id.listText);
+			Intent intent;
+			String text = listText.getText().toString();
+			
+//			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
+//			switch (position)
+//			{			
+//			case 0:
+//				Log.i(TAG, text + " Clicked");
+//
+//				intent = new Intent(context, NewActivity.class);
+//				startActivity(intent);
+//
+//				break;
+//			
+//			case 1:
+//				Log.i(TAG, text + " Clicked");
+//				intent = new Intent(context, FragmentSwap.class);
+//				startActivity(intent);
+//				break;
+//			
+//			default:
+//				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
+//			}
+		}
+		
+	}
+
+}

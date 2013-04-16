@@ -26,9 +26,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
@@ -52,7 +51,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * installed/enabled/updated on a user's device.
  */
 
-public class NorseSquare extends FragmentActivity 
+public class NorseSquare extends NSBaseActivity
 {
     /**
      * Note that this may be null if the Google Play services APK is not available.
@@ -63,8 +62,10 @@ public class NorseSquare extends FragmentActivity
     boolean releaseLocation;
     private LocationManager locationManager;
     private LatLng currentLocation;
+    private final String TAG = "Main NorseSquare Activity";
     
     public LocationListener locationListener;
+    
     
     
     private ArrayList<MapMarker> storedMarkerList;
@@ -76,19 +77,25 @@ public class NorseSquare extends FragmentActivity
     
     //Get context for use in inner classes
     Context context = this;
+    public NorseSquare()
+	{
+		super(R.string.app_name);
+	}
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) 
+	public void onCreate(Bundle savedInstanceState) 
     {
        String lutherAccount = "";    	
     	
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.layout_relative_map);
-        
-        
+        setSlidingActionBarEnabled(true);
         //Get accounts
         AccountManager accountManager = AccountManager.get(this);
         accountList = getAccountNames();
+        super.setUpSlidingMenu();
+
         
         
         //TODO Make a case that handles if there is no luther.edu account on the phone.
@@ -118,8 +125,10 @@ public class NorseSquare extends FragmentActivity
         
         setUpMap();
         Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
-    }
+    
         
+        Log.i(TAG, "OnCreate");
+    }
 
     @Override
     protected void onResume() 
@@ -129,73 +138,100 @@ public class NorseSquare extends FragmentActivity
         //Get location manager
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         setUpMap();
+        Log.i(TAG, "OnResume");
     }
     
+
+	
     
-  public void onStart()
-  {
-	  //Get location manager, check if wifi and gps are enabled.
-	  
-  	super.onStart();
-  	
-  	// obtain location manager at restart of activity
-  	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-  	
-  	//TODO - Determine why all providers are seen as true, all the time
-  	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-  	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-  	
-  	
-  	locationListener = new LocationListener() 
-  	{
-  		
-  		
-  		public void onLocationChanged(Location location) 
-  		{
-  			// Called when a new location is found by the network location provider.
-  			//TODO - Find how often this is called, determine if it is too frequent.
-  			updateLocation(location);
-  			Toast.makeText(context, "Location is being updated", Toast.LENGTH_SHORT).show();
-  		}
-  	
+    @Override
+	public void onStart()
+	{
+		  //Get location manager, check if wifi and gps are enabled.
+		  
+	  	super.onStart();
 
-  		@Override
-  		public void onProviderDisabled(String arg0)
-  		{
-  			// TODO Auto-generated method stub
+	  	// obtain location manager at restart of activity
+	  	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+	  	
+	  	//TODO - Determine why all providers are seen as true, all the time
+	  	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+	  	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+	  	
+	  	
+		locationListener = new LocationListener() 
+		{
 		
-  		}
-
-  		@Override
-  		public void onProviderEnabled(String arg0)
-  		{
-  			// TODO Auto-generated method stub
 		
-  		}
-
-  		@Override
-  		public void onStatusChanged(String arg0, int arg1, Bundle arg2)
-  		{
-  			// TODO Auto-generated method stub
+			public void onLocationChanged(Location location) 
+			{
+				// Called when a new location is found by the network location provider.
+				//TODO - Find how often this is called, determine if it is too frequent.
+				updateLocation(location);
+				Toast.makeText(context, "Location is being updated", Toast.LENGTH_SHORT).show();
+			}
 		
-  		}
-  		
-  	};
+		
+			@Override
+			public void onProviderDisabled(String arg0)
+			{
+				// TODO Auto-generated method stub
+			
+			}
+		
+			@Override
+			public void onProviderEnabled(String arg0)
+			{
+				// TODO Auto-generated method stub
+			
+			}
+		
+			@Override
+			public void onStatusChanged(String arg0, int arg1, Bundle arg2)
+			{
+				// TODO Auto-generated method stub
+			
+			}
+	  		
+		};
   	
-  	//TODO - Add dialogfragment to force user to enable the given provider.
-  	if (!wifiEnabled)
-  	{
-  		Toast.makeText(this, "Wifi is not enabled", Toast.LENGTH_LONG).show();
-  		System.exit(0);
-  	}
-  	
-  	if (!gpsEnabled)
-  	{
-  		//put alert box here, for now exit
-  		//System.exit(0);
-  	}
-
-  }
+	  	//TODO - Add dialogfragment to force user to enable the given provider.
+	  	if (!wifiEnabled)
+	  	{
+	  		Toast.makeText(this, "Wifi is not enabled", Toast.LENGTH_LONG).show();
+	  		System.exit(0);
+	  	}
+	  	
+	  	if (!gpsEnabled)
+	  	{
+	  		//put alert box here, for now exit
+	  		//System.exit(0);
+	  	}
+	  	Log.i(TAG, "OnStart");
+	}
+	
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		Log.i(TAG, "OnPause");
+	
+	}
+	
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+		Log.i(TAG, "OnStop");
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		Log.i(TAG, "OnDestroy");
+	}
+	
     
    /*Functions for options menus*/  
   
@@ -210,44 +246,21 @@ public class NorseSquare extends FragmentActivity
   
    
     
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
-    	//TODO - Figure out why the ********** this won't work
-    	getMenuInflater().inflate(R.menu.menu_main_settings, menu);
-    	return true;
-    }
-    
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) 
-        {
-            case R.id.menu_settings_reveal_location:
-                if (item.isChecked())
-                {
-                	setReleaseLocation(false);
-                	item.setChecked(false);
-                }
-                else
-                {
-                	setReleaseLocation(true);
-                	item.setChecked(true);
-                }
-                return true;
-            case R.id.menu_settings_david_duba:
-            {
-            	if (item.isChecked())
-            	{
-            		Toast toast = Toast.makeText(this, "Hi Duba!!!", Toast.LENGTH_LONG);
-            		toast.show();
-            	}
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu)
+//    {
+//    	super.onPrepareOptionsMenu(menu);
+////    	//TODO - Figure out why the ********** this won't work
+////    	getMenuInflater().inflate(R.menu.menu_main_settings, menu);
+////    	return true;
+//    }
+//    
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//    	super.onOptionsItemSelected(item);
+//    }
+
     
     public void setReleaseLocation(boolean b)
     {
@@ -271,10 +284,10 @@ public class NorseSquare extends FragmentActivity
     
     //Functions for GoogleMap
     
-    private void setUpMap() 
+    void setUpMap()
     {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) 
+        if (mMap == null)
         {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.main_map)).getMap();
@@ -405,7 +418,7 @@ public class NorseSquare extends FragmentActivity
             DocumentBuilder db = factory.newDocumentBuilder();
             InputSource inStream = new InputSource();
             inStream.setCharacterStream(new StringReader(xmlString));
-            Document doc = db.parse(inStream);  
+            Document doc = db.parse(inStream);
 
             String playcount = "empty";
             NodeList nlist = doc.getElementsByTagName("person");
@@ -428,7 +441,7 @@ public class NorseSquare extends FragmentActivity
         	placeStoredMarkers();
             
     	}
-    	catch(Exception e){
+    	catch(Exception e) {
     		Log.i("ERROR", "error in response answer");
     	}
     	

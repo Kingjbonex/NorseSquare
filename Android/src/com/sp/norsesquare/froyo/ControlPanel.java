@@ -1,5 +1,7 @@
 package com.sp.norsesquare.froyo;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.GestureDetector;
@@ -16,7 +18,7 @@ import static android.view.View.*;
 /*UI interface class to allow user interaction with critical map functions. Will be able to be hidden on offscreen swipe */
 
 
-public class ControlPanel extends Fragment implements OnGestureListener
+public class ControlPanel extends SherlockFragment implements OnGestureListener
 {
 	//Main Activity references
 	NorseSquare ns;
