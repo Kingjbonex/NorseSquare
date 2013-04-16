@@ -111,11 +111,10 @@
 					});
 					
 					$('<div class="list-item">\
-						<div class="list-item-main">\
-							<div class="profile-image"><img src="' + friendImage + '"></div>\
-							<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>\
-						</div>\
+						<div class="profile-image"><img src="' + friendImage + '"></div>\
+						<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>\
 						</div>').appendTo('friends');
+					$('<div>TESTTESTTEST</div>').appendTo('friends');
 				}
 			);
 
