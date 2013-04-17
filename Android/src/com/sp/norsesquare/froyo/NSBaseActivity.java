@@ -1,18 +1,19 @@
 package com.sp.norsesquare.froyo;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -23,11 +24,15 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 	//declaration of the upper class for callbacks or whatevs in onOptionsItemSelected
 	NorseSquare ns;
 	
+	private boolean visible = true;
+	
 	//gotta have it private first (right?)
 	private int mTitleRes;
 	protected ListFragment mFrag;
 	
 	private final String TAG = "Base Activity";
+	
+    
 	
 	
 	public NSBaseActivity(int titleRes)
@@ -111,10 +116,23 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+    	View mapFrag = (View) findViewById(R.id.main_map);
         switch (item.getItemId()) 
         {
 			case android.R.id.home:
 				toggle();
+				
+//				if (visible==true)
+//				{
+//					visible = false;
+//					
+//					mapFrag.setVisibility(INVISIBLE);
+//				}
+//				else
+//				{
+//					visible = true;
+//					mapFrag.setVisibility(VISIBLE);
+//				}
 				Log.i(TAG, "Sliding menu Clicked");
 				return true;
             case R.id.menu_settings_reveal_location:
@@ -122,7 +140,6 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
                 {
                 	ns.setReleaseLocation(false);
                 	item.setChecked(false);
-                	
                 }
                 else
                 {

@@ -85,7 +85,7 @@ public class NorseSquare extends NSBaseActivity
     @Override
 	public void onCreate(Bundle savedInstanceState) 
     {
-       String lutherAccount = "";    	
+        String lutherAccount = "";    	
     	
         super.onCreate(savedInstanceState);
 
@@ -410,10 +410,9 @@ public class NorseSquare extends NSBaseActivity
 
     public void findAll(View w){
     	
-    	AsyncTask<String, Void, HttpEntity> Task = new DatabaseTask().execute((String[])null);
+    	AsyncTask<String, Void, String> Task = new DatabaseTask().execute((String[])null);
     	try{
-    		HttpEntity Hentity = Task.get();
-    		String xmlString = EntityUtils.toString(Hentity);
+    		String xmlString = Task.get();
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = factory.newDocumentBuilder();
             InputSource inStream = new InputSource();

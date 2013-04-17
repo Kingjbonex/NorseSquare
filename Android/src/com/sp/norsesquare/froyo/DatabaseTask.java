@@ -21,7 +21,7 @@ import android.view.View;
 
 
 /*Class to allow for backround database calls to be made in alternate threads */
-public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
+public class DatabaseTask extends AsyncTask<String, Void, String>
 {
 
 	/**
@@ -33,7 +33,7 @@ public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
 	}
 	
 	@Override
-	protected HttpEntity doInBackground(String... args)
+	protected String doInBackground(String... args)
 	{
 		// TODO Add database calls, differentiation.
 	    	try {
@@ -50,7 +50,7 @@ public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
 	            if (resEntity != null) {    
 	                //Log.i("RESPONSE",EntityUtils.toString(resEntity));
 	                Log.i("DEBUG","Debugging, are you there??");
-	                return resEntity;
+	                return EntityUtils.toString(resEntity);
 	            }
 	            
 	        } catch (Exception e) {
