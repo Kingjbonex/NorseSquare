@@ -13,6 +13,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.slidingmenu.lib.SlidingMenu;
+import com.slidingmenu.lib.app.SlidingFragmentActivity;
+
 
 import com.actionbarsherlock.app.SherlockListFragment;
 //import com.actionbarsherlock.view.*;
@@ -20,6 +25,8 @@ import com.actionbarsherlock.app.SherlockListFragment;
 public class SlideList extends SherlockListFragment {
 	
 	private final String TAG = "Sliding Menu Fragment";
+	
+	NorseSquare ns;
 	
 	ListView listView;
 	
@@ -69,28 +76,37 @@ public class SlideList extends SherlockListFragment {
 			Intent intent;
 			String text = listText.getText().toString();
 			
-//			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
-//			switch (position)
-//			{			
-//			case 0:
-//				Log.i(TAG, text + " Clicked");
-//
+			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
+			switch (position)
+			{			
+			case 0:
+				Log.i(TAG, text + " Clicked");
+//				wifiLocate();
+				Log.e(TAG, view.toString());
+//				getSlidingMenu().toggle();
 //				intent = new Intent(context, NewActivity.class);
 //				startActivity(intent);
-//
-//				break;
-//			
-//			case 1:
-//				Log.i(TAG, text + " Clicked");
+
+				break;
+			
+			case 1:
+				Log.i(TAG, text + " Clicked");
+				
+				ns.wifiLocate(listView);
 //				intent = new Intent(context, FragmentSwap.class);
 //				startActivity(intent);
-//				break;
-//			
-//			default:
-//				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
-//			}
+				break;
+			
+			default:
+				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
+			}
 		}
 		
+	}
+	public void wifiLocate(View view)
+	{
+		//Call method from main activity
+	    ns.wifiLocate(view);
 	}
 
 }
