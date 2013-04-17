@@ -1,12 +1,6 @@
 $('#tabs').tabs();
 
-$('button').click(
-
-	/*function() {
-		var butt = document.getElementById("toggleButText");
-		if (butt.innerHTML == "&gt;&gt;") butt.innerHTML = "&lt;&lt;";
-		else butt.innerHTML = "&gt;&gt;";
-	},*/
+$('#toggleButText').click(
 
 	function() {
 		$('#map').toggle();
@@ -21,3 +15,11 @@ $('button').click(
 		map.setZoom( map.getZoom() );
 	}
 );
+
+$('#toggleButText').click(function() {
+	
+		var butt = document.getElementById("toggleButText");
+		if (butt.innerHTML == "&gt;<br>&gt;") butt.innerHTML = "&lt;<br>&lt;";
+		else butt.innerHTML = "&gt;<br>&gt;";
+		
+});

@@ -4,7 +4,7 @@
 
 /* ----- GLOBAL STYLES ----- */
 body {
-	background-color:#95c39a;
+	background-color:#b9b9bb;
 	width:100%;
 	min-height:90%;
 	font-size:12px;
@@ -13,7 +13,7 @@ body {
 }
 
 #mainPageContainer {
-	background-color:#208e22;
+	background-color:#8c8d8f;
 	width:98%;
 	min-height:80%;
 	margin: 0 1% 1% 1%;
@@ -28,7 +28,7 @@ body {
 
 #norseSquareLogo {
 	float:left;
-	margin:30px 0px 0px 70px;
+	margin:25px 0px 0px 70px;
 	clear:both;
 }
 
@@ -37,24 +37,28 @@ body {
 	width: 70%;
 	height: 600px; 
 	float:left;
-	padding:0 0 25px 25px;
-	border-style:solid;
-	border-color: 1f1ffd;	
-}
-#tabs {
-	width: 25%;
-	padding:0 25px 25px 0;
-	float: right;
-	border-style:solid;
-	border-color: 1f1ffd;
-	collapsible: true;	
+	padding:0 0 25px 25px;	
 }
 .toggleBut button {
 	float:right;
-	width: 2%;
+	width: 1%;
 	height: 85%;
 		
 }
 .extend-map {
-	width: 98%;
+	width: 99%;
+}
+
+/* ----- TAB STYLES ----- */
+#tabs {
+	width: 25%;
+	min-height: 82%;
+	max-height: 82%;
+	padding:0 25px 25px 0;
+	float: right;	
+}
+.profile-image img {
+	width: 50px;
+	height: 50px;
+		
 }
