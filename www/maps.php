@@ -163,18 +163,6 @@
     </div><!--mainDiv-->
 </body> 
 
-   <script type="text/javascript">
-   $('#toggleButText').click(function() {
-	   
-	   $('<div class="list-item">\
-							<div class="list-item-main">\
-								<div class="profile-image"><img src="' + friendImage + '"></div>\
-								<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>\
-							</div>\<div class="right-icon"><img src="x.jpg"></div>\</div>').appendTo('friends');
-   });
-   
-   </script>
-
    <script type="text/javascript" src="jquery-ui.js"></script>
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
    <script type="text/javascript" src="polygons.js"> </script>

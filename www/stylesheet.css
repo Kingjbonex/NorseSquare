@@ -19,7 +19,6 @@ body {
 	margin: 0 1% 1% 1%;
 	overflow:hidden;
 }
-
 /* ----- HEADER STYLES ----- */
 #header {
 	height:10%;
@@ -43,10 +42,11 @@ body {
 	float:right;
 	width: 1%;
 	height: 85%;
+	padding: 0;
 		
 }
 .extend-map {
-	width: 99%;
+	width: 98.9%;
 }
 
 /* ----- TAB STYLES ----- */
@@ -65,13 +65,15 @@ body {
 	left: 12px;
 		
 }
-.list-item{
+.list-item {
 	position:relative;
 	width:90%;
 	height:75px;
-	background-color:white;
-	border-bottom: 1px solid #e8e8e8;
-		
+	background-color:#fff;
+	border-bottom: 1px solid #e8e8e8;	
+}
+.list-item:hover {
+	background-color:#f7f7f7
 }
 .list-item-text .name {
 	position: absolute;
@@ -81,10 +83,9 @@ body {
 	font-weight: bold;
 	color: blue;
 }
-.right-icon {
+.right-button-icon {
 	position: absolute;
-	top: 25px;
+	top: 20px;
 	right: 25px;
-	border-radius: 2px;	
 }
 

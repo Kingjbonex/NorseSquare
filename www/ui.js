@@ -1,5 +1,23 @@
 $('#tabs').tabs();
 
+$(function() {
+	$('#icon-button').button({ 
+		icons: { 
+			primary: "ui-icon-circle-plus",
+		},
+	});
+
+});
+$(function() {
+	$('#toggleButText')
+	.button()
+	.click(function() {
+		var buttonText = $(".ui-button-text").html();
+		if (buttonText == "&gt;<br>&gt;") $(".ui-button-text").html("&lt;<br>&lt;");
+		else $(".ui-button-text").html("&gt;<br>&gt;");
+	});
+});
+
 $('#toggleButText').click(
 
 	function() {
@@ -15,11 +33,3 @@ $('#toggleButText').click(
 		map.setZoom( map.getZoom() );
 	}
 );
-
-$('#toggleButText').click(function() {
-	
-		var butt = document.getElementById("toggleButText");
-		if (butt.innerHTML == "&gt;<br>&gt;") butt.innerHTML = "&lt;<br>&lt;";
-		else butt.innerHTML = "&gt;<br>&gt;";
-		
-});
