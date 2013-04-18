@@ -73,6 +73,14 @@ body {
 	border-bottom: 1px solid #e8e8e8;
 		
 }
+.list-item-text .name {
+	position: absolute;
+	top: 25px;
+	left: 80px;
+	font-size: 20px;
+	font-weight: bold;
+	color: blue;
+}
 .right-icon {
 	position: absolute;
 	top: 25px;
