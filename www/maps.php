@@ -48,7 +48,7 @@
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
-	<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.2.custom.min" />
+	<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.2.custom.css" />
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
 	<title>NorseSquare</title> 
 	<script type="text/javascript" src="jquery.js"></script>
@@ -110,7 +110,7 @@
 						}
 					});
 					
-					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div></div>');
+					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><input type="button" id="icon-button" /></div></div>');
 					
 				}
 			);
