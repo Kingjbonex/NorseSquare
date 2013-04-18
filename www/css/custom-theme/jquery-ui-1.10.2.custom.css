@@ -217,7 +217,8 @@
 }
 /* button elements seem to need a little more width */
 button.ui-button-icon-only {
-	width: 2.4em;
+	width: 25px;
+	height: 25px;
 }
 .ui-button-icons-only {
 	width: 3.4em;
@@ -263,8 +264,7 @@ input.ui-button {
 .ui-button-text-icons .ui-icon,
 .ui-button-icons-only .ui-icon {
 	position: absolute;
-	top: 50%;
-	margin-top: -8px;
+	margin-top: -3px;
 }
 .ui-button-icon-only .ui-icon {
 	left: 50%;

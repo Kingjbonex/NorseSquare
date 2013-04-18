@@ -1,13 +1,12 @@
 $('#tabs').tabs();
 
 $(function() {
-	$('#icon-button').button({ 
-		icons: { 
-			primary: "ui-icon-circle-plus",
-		},
-	});
-
+    $( "#icon-button" ).button({
+        icons: { primary: "ui-icon-circle-plus" },
+        text: false
+    });      
 });
+
 $(function() {
 	$('#toggleButText')
 	.button()
