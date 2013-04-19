@@ -142,6 +142,18 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+	public void onConnected()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onDisconnected()
+	{
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }
