@@ -84,6 +84,7 @@
 
     //Calling function to create new user
     if(email != "") {
+
 		var data = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
 		var xml = data,
 		xmlDoc = $.parseXML( xml ),
@@ -96,8 +97,10 @@
 			long = $(this).find("longitude").text(),
 			time = $(this).find("time").text(),
 			gid = $(this).find("googleid").text(),
-			photo = $(this).find("photourl").text();}
-		alert(fname,lname,lat,long,time,gid,photo);
+			photo = $(this).find("photourl").text();
+		alert(fname,lname,lat,long,time,gid,photo);}
+
+		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
 			var friendsData = "";
