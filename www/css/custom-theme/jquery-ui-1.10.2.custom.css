@@ -748,9 +748,11 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tabs .ui-tabs-nav li a {
 	float: left;
-	padding: .5em 1em;
+	padding: .5em 0em .5em 0em;
 	text-decoration: none;
-	width:85%;
+	width: 100%;
+	outline: none;
+	text-align: center;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
