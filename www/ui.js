@@ -1,10 +1,10 @@
 $('#tabs').tabs();
 
 $(function() {
-    $( "#icon-button" ).button({
-        icons: { primary: "ui-icon-circle-plus" },
-        text: false
-    });      
+	$( ".icon-button" ).button({
+			icons: { primary: "ui-icon-circle-plus" },
+			text: false
+	});      
 });
 
 $(function() {
@@ -12,8 +12,8 @@ $(function() {
 	.button()
 	.click(function() {
 		var buttonText = $(".ui-button-text").html();
-		if (buttonText == "&gt;<br>&gt;") $(".ui-button-text").html("&lt;<br>&lt;");
-		else $(".ui-button-text").html("&gt;<br>&gt;");
+		if (buttonText == "&lt;<br>&lt;") $(".ui-button-text").html("&gt;<br>&gt;");
+		else $(".ui-button-text").html("&lt;<br>&lt;");
 	});
 });
 
