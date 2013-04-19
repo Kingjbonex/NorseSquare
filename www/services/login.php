@@ -28,6 +28,22 @@ $result = mysql_query($Query,$connection);
 
 $Query = 'SELECT uid,fname,lname,photourl,latitude,longitude FROM users WHERE users.username="'.$email.'"';
 $result = mysql_query($Query,$connection);
-echo mysql_result($result, 0);
+
+$gotarray = mysql_fetch_array($result);
+header('Content-type:text/xml');
+echo '<response>';
+while($gotarray){
+	echo '<person>';
+	foreach($gotarray as $index => $userinfo) {
+		if(!is_numeric($index)){
+			echo '<',$index, '>';
+			echo $userinfo;
+			echo '</',$index,'>';
+		}
+	}
+	echo '</person>';
+	$gotarray = mysql_fetch_array($result);
+}
+echo '</response>';
 
 ?>
