@@ -164,7 +164,7 @@ function successFunction(position){
 	} else {
 
 		var req = new XMLHttpRequest();
-		req.open('GET', "https://www.google.com/s2/photos/profile/" + UID, false);
+		req.open('GET', "https://www.google.com/s2/photos/profile/" + gid, false);
 		req.send(null);
 		var headers = req.getAllResponseHeaders().toLowerCase();
 		alert(headers);	
