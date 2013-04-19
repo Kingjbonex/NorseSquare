@@ -7,6 +7,12 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
     
+    <dependency>
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client-android</artifactId>
+      <version>1.14.1-beta</version>
+    </dependency>
+    
     
 
     <!-- Permissions for location gathering (on WiFi and GPS enabled devices) -->

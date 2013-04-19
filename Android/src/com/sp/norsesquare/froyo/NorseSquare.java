@@ -2,9 +2,9 @@ package com.sp.norsesquare.froyo;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,22 +17,25 @@ import org.xml.sax.InputSource;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,6 +45,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.plus.PlusClient;
+import com.google.android.gms.plus.model.people.Person;
+
 
 
 /**
@@ -51,7 +57,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * installed/enabled/updated on a user's device.
  */
 
-public class NorseSquare extends NSBaseActivity
+public class NorseSquare extends NSBaseActivity implements View.OnClickListener,
+ConnectionCallbacks, OnConnectionFailedListener
 {
     /**
      * Note that this may be null if the Google Play services APK is not available.
@@ -74,6 +81,14 @@ public class NorseSquare extends NSBaseActivity
     AccountManager mAccountManager;
     String[] accountList;
     String googleAuthToken;
+    
+    PlusClient mPlusClient;
+    ConnectionResult result;
+    ProgressDialog mConnectionProgressDialog;
+    private ConnectionResult mConnectionResult;
+    private static final int REQUEST_CODE_RESOLVE_ERR = 9000;
+    
+    GoogleUser me;
     
     //Get context for use in inner classes
     Context context = this;
@@ -116,7 +131,18 @@ public class NorseSquare extends NSBaseActivity
        new LoginAsyncTask(lutherAccount,this).execute();
        Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);
        
-        
+       //new UserInfoAsyncTask(googleAuthToken).execute();
+       //Initialize PlusClient
+       //TODO - Add in appropriate listeners to below call
+       mPlusClient = new PlusClient.Builder(this, this, this)
+       .setVisibleActivities("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
+       .build();
+       
+       
+       
+       // Progress bar to be displayed if the connection failure is not resolved.
+       mConnectionProgressDialog = new ProgressDialog(this);
+       mConnectionProgressDialog.setMessage("Signing in...");
         
         //Set up relevant services and listeners for GoogleMap
         storedMarkerList = new ArrayList<MapMarker>();
@@ -158,7 +184,7 @@ public class NorseSquare extends NSBaseActivity
 	  	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 	  	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 	  	
-	  	
+	  	mPlusClient.connect();
 		locationListener = new LocationListener() 
 		{
 		
@@ -222,6 +248,7 @@ public class NorseSquare extends NSBaseActivity
 	public void onStop()
 	{
 		super.onStop();
+		mPlusClient.disconnect();
 		Log.i(TAG, "OnStop");
 	}
 	
@@ -262,6 +289,57 @@ public class NorseSquare extends NSBaseActivity
 //    }
 
     
+	@Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        if (requestCode == REQUEST_CODE_RESOLVE_ERR && responseCode == RESULT_OK) {
+            mConnectionResult = null;
+            mPlusClient.connect();
+        }
+    }
+	
+	
+	@Override
+	public void onClick(View view)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult result)
+	{
+		if (result.hasResolution()) {
+            try {
+                result.startResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
+            } catch (SendIntentException e) {
+                mPlusClient.connect();
+            }
+        }
+        // Save the result and resolve the connection failure upon a user click.
+        mConnectionResult = result;
+		
+	}
+
+    @Override
+    public void onConnected() {
+        String accountName = mPlusClient.getAccountName();
+        //Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
+        
+        //Retrieve logged in user
+        Person p = mPlusClient.getCurrentPerson();
+        
+        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName());
+        
+       // me = new GoogleUser(p.)
+        Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDisconnected() {
+        Log.d(TAG, "disconnected");
+        Toast.makeText(this, "Account has been disconnected", Toast.LENGTH_SHORT).show();
+    }
+	
     public void setReleaseLocation(boolean b)
     {
     	releaseLocation = b;
@@ -282,6 +360,8 @@ public class NorseSquare extends NSBaseActivity
         return names;
     }
     
+    
+
     //Functions for GoogleMap
     
     void setUpMap()
@@ -517,6 +597,85 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 	
 	
 }
+
+public class GoogleUser
+{
+	String firstName;
+	String lastName;
+	String accountEmail;
+	URL pictureURL = null;
+	
+	public GoogleUser(String fn, String ln, String email)
+	{
+	   firstName = fn;
+	   lastName = ln;
+	   accountEmail = email;
+	   
+	}
+	
+	public String getFirstName()
+	{
+	   return firstName;
+	  
+	}
+	
+	public String getLastName()
+	{
+		return lastName;
+	}
+	
+	public String getEmail()
+	{
+		return accountEmail;
+	}
+}
+
+public class UserInfoAsyncTask extends AsyncTask<Void, Void, String>
+{
+
+	String userToken;
+	
+	public UserInfoAsyncTask(String ut)
+	{
+       userToken = ut;
+		
+	}
+	
+	protected void onPreExecute()
+	{
+		
+	}
+	
+	
+	
+	@Override
+	protected String doInBackground(Void... arg0)
+	{
+		
+		return null;
+	}
+	
+	protected void onProgressUpdate(Integer... progress)
+	{
+		Log.i("PROGRESS","Getting somewhere");
+    }
+	
+	protected void onPostExecute(String result) 
+	{
+		
+       
+       
+    }
+
+
+
+
+	
+	
+	
+}
+
+
 
 }
 
