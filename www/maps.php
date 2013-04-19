@@ -98,7 +98,6 @@
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
 					gid = $(this).find("googleid").text();
-					console.log(gid);
 					jQuery.ajax({
 						type: "GET",
 						url:"./services/getPhoto.php",

@@ -227,7 +227,7 @@ function showFriends(data) {
 		
 		var friendImage;
 		jQuery.ajax({
-			type: "POST",
+			type: "GET",
 			url:"./services/getPhoto.php",
 			data: {UID:gid},
 			async: false, 
