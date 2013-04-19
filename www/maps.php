@@ -139,6 +139,19 @@
             </div>
             
         	<div id="tabs">
+                <div id="personal-status">
+                    <div class="personal-image">
+                        <img src="">
+                    </div>
+                    <div class="personal-text">
+                        <span class="name">James Penning</span>
+                        <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                        <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                    </div>
+                    <div class="check-in">
+                        <button id="check-in-button">Check-in</button>
+                    </div>
+                </div><!--personal-status -->
             	<ul>
                 	<li><a href="#friends">Friends</a></li>
                     <li><a href="#plans">Plans</a></li>

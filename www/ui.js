@@ -4,7 +4,11 @@ $(function() {
 	$( ".icon-button" ).button({
 			icons: { primary: "ui-icon-circle-plus" },
 			text: false
-	});      
+	});
+	$("#check-in-button").button({
+		icons: { primary: "ui-icon-circle-check" },
+		text: true
+	});
 });
 
 $(function() {
