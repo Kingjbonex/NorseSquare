@@ -48,7 +48,7 @@
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
-	<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.2.custom.min" />
+	<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.2.custom.css" />
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
 	<title>NorseSquare</title> 
 	<script type="text/javascript" src="jquery.js"></script>
@@ -98,7 +98,6 @@
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
 					gid = $(this).find("googleid").text();
-					console.log(gid);
 					jQuery.ajax({
 						type: "GET",
 						url:"./services/getPhoto.php",
@@ -110,8 +109,8 @@
 						}
 					});
 					
-					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div></div>');
-					
+					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span><span class="ui-icon ui-icon-clock"></span></div><div class="right-button-icon"><button class="icon-button" /></button></div></div>');  
+					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 				}
 			);
 
@@ -140,6 +139,19 @@
             </div>
             
         	<div id="tabs">
+                <div id="personal-status">
+                    <div class="personal-image">
+                        <img src="">
+                    </div>
+                    <div class="personal-text">
+                        <span class="name">James Penning</span>
+                        <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                        <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                    </div>
+                    <div class="check-in">
+                        <button id="check-in-button">Check-in</button>
+                    </div>
+                </div><!--personal-status -->
             	<ul>
                 	<li><a href="#friends">Friends</a></li>
                     <li><a href="#plans">Plans</a></li>
@@ -162,18 +174,6 @@
      
     </div><!--mainDiv-->
 </body> 
-
-   <script type="text/javascript">
-   $('#toggleButText').click(function() {
-	   
-	   $('<div class="list-item">\
-							<div class="list-item-main">\
-								<div class="profile-image"><img src="' + friendImage + '"></div>\
-								<div class="list-item-text"><span class="name">'+ fname + lname + '</span></div>\
-							</div>\<div class="right-icon"><img src="x.jpg"></div>\</div>').appendTo('friends');
-   });
-   
-   </script>
 
    <script type="text/javascript" src="jquery-ui.js"></script>
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>

@@ -162,6 +162,14 @@ function successFunction(position){
 	if (email == "") {
 		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
 	} else {
+
+		var req = new XMLHttpRequest();
+		req.open('GET', "https://www.google.com/s2/photos/profile/" + gid, false);
+		req.send(null);
+		var headers = req.getAllResponseHeaders().toLowerCase();
+		alert(headers);	
+		console.log(headers);	
+			
 		var UID = gid;
 		jQuery.ajax({
 			type: "POST",
@@ -227,7 +235,7 @@ function showFriends(data) {
 		
 		var friendImage;
 		jQuery.ajax({
-			type: "POST",
+			type: "GET",
 			url:"./services/getPhoto.php",
 			data: {UID:gid},
 			async: false, 

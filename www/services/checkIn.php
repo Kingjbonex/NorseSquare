@@ -15,5 +15,7 @@ mysql_select_db(DB_NAME, $connection);
 $Query = 'INSERT INTO activity (activity_id,uid,latitude,longitude,time,type) SELECT ((MAX(activity.activity_id))+1),(SELECT uid FROM users WHERE users.username = "' . $email . '" LIMIT 1),' . $lat . ',' . $long . ',"'. $time . '" ,"check" FROM activity';
 
 $result = mysql_query($Query,$connection);
+$Query = 'UPDATE users SET latitude='.$lat.',longitude='.$long.',time="'.$time.'" WHERE username="'.$email.'"';
 
+$result = mysql_query($Query,$connection);
 ?>

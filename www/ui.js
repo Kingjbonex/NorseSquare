@@ -1,25 +1,36 @@
 $('#tabs').tabs();
 
-$('#toggleButText').click(
+$(function() {
+	$( ".icon-button" ).button({
+			icons: { primary: "ui-icon-circle-plus" },
+			text: false
+	});
+	$("#check-in-button").button({
+		icons: { primary: "ui-icon-circle-check" },
+		text: true
+	});
+});
 
+$(function() {
+	$('#toggleButText')
+	.button()
+	.click(function() {
+		var buttonText = $("#toggleButText").html();
+		if (buttonText == "<span class='ui-button-text'>&gt;<br>&gt;</span>") $("#toggleButText").html("<span class='ui-button-text'>&lt;<br>&lt;</span>");
+		else $("#toggleButText").html("<span class='ui-button-text'>&gt;<br>&gt;</span>");
+	});
+});
+
+
+$('#toggleButText').click(
 	function() {
 		$('#map').toggle();
 		google.maps.event.trigger(map, 'resize');
 		map.setZoom( map.getZoom() );
-	}, 
-
+	},
 	function() {
 		$('#tabs').toggle();
 		$('#map').toggleClass('extend-map');
 		google.maps.event.trigger(map, 'resize');
 		map.setZoom( map.getZoom() );
-	}
-);
-
-$('#toggleButText').click(function() {
-	
-		var butt = document.getElementById("toggleButText");
-		if (butt.innerHTML == "&gt;<br>&gt;") butt.innerHTML = "&lt;<br>&lt;";
-		else butt.innerHTML = "&gt;<br>&gt;";
-		
-});
+	});
