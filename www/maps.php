@@ -85,8 +85,8 @@
     //Calling function to create new user
     if(email != "") {
 
-		var data = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
-		var xml = data,
+		var result = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
+		var xml = result,
 		xmlDoc = $.parseXML( xml ),
 		$xml = $( xmlDoc ),
 		$person = $xml.find( "response person" ).each(
