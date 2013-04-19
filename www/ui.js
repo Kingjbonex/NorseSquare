@@ -14,21 +14,16 @@ $(function() {
 		var buttonText = $(".ui-button-text").html();
 		if (buttonText == "&lt;<br>&lt;") $(".ui-button-text").html("&gt;<br>&gt;");
 		else $(".ui-button-text").html("&lt;<br>&lt;");
-	});
-});
-
-$('#toggleButText').click(
-
-	function() {
+	})
+	.click(function() {
 		$('#map').toggle();
 		google.maps.event.trigger(map, 'resize');
 		map.setZoom( map.getZoom() );
-	}, 
-
-	function() {
+	})
+	.click(function() {
 		$('#tabs').toggle();
 		$('#map').toggleClass('extend-map');
 		google.maps.event.trigger(map, 'resize');
 		map.setZoom( map.getZoom() );
-	}
-);
+	});
+});
