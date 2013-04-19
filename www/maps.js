@@ -162,6 +162,13 @@ function successFunction(position){
 	if (email == "") {
 		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
 	} else {
+
+		var req = new XMLHttpRequest();
+		req.open('GET', "https://www.google.com/s2/photos/profile/" + UID, false);
+		req.send(null);
+		var headers = req.getAllResponseHeaders().toLowerCase();
+		alert(headers);		
+			
 		var UID = gid;
 		jQuery.ajax({
 			type: "POST",
