@@ -7,9 +7,7 @@ if (!$connection)
 	echo "Could not connect: " . mysql_error();
 }
 mysql_select_db(DB_NAME, $connection);
-$Query = 'SELECT a.fname,a.lname,a.username,a.googleid,b.time,b.longitude,b.latitude FROM users AS a INNER JOIN 
-(SELECT MAX(activity.time) time,activity.uid, activity.latitude, activity.longitude 
-FROM activity GROUP BY activity.uid) AS b ON (b.uid = a.uid)';
+$Query = 'SELECT fname,lname,username,googleid,time,longitude,latitude FROM users';
 
 $result = mysql_query($Query,$connection);
 $gotarray = mysql_fetch_array($result);

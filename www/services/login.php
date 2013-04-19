@@ -11,8 +11,13 @@ if (!$connection)
 	echo "Could not connect: " . mysql_error();
 }
 mysql_select_db(DB_NAME, $connection);
-$Query = 'INSERT INTO users (uid,fname,lname,username,googleid) SELECT (MAX(uid)+1),"' 
-	. $fname . '","' . $lname . '","' . $email . '","' . $gid . '" FROM users WHERE not exists (SELECT
+
+$result = get_headers("https://www.google.com/s2/photos/profile/" . $gid, 1);
+$photourl = $result['Location'];
+
+
+$Query = 'INSERT INTO users (uid,fname,lname,username,googleid,photourl) SELECT (MAX(uid)+1),"' 
+	. $fname . '","' . $lname . '","' . $email . '","' . $gid . '","' . $photourl '" FROM users WHERE not exists (SELECT
 	 * from users WHERE users.username = "' . $email . '")';
 
 $result = mysql_query($Query,$connection);
