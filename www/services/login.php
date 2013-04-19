@@ -12,7 +12,7 @@ if (!$connection)
 }
 mysql_select_db(DB_NAME, $connection);
 
-$result = get_headers("https://www.google.com/s2/photos/profile/" . $gid, 1);
+$photourl = get_headers("https://www.google.com/s2/photos/profile/" . $gid, 1);
 
 $Query = 'INSERT INTO users (uid,fname,lname,username,googleid,photourl) SELECT (MAX(uid)+1),"' 
 	. $fname . '","' . $lname . '","' . $email . '","' . $gid . '","' . $photourl '" FROM users WHERE not exists (SELECT
