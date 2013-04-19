@@ -167,7 +167,8 @@ function successFunction(position){
 		req.open('GET', "https://www.google.com/s2/photos/profile/" + UID, false);
 		req.send(null);
 		var headers = req.getAllResponseHeaders().toLowerCase();
-		alert(headers);		
+		alert(headers);	
+		console.log(headers);	
 			
 		var UID = gid;
 		jQuery.ajax({
