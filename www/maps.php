@@ -85,6 +85,7 @@
     //Calling function to create new user
     if(email != "") {
 		var uid = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
+		alert(uid);
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
 			var friendsData = "";
