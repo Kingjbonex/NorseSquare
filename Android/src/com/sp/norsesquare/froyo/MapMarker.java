@@ -55,7 +55,9 @@ public class MapMarker
 		return (new MarkerOptions()
 		        .position(latlong)
 		        .title(title)
-		        .snippet(snippet));
+		        .snippet(snippet)
+		        );
+		      //.icon(BitmapDescriptorFactory.fromAsset("fiddle.png")
 	}
 	
 	

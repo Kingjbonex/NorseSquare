@@ -323,15 +323,15 @@ ConnectionCallbacks, OnConnectionFailedListener
     @Override
     public void onConnected() {
         String accountName = mPlusClient.getAccountName();
-        //Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
         
         //Retrieve logged in user
         Person p = mPlusClient.getCurrentPerson();
         
         me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName());
         
-       // me = new GoogleUser(p.)
-        Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
+        
+        //Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -425,15 +425,45 @@ ConnectionCallbacks, OnConnectionFailedListener
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
     	updateLocation(coarseLocation);
+    	//placeSingleMarker(v,new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
+    	
+    }
+    
+    public void storeMarker(LatLng latlong,String title, String snippet)
+    {
+    	//Add marker to list of stored markers, making sure that it is not a duplicate
+    	//Duplicate = marker with same title (person's name)
+    	
+        Log.i("Store Marker","Store Marker called");
+    	
+        //If duplicate item found, delete and add newest version. If not, add current item (must be new).
+    	for (int i=0;i<storedMarkerList.size();i++)
+    	{
+    	   MapMarker m = storedMarkerList.get(i);
+    	   
+    	   if (m.getTitle() != title)
+    	   {
+    		   Log.i("StoreMarker","New marker added wth title " + title);
+    		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+    	   }
+    	   else
+    	   {
+    		   storedMarkerList.remove(m);
+    		   Log.i("StoreMarker","New marker added wth title " + title);
+    		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+    	   }
+    	  
+    	}
+    	
     	
     }
 
     public void placeSingleMarker(View v,LatLng latlong)
     {
+    	//------------DEPRECATED------------- - All further uses should store markers in storedMarkersList and use placeStoreMarkers()
     	mMap.clear();
     	
-    	//TODO - Make to selectively clear marker per user
-    	//TODO - See if need to we do something with the passed in view
+    	
     	//TODO - Programmatically alter marker contents for a more in depth user experience
     	
     	Marker cl = mMap.addMarker(new MarkerOptions().position(currentLocation)
@@ -445,12 +475,17 @@ ConnectionCallbacks, OnConnectionFailedListener
     
     public void placeStoredMarkers()
     {
-    	mMap.clear();
+        Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
     	
     	Iterator i = storedMarkerList.iterator();
     	
+        if (i.hasNext()==false)
+        {
+        	Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
+        }
     	while (i.hasNext())
     	{
+    	   Log.i("Map Marker", "Placing Map Marker");
     	   MapMarker m = (MapMarker) i.next();
     	   mMap.addMarker(m.getMarkerOptions());
     	}
@@ -461,16 +496,26 @@ ConnectionCallbacks, OnConnectionFailedListener
     	//Primary method to update location in the map. All other methods should call this one, regardless of provider.
     	
     	//Set current location. This is called from both listeners and buttons, and is done to avoid having to get the location anew every time.
-    	//TODO - See if this is lready cached and easily available, refer to location strategies
+    	//TODO - See if this is already cached and easily available, refer to location strategies
     	currentLocation = new LatLng(l.getLatitude(),l.getLongitude());
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     
+    	storeMarker(ll,"Timmy Jimmy","This is a snippet");
+    	redrawMarkers();
     	
-    	placeSingleMarker(this.findViewById(R.id.RelativeMapLayout),ll);
     	
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
     	
+    }
+    
+    public void redrawMarkers()
+    {
+    	Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
+    	
+    	mMap.clear();
+    	
+    	placeStoredMarkers();
     }
     
     //Joel's classes/etc for not location related things.
@@ -492,6 +537,9 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     	AsyncTask<String, Void, HttpEntity> Task = new DatabaseTask().execute((String[])null);
     	try{
+    		
+    		Toast.makeText(this, "Trying to Find All", Toast.LENGTH_SHORT).show();
+    		
     		HttpEntity Hentity = Task.get();
     		String xmlString = EntityUtils.toString(Hentity);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -504,6 +552,8 @@ ConnectionCallbacks, OnConnectionFailedListener
             NodeList nlist = doc.getElementsByTagName("person");
             
             for(int i = 0; i < nlist.getLength();i++){
+            	
+            	
 	            NodeList UserInfo = nlist.item(i).getChildNodes();
 	        	String fname = UserInfo.item(0).getTextContent();
 	        	String lname = UserInfo.item(1).getTextContent();
@@ -513,12 +563,16 @@ ConnectionCallbacks, OnConnectionFailedListener
 	        	Double longitude = Double.parseDouble(UserInfo.item(5).getTextContent());
 	        	Double latitude = Double.parseDouble(UserInfo.item(6).getTextContent());
 	        	
+	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
 	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
+	        	
+	        	Log.i("FINDALL",fname);
+	        	Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
             }
           
-        	placeStoredMarkers();
+        	redrawMarkers();
             
     	}
     	catch(Exception e) {
