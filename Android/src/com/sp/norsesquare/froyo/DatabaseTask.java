@@ -21,9 +21,8 @@ import android.view.View;
 
 
 /*Class to allow for backround database calls to be made in alternate threads */
-public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
+public class DatabaseTask extends AsyncTask<String, Void, String>
 {
-
 	/**
 	 * @param args
 	 */
@@ -33,7 +32,7 @@ public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
 	}
 	
 	@Override
-	protected HttpEntity doInBackground(String... args)
+	protected String doInBackground(String... args)
 	{
 		// TODO Add database calls, differentiation.
 	    	try {
@@ -48,9 +47,9 @@ public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
 	            HttpResponse responsePOST = client.execute(post);  
 	            HttpEntity resEntity = responsePOST.getEntity();  
 	            if (resEntity != null) {    
-	                //Log.i("RESPONSE",EntityUtils.toString(resEntity));
+	               // Log.i("RESPONSE",EntityUtils.toString(resEntity));
 	                Log.i("DEBUG","Debugging, are you there??");
-	                return resEntity;
+	                return EntityUtils.toString(resEntity);
 	            }
 	            
 	        } catch (Exception e) {
@@ -70,7 +69,5 @@ public class DatabaseTask extends AsyncTask<String, Void, HttpEntity>
         Log.i("Yes", "gems are truly outrageous..");
         //showDialog("Recieved info from Database");
     }
-	
-	
 
 }

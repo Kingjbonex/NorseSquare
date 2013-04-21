@@ -4,12 +4,21 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -58,14 +67,16 @@ public class NorseSquare extends FragmentActivity
      * Note that this may be null if the Google Play services APK is not available.
      * TODO - Add dependency for Google Maps application, must be installed for Maps API to work
      */
+	
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
     boolean releaseLocation;
     private LocationManager locationManager;
     private LatLng currentLocation;
+    private String Googletoken;
     
     public LocationListener locationListener;
-    
+    private String lutherAccount = "";  
     
     private ArrayList<MapMarker> storedMarkerList;
     
@@ -80,10 +91,12 @@ public class NorseSquare extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
-       String lutherAccount = "";    	
+         	
     	
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_relative_map);
+        
+       // setContentView(R.layout.splash);
+       setContentView(R.layout.layout_relative_map);
         
         
         //Get accounts
@@ -106,10 +119,9 @@ public class NorseSquare extends FragmentActivity
         }
         
        //Get authToken for luther.edu account 
-       new LoginAsyncTask(lutherAccount,this).execute();
-       Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);
+       AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
+       Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
        
-        
         
         //Set up relevant services and listeners for GoogleMap
         storedMarkerList = new ArrayList<MapMarker>();
@@ -332,10 +344,20 @@ public class NorseSquare extends FragmentActivity
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
     	updateLocation(coarseLocation);
+    	Checkin(coarseLocation);
     	
     }
 
-    public void placeSingleMarker(View v,LatLng latlong)
+    //checkin function, calling the database to be updated
+    private void Checkin(Location locate) {
+		// TODO Auto-generated method stub
+		System.out.println(googleAuthToken);
+		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
+		
+	}
+
+
+	public void placeSingleMarker(View v,LatLng latlong)
     {
     	mMap.clear();
     	
@@ -397,17 +419,16 @@ public class NorseSquare extends FragmentActivity
 
     public void findAll(View w){
     	
-    	AsyncTask<String, Void, HttpEntity> Task = new DatabaseTask().execute((String[])null);
+    	AsyncTask<String, Void, String> Task = new DatabaseTask().execute((String[])null);
     	try{
-    		HttpEntity Hentity = Task.get();
-    		String xmlString = EntityUtils.toString(Hentity);
+    		String xmlString = Task.get();
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = factory.newDocumentBuilder();
             InputSource inStream = new InputSource();
             inStream.setCharacterStream(new StringReader(xmlString));
             Document doc = db.parse(inStream);  
 
-            String playcount = "empty";
+            //String playcount = "empty";
             NodeList nlist = doc.getElementsByTagName("person");
             
             for(int i = 0; i < nlist.getLength();i++){
@@ -430,6 +451,7 @@ public class NorseSquare extends FragmentActivity
     	}
     	catch(Exception e){
     		Log.i("ERROR", "error in response answer");
+    		e.printStackTrace();
     	}
     	
     }
@@ -498,10 +520,6 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
         googleAuthToken = result;
        
     }
-
-
-	
-	
 	
 }
 
