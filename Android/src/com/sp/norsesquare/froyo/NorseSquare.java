@@ -692,6 +692,10 @@ public class GoogleUser
 	{
 		return accountEmail;
 	}
+	public void setPictureURL(URL u)
+	{
+		pictureURL = u;
+	}
 }
 
 public class UserInfoAsyncTask extends AsyncTask<Void, Void, String>
@@ -732,9 +736,29 @@ public class UserInfoAsyncTask extends AsyncTask<Void, Void, String>
     }
 
 
-
-
 	
+	
+  }
+
+
+public class PlusPictureTask extends AsyncTask<Void, Void, Void>
+{
+		
+		
+		
+		protected void onPreExecute()
+		{
+			
+		}
+		
+		@Override
+		protected Void doInBackground(Void... args)
+		{
+			
+		}
+		
+		
+
 	
 	
 }
