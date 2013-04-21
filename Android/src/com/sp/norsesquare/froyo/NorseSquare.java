@@ -435,25 +435,35 @@ ConnectionCallbacks, OnConnectionFailedListener
     	//Duplicate = marker with same title (person's name)
     	
         Log.i("Store Marker","Store Marker called");
+    	Log.i("Store Marker","Size of storeMarkerList is " + storedMarkerList.size());
     	
         //If duplicate item found, delete and add newest version. If not, add current item (must be new).
-    	for (int i=0;i<storedMarkerList.size();i++)
+    	
+    	if (storedMarkerList.size()==0)
     	{
-    	   MapMarker m = storedMarkerList.get(i);
-    	   
-    	   if (m.getTitle() != title)
-    	   {
-    		   Log.i("StoreMarker","New marker added wth title " + title);
-    		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
-    	   }
-    	   else
-    	   {
-    		   storedMarkerList.remove(m);
-    		   Log.i("StoreMarker","New marker added wth title " + title);
-    		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
-    	   }
-    	  
+    		storedMarkerList.add(new MapMarker(latlong,title,snippet));
     	}
+    	else
+    	{
+    		for (int i=0;i<storedMarkerList.size();i++)
+        	{
+        	   MapMarker m = storedMarkerList.get(i);
+        	   
+        	   if (m.getTitle() != title)
+        	   {
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+        	   }
+        	   else
+        	   {
+        		   storedMarkerList.remove(m);
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+        	   }
+        	  
+        	}
+    	}
+    	
     	
     	
     }
