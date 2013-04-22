@@ -161,7 +161,7 @@ function successFunction(position){
 	var image;	
 	if (email == "") {
 		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
-	} else {
+	} else {			
 		var UID = gid;
 		jQuery.ajax({
 			type: "POST",
@@ -227,7 +227,7 @@ function showFriends(data) {
 		
 		var friendImage;
 		jQuery.ajax({
-			type: "POST",
+			type: "GET",
 			url:"./services/getPhoto.php",
 			data: {UID:gid},
 			async: false, 

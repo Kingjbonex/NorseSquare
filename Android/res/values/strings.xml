@@ -22,7 +22,6 @@
     <string name="list_2">Jeremy Clarkson</string>
     <string name="list_3">Lamborghini</string>
     <string name="button_Ping_Url">request url</string>
-    <drawable name="background_shelf">#3399FF</drawable>
+    <string name="text_v1">Dat Row Text</string>
     
-
-</resources>
+</resources>    
