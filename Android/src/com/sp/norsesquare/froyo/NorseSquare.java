@@ -2,14 +2,24 @@ package com.sp.norsesquare.froyo;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -17,22 +27,25 @@ import org.xml.sax.InputSource;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,6 +55,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.plus.PlusClient;
+import com.google.android.gms.plus.model.people.Person;
+
 
 
 /**
@@ -51,22 +67,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * installed/enabled/updated on a user's device.
  */
 
-public class NorseSquare extends NSBaseActivity
+public class NorseSquare extends NSBaseActivity implements View.OnClickListener,
+ConnectionCallbacks, OnConnectionFailedListener
 {
     /**
      * Note that this may be null if the Google Play services APK is not available.
      * TODO - Add dependency for Google Maps application, must be installed for Maps API to work
      */
+	
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
     boolean releaseLocation;
     private LocationManager locationManager;
     private LatLng currentLocation;
+    private String Googletoken;
     private final String TAG = "Main NorseSquare Activity";
     private View mapView;
     
     public LocationListener locationListener;
-    
+    private String lutherAccount = "";  
     
     
     private ArrayList<MapMarker> storedMarkerList;
@@ -75,6 +94,14 @@ public class NorseSquare extends NSBaseActivity
     AccountManager mAccountManager;
     String[] accountList;
     String googleAuthToken;
+    
+    PlusClient mPlusClient;
+    ConnectionResult result;
+    ProgressDialog mConnectionProgressDialog;
+    private ConnectionResult mConnectionResult;
+    private static final int REQUEST_CODE_RESOLVE_ERR = 9000;
+    
+    GoogleUser me;
     
     //Get context for use in inner classes
     Context context = this;
@@ -86,13 +113,14 @@ public class NorseSquare extends NSBaseActivity
     @Override
 	public void onCreate(Bundle savedInstanceState) 
     {
-        String lutherAccount = "";    	
+         	
     	
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_relative_map);
 //        mapView = findViewById(R.layout.)
         setSlidingActionBarEnabled(true);
+        
         //Get accounts
         AccountManager accountManager = AccountManager.get(this);
         accountList = getAccountNames();
@@ -115,10 +143,21 @@ public class NorseSquare extends NSBaseActivity
         }
         
        //Get authToken for luther.edu account 
-       new LoginAsyncTask(lutherAccount,this).execute();
-       Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);
+       AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
+       Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
        
-        
+       //new UserInfoAsyncTask(googleAuthToken).execute();
+       //Initialize PlusClient
+       //TODO - Add in appropriate listeners to below call
+       mPlusClient = new PlusClient.Builder(this, this, this)
+       .setVisibleActivities("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
+       .build();
+       
+       
+       
+       // Progress bar to be displayed if the connection failure is not resolved.
+       mConnectionProgressDialog = new ProgressDialog(this);
+       mConnectionProgressDialog.setMessage("Signing in...");
         
         //Set up relevant services and listeners for GoogleMap
         storedMarkerList = new ArrayList<MapMarker>();
@@ -161,7 +200,7 @@ public class NorseSquare extends NSBaseActivity
 	  	final boolean wifiEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 	  	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 	  	
-	  	
+	  	mPlusClient.connect();
 		locationListener = new LocationListener() 
 		{
 		
@@ -225,6 +264,7 @@ public class NorseSquare extends NSBaseActivity
 	public void onStop()
 	{
 		super.onStop();
+		mPlusClient.disconnect();
 		Log.i(TAG, "OnStop");
 	}
 	
@@ -265,6 +305,57 @@ public class NorseSquare extends NSBaseActivity
 //    }
 
     
+	@Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        if (requestCode == REQUEST_CODE_RESOLVE_ERR && responseCode == RESULT_OK) {
+            mConnectionResult = null;
+            mPlusClient.connect();
+        }
+    }
+	
+	
+	@Override
+	public void onClick(View view)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult result)
+	{
+		if (result.hasResolution()) {
+            try {
+                result.startResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
+            } catch (SendIntentException e) {
+                mPlusClient.connect();
+            }
+        }
+        // Save the result and resolve the connection failure upon a user click.
+        mConnectionResult = result;
+		
+	}
+
+    @Override
+    public void onConnected() {
+        String accountName = mPlusClient.getAccountName();
+        Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
+        
+        //Retrieve logged in user
+        Person p = mPlusClient.getCurrentPerson();
+        
+        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName());
+        
+        
+        //Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDisconnected() {
+        Log.d(TAG, "disconnected");
+        Toast.makeText(this, "Account has been disconnected", Toast.LENGTH_SHORT).show();
+    }
+	
     public void setReleaseLocation(boolean b)
     {
     	releaseLocation = b;
@@ -285,6 +376,8 @@ public class NorseSquare extends NSBaseActivity
         return names;
     }
     
+    
+
     //Functions for GoogleMap
     
     void setUpMap()
@@ -348,15 +441,64 @@ public class NorseSquare extends NSBaseActivity
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
     	updateLocation(coarseLocation);
+    	//placeSingleMarker(v,new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
+    	
+    }
+    
+    public void storeMarker(LatLng latlong,String title, String snippet)
+    {
+    	//Add marker to list of stored markers, making sure that it is not a duplicate
+    	//Duplicate = marker with same title (person's name)
+    	
+        Log.i("Store Marker","Store Marker called");
+    	Log.i("Store Marker","Size of storeMarkerList is " + storedMarkerList.size());
+    	
+        //If duplicate item found, delete and add newest version. If not, add current item (must be new).
+    	
+    	if (storedMarkerList.size()==0)
+    	{
+    		storedMarkerList.add(new MapMarker(latlong,title,snippet));
+    	}
+    	else
+    	{
+    		for (int i=0;i<storedMarkerList.size();i++)
+        	{
+        	   MapMarker m = storedMarkerList.get(i);
+        	   
+        	   if (m.getTitle() != title)
+        	   {
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+        	   }
+        	   else
+        	   {
+        		   storedMarkerList.remove(m);
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+        	   }
+        	  
+        	}
+    	}
+    	
+    	
     	
     }
 
-    public void placeSingleMarker(View v,LatLng latlong)
+    //checkin function, calling the database to be updated
+    private void Checkin(Location locate) {
+		// TODO Auto-generated method stub
+		System.out.println(googleAuthToken);
+		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
+		
+	}
+
+
+	public void placeSingleMarker(View v,LatLng latlong)
     {
+    	//------------DEPRECATED------------- - All further uses should store markers in storedMarkersList and use placeStoreMarkers()
     	mMap.clear();
     	
-    	//TODO - Make to selectively clear marker per user
-    	//TODO - See if need to we do something with the passed in view
+    	
     	//TODO - Programmatically alter marker contents for a more in depth user experience
     	
     	Marker cl = mMap.addMarker(new MarkerOptions().position(currentLocation)
@@ -368,12 +510,17 @@ public class NorseSquare extends NSBaseActivity
     
     public void placeStoredMarkers()
     {
-    	mMap.clear();
+        Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
     	
     	Iterator i = storedMarkerList.iterator();
     	
+        if (i.hasNext()==false)
+        {
+        	Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
+        }
     	while (i.hasNext())
     	{
+    	   Log.i("Map Marker", "Placing Map Marker");
     	   MapMarker m = (MapMarker) i.next();
     	   mMap.addMarker(m.getMarkerOptions());
     	}
@@ -384,16 +531,26 @@ public class NorseSquare extends NSBaseActivity
     	//Primary method to update location in the map. All other methods should call this one, regardless of provider.
     	
     	//Set current location. This is called from both listeners and buttons, and is done to avoid having to get the location anew every time.
-    	//TODO - See if this is lready cached and easily available, refer to location strategies
+    	//TODO - See if this is already cached and easily available, refer to location strategies
     	currentLocation = new LatLng(l.getLatitude(),l.getLongitude());
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     
+    	storeMarker(ll,"Timmy Jimmy","This is a snippet");
+    	redrawMarkers();
     	
-    	placeSingleMarker(this.findViewById(R.id.RelativeMapLayout),ll);
     	
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
     	
+    }
+    
+    public void redrawMarkers()
+    {
+    	Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
+    	
+    	mMap.clear();
+    	
+    	placeStoredMarkers();
     }
     
     //Joel's classes/etc for not location related things.
@@ -422,10 +579,12 @@ public class NorseSquare extends NSBaseActivity
             inStream.setCharacterStream(new StringReader(xmlString));
             Document doc = db.parse(inStream);
 
-            String playcount = "empty";
+            //String playcount = "empty";
             NodeList nlist = doc.getElementsByTagName("person");
             
             for(int i = 0; i < nlist.getLength();i++){
+            	
+            	
 	            NodeList UserInfo = nlist.item(i).getChildNodes();
 	        	String fname = UserInfo.item(0).getTextContent();
 	        	String lname = UserInfo.item(1).getTextContent();
@@ -435,16 +594,21 @@ public class NorseSquare extends NSBaseActivity
 	        	Double longitude = Double.parseDouble(UserInfo.item(5).getTextContent());
 	        	Double latitude = Double.parseDouble(UserInfo.item(6).getTextContent());
 	        	
+	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
 	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
+	        	
+	        	Log.i("FINDALL",fname);
+	        	Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
             }
           
-        	placeStoredMarkers();
+        	redrawMarkers();
             
     	}
     	catch(Exception e) {
     		Log.i("ERROR", "error in response answer");
+    		e.printStackTrace();
     	}
     	
     }
@@ -513,12 +677,112 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
         googleAuthToken = result;
        
     }
+	
+}
+
+public class GoogleUser
+{
+	String firstName;
+	String lastName;
+	String accountEmail;
+	URL pictureURL = null;
+	
+	public GoogleUser(String fn, String ln, String email)
+	{
+	   firstName = fn;
+	   lastName = ln;
+	   accountEmail = email;
+	   
+	}
+	
+	public String getFirstName()
+	{
+	   return firstName;
+	  
+	}
+	
+	public String getLastName()
+	{
+		return lastName;
+	}
+	
+	public String getEmail()
+	{
+		return accountEmail;
+	}
+	public void setPictureURL(URL u)
+	{
+		pictureURL = u;
+	}
+}
+
+public class UserInfoAsyncTask extends AsyncTask<Void, Void, String>
+{
+
+	String userToken;
+	
+	public UserInfoAsyncTask(String ut)
+	{
+       userToken = ut;
+		
+	}
+	
+	protected void onPreExecute()
+	{
+		
+	}
+	
+	
+	
+	@Override
+	protected String doInBackground(Void... arg0)
+	{
+		
+		return null;
+	}
+	
+	protected void onProgressUpdate(Integer... progress)
+	{
+		Log.i("PROGRESS","Getting somewhere");
+    }
+	
+	protected void onPostExecute(String result) 
+	{
+		
+       
+       
+    }
 
 
 	
+	
+  }
+
+
+public class PlusPictureTask extends AsyncTask<Void, Void, Void>
+{
+		
+		
+		
+		protected void onPreExecute()
+		{
+			
+		}
+		
+		@Override
+		protected Void doInBackground(Void... args)
+		{
+			return null;
+			
+		}
+		
+		
+
 	
 	
 }
+
+
 
 }
 
