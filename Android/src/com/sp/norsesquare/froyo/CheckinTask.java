@@ -21,43 +21,59 @@ import android.view.View;
 
 
 /*Class to allow for backround database calls to be made in alternate threads */
-public class DatabaseTask extends AsyncTask<String, Void, String>
+public class CheckinTask extends AsyncTask<String, Void, Integer>
 {
+	
+	
+	String lat;
+	String lon;
+	String email;
+
+	public CheckinTask(String string, String string2, String lutherAccount) {
+		// TODO Auto-generated constructor stub
+		lat = string;
+		lon = string2;
+		email = lutherAccount;
+		
+	}
+
 	/**
 	 * @param args
 	 */
 	//Be sure that the parameters for the AsyncTask fit in with the appropriate methods, see AsyncTask reference. EG. 
 	protected void onPreExecute(){
-		Log.i("BEGIN","Starting the connection");
+		Log.i("BEGIN","trying to checkin");
 	}
 	
 	@Override
-	protected String doInBackground(String... args)
+	protected Integer doInBackground(String... args)
 	{
 		// TODO Add database calls, differentiation.
 	    	try {
 	            HttpClient client = new DefaultHttpClient();  
-	            String postURL = "http://norsesquare.luther.edu/services/findAll.php";
+	            String postURL = "http://norsesquare.luther.edu/services/checkIn.php";
 	            HttpPost post = new HttpPost(postURL); 
 	            List<NameValuePair> params = new ArrayList<NameValuePair>();
-	            params.add(new BasicNameValuePair("user", "kris"));
-	            params.add(new BasicNameValuePair("pass", "xyz"));
+	            params.add(new BasicNameValuePair("lat", lat));
+	            params.add(new BasicNameValuePair("long", lon));
+	            params.add(new BasicNameValuePair("email", email));
 	            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params,HTTP.UTF_8);
 	            post.setEntity(ent);
 	            HttpResponse responsePOST = client.execute(post);  
-	            HttpEntity resEntity = responsePOST.getEntity();  
-	            if (resEntity != null) {    
-	               // Log.i("RESPONSE",EntityUtils.toString(resEntity));
-	                Log.i("DEBUG","Debugging, are you there??");
-	                return EntityUtils.toString(resEntity);
-	            }
+	            HttpEntity resentity = responsePOST.getEntity();  
+	            if (resentity != null) {    
+		                Log.i("RESPONSE",EntityUtils.toString(resentity));
+		                Log.i("DEBUG","Debugging, are you there??");
+		     
+		            }
+	            else{Log.i("wft", "i dont know what the fuck is oging on");}
 	            
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            Log.i("msg","Hello, my name is Tom Riddle...");
+	            Log.i("msg","begone vile magicks");
 	          }
 	    	
-	    return null;
+	    return 1;
 	
 	}
 	
@@ -69,5 +85,7 @@ public class DatabaseTask extends AsyncTask<String, Void, String>
         Log.i("Yes", "gems are truly outrageous..");
         //showDialog("Recieved info from Database");
     }
+	
+	
 
 }
