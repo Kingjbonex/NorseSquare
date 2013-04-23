@@ -1,9 +1,8 @@
 package com.sp.norsesquare.froyo;
 
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
+//import static android.view.View.INVISIBLE;
+//import static android.view.View.VISIBLE;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -59,7 +56,7 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 		//commits the transition and makes it execute
 		fragtrans.commit();
 		
-//		setUpSlidingMenu();
+		setUpSlidingMenu();
 		
 	}
 	
@@ -75,6 +72,13 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 		//default
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		
+//		sm.setOnOpenListener(new OnOpenListener() {
+//			@Override
+//			public void onOpen() {
+//				
+//			}
+//		});
 		
 		//set the icon up as clickable - 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -116,11 +120,16 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-    	View mapFrag = (View) findViewById(R.id.main_map);
-        switch (item.getItemId()) 
+//    	View mapFrag = (View) findViewById(R.id.RelativeMapLayout);
+//    	View controlFrag = (View) findViewById(R.id.main_control_panel);
+     	
+        switch (item.getItemId())
         {
 			case android.R.id.home:
 				toggle();
+//				mapFrag.setBackgroundResource(R.color.trans);
+//				controlFrag.setBackgroundResource(R.color.trans);
+//				getSlidingMenu().setViewAbove(mapFrag);
 				
 //				if (visible==true)
 //				{

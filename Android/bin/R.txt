@@ -135,11 +135,12 @@ int color abs__bright_foreground_holo_light 0x7f050004
 int color abs__bright_foreground_inverse_holo_dark 0x7f050007
 int color abs__bright_foreground_inverse_holo_light 0x7f050008
 int color abs__holo_blue_light 0x7f050009
-int color abs__primary_text_disable_only_holo_dark 0x7f05000a
-int color abs__primary_text_disable_only_holo_light 0x7f05000b
-int color abs__primary_text_holo_dark 0x7f05000c
-int color abs__primary_text_holo_light 0x7f05000d
+int color abs__primary_text_disable_only_holo_dark 0x7f05000b
+int color abs__primary_text_disable_only_holo_light 0x7f05000c
+int color abs__primary_text_holo_dark 0x7f05000d
+int color abs__primary_text_holo_light 0x7f05000e
 int color holo_blue_bright 0x7f050000
+int color trans 0x7f05000a
 int dimen abs__action_bar_default_height 0x7f060005
 int dimen abs__action_bar_icon_vertical_padding 0x7f060006
 int dimen abs__action_bar_subtitle_bottom_margin 0x7f06000a

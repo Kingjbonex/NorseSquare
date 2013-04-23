@@ -63,6 +63,7 @@ public class NorseSquare extends NSBaseActivity
     private LocationManager locationManager;
     private LatLng currentLocation;
     private final String TAG = "Main NorseSquare Activity";
+    private View mapView;
     
     public LocationListener locationListener;
     
@@ -90,11 +91,12 @@ public class NorseSquare extends NSBaseActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_relative_map);
+//        mapView = findViewById(R.layout.)
         setSlidingActionBarEnabled(true);
         //Get accounts
         AccountManager accountManager = AccountManager.get(this);
         accountList = getAccountNames();
-        super.setUpSlidingMenu();
+//        super.setUpSlidingMenu();
 
         
         
@@ -140,6 +142,7 @@ public class NorseSquare extends NSBaseActivity
         setUpMap();
         Log.i(TAG, "OnResume");
     }
+    
     
 
 	
