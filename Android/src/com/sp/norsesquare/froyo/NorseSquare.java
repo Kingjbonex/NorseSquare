@@ -745,12 +745,6 @@ public class PlusPictureTask extends AsyncTask<Void, Void, Void>
 {
 		
 		
-		
-		protected void onPreExecute()
-		{
-			
-		}
-		
 		@Override
 		protected Void doInBackground(Void... args)
 		{
