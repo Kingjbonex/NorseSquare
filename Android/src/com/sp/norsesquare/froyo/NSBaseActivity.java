@@ -57,7 +57,10 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 		fragtrans.commit();
 		
 		setUpSlidingMenu();
-		
+		//set the icon up as clickable - 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		//use app icon
+		getSupportActionBar().setIcon(R.drawable.ic_launcher);
 	}
 	
 	public void setUpSlidingMenu()
@@ -80,10 +83,7 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 //			}
 //		});
 		
-		//set the icon up as clickable - 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		//use app icon
-		getSupportActionBar().setIcon(R.drawable.ic_launcher);
+		
 		//
 //		sm.setOnOpenListener(new OnClickListener()
 //		{
@@ -127,22 +127,7 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
         {
 			case android.R.id.home:
 				toggle();
-//				mapFrag.setBackgroundResource(R.color.trans);
-//				controlFrag.setBackgroundResource(R.color.trans);
-//				getSlidingMenu().setViewAbove(mapFrag);
-				
-//				if (visible==true)
-//				{
-//					visible = false;
-//					
-//					mapFrag.setVisibility(INVISIBLE);
-//				}
-//				else
-//				{
-//					visible = true;
-//					mapFrag.setVisibility(VISIBLE);
-//				}
-				Log.i(TAG, "Sliding menu Clicked");
+				Log.i(TAG, "Sliding menu item Clicked");
 				return true;
             case R.id.menu_settings_reveal_location:
                 if (item.isChecked())
@@ -168,6 +153,17 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    
+//    menu = getSlidingMenu();
+//    @Override
+//    public void onBackPressed() {
+//    if (getSlidingMenu().isShown()) {
+//        getSlidingMenu().showContent(true);
+//        return;
+//    }
+//
+//    super.onBackPressed();
+//}
 
 	public void onConnected()
 	{
