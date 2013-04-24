@@ -488,8 +488,11 @@ ConnectionCallbacks, OnConnectionFailedListener
     }
 
     //checkin function, calling the database to be updated
-    private void Checkin(Location locate) {
-		// TODO Auto-generated method stub
+    private void checkIn(Location locate)
+    {
+		// Send current location and information to web server.
+    	//TODO - Include name?
+    	
 		System.out.println(googleAuthToken);
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 		
@@ -515,7 +518,7 @@ ConnectionCallbacks, OnConnectionFailedListener
     {
         Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
     	
-    	Iterator i = storedMarkerList.iterator();
+    	Iterator<MapMarker> i = storedMarkerList.iterator();
     	
         if (i.hasNext()==false)
         {

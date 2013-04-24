@@ -83,7 +83,7 @@ public class CheckinTask extends AsyncTask<String, Void, Integer>
 	
 	protected void onPostExecute(Long result) {
         Log.i("Yes", "gems are truly outrageous..");
-        //showDialog("Recieved info from Database");
+        //showDialog("Received info from Database");
     }
 	
 	
