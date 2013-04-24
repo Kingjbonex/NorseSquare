@@ -112,7 +112,7 @@ ConnectionCallbacks, OnConnectionFailedListener
     @Override
 	public void onCreate(Bundle savedInstanceState) 
     {
-         	
+       //Do any setup required on initially starting the app, including setting layouts and getting login credentials from the user.
     	
         super.onCreate(savedInstanceState);
 
@@ -144,7 +144,7 @@ ConnectionCallbacks, OnConnectionFailedListener
        AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
        Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
        
-       //new UserInfoAsyncTask(googleAuthToken).execute();
+       
        //Initialize PlusClient
        //TODO - Add in appropriate listeners to below call
        mPlusClient = new PlusClient.Builder(this, this, this)
@@ -172,6 +172,8 @@ ConnectionCallbacks, OnConnectionFailedListener
     @Override
     protected void onResume() 
     {
+    	//On app being reloaded from memory, reobtain necessary handlers and reintialize map.
+    	
         super.onResume();
         
         //Get location manager
@@ -198,6 +200,8 @@ ConnectionCallbacks, OnConnectionFailedListener
 	  	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 	  	
 	  	mPlusClient.connect();
+	  	
+	  	//Def
 		locationListener = new LocationListener() 
 		{
 		
@@ -285,15 +289,7 @@ ConnectionCallbacks, OnConnectionFailedListener
   
   
    
-    
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu)
-//    {
-//    	super.onPrepareOptionsMenu(menu);
-////    	//TODO - Figure out why the ********** this won't work
-////    	getMenuInflater().inflate(R.menu.menu_main_settings, menu);
-////    	return true;
-//    }
+ 
 //    
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -404,23 +400,31 @@ ConnectionCallbacks, OnConnectionFailedListener
 				     Northeast: Lat - 43.309191  Long - -91.766739
 				     */
 					
+//					
+//					LatLng boundSW = new LatLng(43.282454,-91.827679);
+//			        LatLng boundNE = new LatLng(43.309191,-91.766739);
+//			        
+//			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//			        builder.include(boundSW);
+//			        builder.include(boundNE);
+//			        
+//			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
+//			        
+//			        
+//			   
+//			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
+//					
+					wifiLocate(findViewById(R.id.main_map));
 					
-					LatLng boundSW = new LatLng(43.282454,-91.827679);
-			        LatLng boundNE = new LatLng(43.309191,-91.766739);
-			        
-			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-			        builder.include(boundSW);
-			        builder.include(boundNE);
-			        
-			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
-			   
-			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
 					
-					mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5));
+            
+					
 	                mMap.setOnCameraChangeListener(null);
 					
 				}
 			});
+            
+            placeStoredMarkers();
             
          }
         
@@ -431,13 +435,15 @@ ConnectionCallbacks, OnConnectionFailedListener
     
     public void wifiLocate(View v)
     {
-    	//Called from Control Panel button Wifi Locate, gets wifi location
-    	//TODO - Zoom in closer on current location
+    	//Get Wifi Location 
+    	
     	
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
     	updateLocation(coarseLocation);
+    	
+    	//------Deprecated--------- use placeStoredMarkers() with storeMarker()
     	//placeSingleMarker(v,new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
     	
     }
@@ -526,18 +532,18 @@ ConnectionCallbacks, OnConnectionFailedListener
     public void updateLocation(Location l)
     {
     	//Primary method to update location in the map. All other methods should call this one, regardless of provider.
-    	
     	//Set current location. This is called from both listeners and buttons, and is done to avoid having to get the location anew every time.
-    	//TODO - See if this is already cached and easily available, refer to location strategies
+    
     	currentLocation = new LatLng(l.getLatitude(),l.getLongitude());
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     
-    	storeMarker(ll,"Timmy Jimmy","This is a snippet");
-    	redrawMarkers();
+    
     	
-    	
+    	mMap.moveCamera(CameraUpdateFactory.zoomBy(7));
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
+    	
+    	redrawMarkers();
     	
     }
     
