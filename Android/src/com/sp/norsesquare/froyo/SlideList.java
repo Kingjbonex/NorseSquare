@@ -34,14 +34,6 @@ public class SlideList extends SherlockListFragment {
 	
 	Context context;
 	
-	String[] list_contents = {
-			"Poop",
-			"item 2",
-			"item 3",
-			"item 4",
-			"item 5"
-	};
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		listView  = (ListView) inflater.inflate(R.layout.list, container, false);
 		
@@ -82,7 +74,7 @@ public class SlideList extends SherlockListFragment {
 			case 0:
 				Log.i(TAG, text + " Clicked");
 //				wifiLocate();
-				Log.e(TAG, view.toString());
+				Log.i(TAG, view.toString());
 //				getSlidingMenu().toggle();
 //				intent = new Intent(context, NewActivity.class);
 //				startActivity(intent);

@@ -9,9 +9,13 @@
        android:id="@+id/main_map"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:background="@android:color/transparent" 
        class="com.google.android.gms.maps.SupportMapFragment"
         />
-    
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:background="@android:color/transparent" />
      <!-- Control panel fragment - V1.0 -->
     <fragment
         android:id="@+id/main_control_panel"
