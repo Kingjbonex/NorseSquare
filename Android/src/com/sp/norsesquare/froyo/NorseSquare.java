@@ -439,6 +439,16 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     }
     
+    public Location returnCurrentWifiLocation()
+    {
+    	//Get and return the current location from Wifi. 
+    	
+    	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
+    	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+    	
+    	return coarseLocation;
+    }
+    
     public void storeMarker(LatLng latlong,String title, String snippet)
     {
     	//Add marker to list of stored markers, making sure that it is not a duplicate
@@ -478,13 +488,15 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     }
 
-    //checkin function, calling the database to be updated
-    private void checkIn(Location locate)
+    
+    public void checkIn()
     {
-		// Send current location and information to web server.
+		// Get and Send current location and information to web server. Update current position for logged in user.
     	//TODO - Include name?
     	
-		System.out.println(googleAuthToken);
+    	Location locate = this.returnCurrentWifiLocation();
+    	
+		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 		
 	}
@@ -507,6 +519,9 @@ ConnectionCallbacks, OnConnectionFailedListener
     
     public void placeStoredMarkers()
     {
+    	//Place all markers currently stored in the storedMarkerList on the map. This should be used in conjunction with any function that updates the map, 
+    	//and should be called on any map redraw to ensure that the most up to date markers are visible
+    	
         Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
     	
     	Iterator<MapMarker> i = storedMarkerList.iterator();

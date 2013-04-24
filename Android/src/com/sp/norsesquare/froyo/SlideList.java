@@ -88,6 +88,9 @@ public class SlideList extends SherlockListFragment {
 //				intent = new Intent(context, FragmentSwap.class);
 //				startActivity(intent);
 				break;
+			case 2:
+				Log.i(TAG, text+ " Clicked");
+				ns.checkIn();
 			
 			default:
 				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
