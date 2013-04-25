@@ -206,8 +206,8 @@ ConnectionCallbacks, OnConnectionFailedListener
 			{
 				// Called when a new location is found by the network location provider.
 				//TODO - Find how often this is called, determine if it is too frequent.
-				updateLocation(location);
-				Toast.makeText(context, "Location is being updated", Toast.LENGTH_SHORT).show();
+				//updateLocation(location);
+				//Toast.makeText(context, "Location is being updated", Toast.LENGTH_SHORT).show();
 			}
 		
 		
@@ -437,9 +437,9 @@ ConnectionCallbacks, OnConnectionFailedListener
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
-    	updateLocation(coarseLocation);
-    	//placeSingleMarker(v,new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
-    	
+    	Checkin(coarseLocation);
+    	//placeSingleMarker(v, new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
+    	//updateLocation(coarseLocation);
     }
     
     public void storeMarker(LatLng latlong,String title, String snippet)
@@ -484,9 +484,10 @@ ConnectionCallbacks, OnConnectionFailedListener
     //checkin function, calling the database to be updated
     private void Checkin(Location locate) {
 		// TODO Auto-generated method stub
+    	//LatLng latlong = new LatLng(locate.getLatitude(),locate.getLongitude());
+    	//mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
 		System.out.println(googleAuthToken);
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
-		
 	}
 
 
@@ -533,12 +534,11 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     
-    	storeMarker(ll,"Timmy Jimmy","This is a snippet");
+    	//storeMarker(ll,"Timmy Jimmy","This is a snippet");
     	redrawMarkers();
     	
     	
-    	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
-    	
+    	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));	
     }
     
     public void redrawMarkers()
