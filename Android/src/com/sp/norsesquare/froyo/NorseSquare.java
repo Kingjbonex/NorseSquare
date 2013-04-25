@@ -9,8 +9,6 @@ import java.util.Iterator;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -64,15 +62,18 @@ ConnectionCallbacks, OnConnectionFailedListener
      * Note that this may be null if the Google Play services APK is not available.
      * TODO - Add dependency for Google Maps application, must be installed for Maps API to work
      */
+	
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
     boolean releaseLocation;
     private LocationManager locationManager;
     private LatLng currentLocation;
+    private String Googletoken;
     private final String TAG = "Main NorseSquare Activity";
+    private View mapView;
     
     public LocationListener locationListener;
-    
+    private String lutherAccount = "";  
     
     
     private ArrayList<MapMarker> storedMarkerList;
@@ -100,16 +101,18 @@ ConnectionCallbacks, OnConnectionFailedListener
     @Override
 	public void onCreate(Bundle savedInstanceState) 
     {
-       String lutherAccount = "";    	
+       //Do any setup required on initially starting the app, including setting layouts and getting login credentials from the user.
     	
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_relative_map);
+//        mapView = findViewById(R.layout.)
         setSlidingActionBarEnabled(true);
+        
         //Get accounts
         AccountManager accountManager = AccountManager.get(this);
         accountList = getAccountNames();
-        super.setUpSlidingMenu();
+//        super.setUpSlidingMenu();
 
         
         
@@ -128,10 +131,10 @@ ConnectionCallbacks, OnConnectionFailedListener
         }
         
        //Get authToken for luther.edu account 
-       new LoginAsyncTask(lutherAccount,this).execute();
-       Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);
+       AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
+       Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
        
-       //new UserInfoAsyncTask(googleAuthToken).execute();
+       
        //Initialize PlusClient
        //TODO - Add in appropriate listeners to below call
        mPlusClient = new PlusClient.Builder(this, this, this)
@@ -159,6 +162,8 @@ ConnectionCallbacks, OnConnectionFailedListener
     @Override
     protected void onResume() 
     {
+    	//On app being reloaded from memory, reobtain necessary handlers and reintialize map.
+    	
         super.onResume();
         
         //Get location manager
@@ -166,6 +171,7 @@ ConnectionCallbacks, OnConnectionFailedListener
         setUpMap();
         Log.i(TAG, "OnResume");
     }
+    
     
 
 	
@@ -185,6 +191,8 @@ ConnectionCallbacks, OnConnectionFailedListener
 	  	final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 	  	
 	  	mPlusClient.connect();
+	  	
+	  	//Def
 		locationListener = new LocationListener() 
 		{
 		
@@ -272,15 +280,7 @@ ConnectionCallbacks, OnConnectionFailedListener
   
   
    
-    
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu)
-//    {
-//    	super.onPrepareOptionsMenu(menu);
-////    	//TODO - Figure out why the ********** this won't work
-////    	getMenuInflater().inflate(R.menu.menu_main_settings, menu);
-////    	return true;
-//    }
+ 
 //    
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -323,15 +323,15 @@ ConnectionCallbacks, OnConnectionFailedListener
     @Override
     public void onConnected() {
         String accountName = mPlusClient.getAccountName();
-        //Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
         
         //Retrieve logged in user
         Person p = mPlusClient.getCurrentPerson();
         
         me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName());
         
-       // me = new GoogleUser(p.)
-        Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
+        
+        //Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -391,23 +391,31 @@ ConnectionCallbacks, OnConnectionFailedListener
 				     Northeast: Lat - 43.309191  Long - -91.766739
 				     */
 					
+//					
+//					LatLng boundSW = new LatLng(43.282454,-91.827679);
+//			        LatLng boundNE = new LatLng(43.309191,-91.766739);
+//			        
+//			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//			        builder.include(boundSW);
+//			        builder.include(boundNE);
+//			        
+//			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
+//			        
+//			        
+//			   
+//			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
+//					
+					wifiLocate(findViewById(R.id.main_map));
 					
-					LatLng boundSW = new LatLng(43.282454,-91.827679);
-			        LatLng boundNE = new LatLng(43.309191,-91.766739);
-			        
-			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-			        builder.include(boundSW);
-			        builder.include(boundNE);
-			        
-			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
-			   
-			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
 					
-					mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5));
+            
+					
 	                mMap.setOnCameraChangeListener(null);
 					
 				}
 			});
+            
+            placeStoredMarkers();
             
          }
         
@@ -418,22 +426,88 @@ ConnectionCallbacks, OnConnectionFailedListener
     
     public void wifiLocate(View v)
     {
-    	//Called from Control Panel button Wifi Locate, gets wifi location
-    	//TODO - Zoom in closer on current location
+    	//Get Wifi Location 
+    	
     	
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
     	updateLocation(coarseLocation);
     	
+    	//------Deprecated--------- use placeStoredMarkers() with storeMarker()
+    	//placeSingleMarker(v,new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
+    	
+    }
+    
+    public Location returnCurrentWifiLocation()
+    {
+    	//Get and return the current location from Wifi. 
+    	
+    	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
+    	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+    	
+    	return coarseLocation;
+    }
+    
+    public void storeMarker(LatLng latlong,String title, String snippet)
+    {
+    	//Add marker to list of stored markers, making sure that it is not a duplicate
+    	//Duplicate = marker with same title (person's name)
+    	
+        Log.i("Store Marker","Store Marker called");
+    	Log.i("Store Marker","Size of storeMarkerList is " + storedMarkerList.size());
+    	
+        //If duplicate item found, delete and add newest version. If not, add current item (must be new).
+    	
+    	if (storedMarkerList.size()==0)
+    	{
+    		storedMarkerList.add(new MapMarker(latlong,title,snippet));
+    	}
+    	else
+    	{
+    		for (int i=0;i<storedMarkerList.size();i++)
+        	{
+        	   MapMarker m = storedMarkerList.get(i);
+        	   
+        	   if (m.getTitle() != title)
+        	   {
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+        	   }
+        	   else
+        	   {
+        		   storedMarkerList.remove(m);
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedMarkerList.add(new MapMarker(latlong,title,snippet));
+        	   }
+        	  
+        	}
+    	}
+    	
+    	
+    	
     }
 
-    public void placeSingleMarker(View v,LatLng latlong)
+    
+    public void checkIn()
     {
+		// Get and Send current location and information to web server. Update current position for logged in user.
+    	//TODO - Include name?
+    	
+    	Location locate = this.returnCurrentWifiLocation();
+    	
+		
+		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
+		
+	}
+
+
+	public void placeSingleMarker(View v,LatLng latlong)
+    {
+    	//------------DEPRECATED------------- - All further uses should store markers in storedMarkersList and use placeStoreMarkers()
     	mMap.clear();
     	
-    	//TODO - Make to selectively clear marker per user
-    	//TODO - See if need to we do something with the passed in view
+    	
     	//TODO - Programmatically alter marker contents for a more in depth user experience
     	
     	Marker cl = mMap.addMarker(new MarkerOptions().position(currentLocation)
@@ -445,12 +519,20 @@ ConnectionCallbacks, OnConnectionFailedListener
     
     public void placeStoredMarkers()
     {
-    	mMap.clear();
+    	//Place all markers currently stored in the storedMarkerList on the map. This should be used in conjunction with any function that updates the map, 
+    	//and should be called on any map redraw to ensure that the most up to date markers are visible
     	
-    	Iterator i = storedMarkerList.iterator();
+        Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
     	
+    	Iterator<MapMarker> i = storedMarkerList.iterator();
+    	
+        if (i.hasNext()==false)
+        {
+        	Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
+        }
     	while (i.hasNext())
     	{
+    	   Log.i("Map Marker", "Placing Map Marker");
     	   MapMarker m = (MapMarker) i.next();
     	   mMap.addMarker(m.getMarkerOptions());
     	}
@@ -459,18 +541,28 @@ ConnectionCallbacks, OnConnectionFailedListener
     public void updateLocation(Location l)
     {
     	//Primary method to update location in the map. All other methods should call this one, regardless of provider.
-    	
     	//Set current location. This is called from both listeners and buttons, and is done to avoid having to get the location anew every time.
-    	//TODO - See if this is lready cached and easily available, refer to location strategies
+    
     	currentLocation = new LatLng(l.getLatitude(),l.getLongitude());
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     
+    
     	
-    	placeSingleMarker(this.findViewById(R.id.RelativeMapLayout),ll);
-    	
+    	mMap.moveCamera(CameraUpdateFactory.zoomBy(7));
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
     	
+    	redrawMarkers();
+    	
+    }
+    
+    public void redrawMarkers()
+    {
+    	Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
+    	
+    	mMap.clear();
+    	
+    	placeStoredMarkers();
     }
     
     //Joel's classes/etc for not location related things.
@@ -490,20 +582,21 @@ ConnectionCallbacks, OnConnectionFailedListener
 
     public void findAll(View w){
     	
-    	AsyncTask<String, Void, HttpEntity> Task = new DatabaseTask().execute((String[])null);
+    	AsyncTask<String, Void, String> Task = new DatabaseTask().execute((String[])null);
     	try{
-    		HttpEntity Hentity = Task.get();
-    		String xmlString = EntityUtils.toString(Hentity);
+    		String xmlString = Task.get();
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = factory.newDocumentBuilder();
             InputSource inStream = new InputSource();
             inStream.setCharacterStream(new StringReader(xmlString));
             Document doc = db.parse(inStream);
 
-            String playcount = "empty";
+            //String playcount = "empty";
             NodeList nlist = doc.getElementsByTagName("person");
             
             for(int i = 0; i < nlist.getLength();i++){
+            	
+            	
 	            NodeList UserInfo = nlist.item(i).getChildNodes();
 	        	String fname = UserInfo.item(0).getTextContent();
 	        	String lname = UserInfo.item(1).getTextContent();
@@ -513,16 +606,21 @@ ConnectionCallbacks, OnConnectionFailedListener
 	        	Double longitude = Double.parseDouble(UserInfo.item(5).getTextContent());
 	        	Double latitude = Double.parseDouble(UserInfo.item(6).getTextContent());
 	        	
+	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
 	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
+	        	
+	        	Log.i("FINDALL",fname);
+	        	Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
             }
           
-        	placeStoredMarkers();
+        	redrawMarkers();
             
     	}
     	catch(Exception e) {
     		Log.i("ERROR", "error in response answer");
+    		e.printStackTrace();
     	}
     	
     }
@@ -591,10 +689,6 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
         googleAuthToken = result;
        
     }
-
-
-	
-	
 	
 }
 
@@ -627,6 +721,10 @@ public class GoogleUser
 	public String getEmail()
 	{
 		return accountEmail;
+	}
+	public void setPictureURL(URL u)
+	{
+		pictureURL = u;
 	}
 }
 
@@ -668,9 +766,24 @@ public class UserInfoAsyncTask extends AsyncTask<Void, Void, String>
     }
 
 
-
-
 	
+	
+  }
+
+
+public class PlusPictureTask extends AsyncTask<Void, Void, Void>
+{
+		
+		
+		@Override
+		protected Void doInBackground(Void... args)
+		{
+			return null;
+			
+		}
+		
+		
+
 	
 	
 }

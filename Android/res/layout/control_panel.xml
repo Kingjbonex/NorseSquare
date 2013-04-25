@@ -3,7 +3,7 @@
     android:layout_width="170sp"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:visibility="visible" >
+    android:visibility="visible"  >
     
     <Button 
         android:id="@+id/button_wifi_locate"

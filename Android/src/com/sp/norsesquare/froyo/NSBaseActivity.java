@@ -1,18 +1,16 @@
 package com.sp.norsesquare.froyo;
 
+//import static android.view.View.INVISIBLE;
+//import static android.view.View.VISIBLE;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -23,11 +21,15 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 	//declaration of the upper class for callbacks or whatevs in onOptionsItemSelected
 	NorseSquare ns;
 	
+	private boolean visible = true;
+	
 	//gotta have it private first (right?)
 	private int mTitleRes;
 	protected ListFragment mFrag;
 	
 	private final String TAG = "Base Activity";
+	
+    
 	
 	
 	public NSBaseActivity(int titleRes)
@@ -54,8 +56,11 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 		//commits the transition and makes it execute
 		fragtrans.commit();
 		
-//		setUpSlidingMenu();
-		
+		setUpSlidingMenu();
+		//set the icon up as clickable - 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		//use app icon
+		getSupportActionBar().setIcon(R.drawable.ic_launcher);
 	}
 	
 	public void setUpSlidingMenu()
@@ -71,10 +76,14 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		
-		//set the icon up as clickable - 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		//use app icon
-		getSupportActionBar().setIcon(R.drawable.ic_launcher);
+//		sm.setOnOpenListener(new OnOpenListener() {
+//			@Override
+//			public void onOpen() {
+//				
+//			}
+//		});
+		
+		
 		//
 //		sm.setOnOpenListener(new OnClickListener()
 //		{
@@ -111,18 +120,20 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) 
+//    	View mapFrag = (View) findViewById(R.id.RelativeMapLayout);
+//    	View controlFrag = (View) findViewById(R.id.main_control_panel);
+     	
+        switch (item.getItemId())
         {
 			case android.R.id.home:
 				toggle();
-				Log.i(TAG, "Sliding menu Clicked");
+				Log.i(TAG, "Sliding menu item Clicked");
 				return true;
             case R.id.menu_settings_reveal_location:
                 if (item.isChecked())
                 {
                 	ns.setReleaseLocation(false);
                 	item.setChecked(false);
-                	
                 }
                 else
                 {
@@ -142,6 +153,17 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    
+//    menu = getSlidingMenu();
+//    @Override
+//    public void onBackPressed() {
+//    if (getSlidingMenu().isShown()) {
+//        getSlidingMenu().showContent(true);
+//        return;
+//    }
+//
+//    super.onBackPressed();
+//}
 
 	public void onConnected()
 	{
