@@ -1,7 +1,7 @@
 $('#tabs').tabs();
 
 $(function() {
-	$( ".icon-button" ).button({
+	$( ".friend-icon-button" ).button({
 			icons: { primary: "ui-icon-circle-plus" },
 			text: false
 	});
@@ -12,17 +12,17 @@ $(function() {
 });
 
 $(function() {
-	$('#toggleButText')
+	$('#toggle-button-text')
 	.button()
 	.click(function() {
-		var buttonText = $("#toggleButText").html();
-		if (buttonText == "<span class='ui-button-text'>&gt;<br>&gt;</span>") $("#toggleButText").html("<span class='ui-button-text'>&lt;<br>&lt;</span>");
-		else $("#toggleButText").html("<span class='ui-button-text'>&gt;<br>&gt;</span>");
+		var buttonText = $("#toggle-button-text").html();
+		if (buttonText == "<span class='ui-button-text'>&gt;<br>&gt;</span>") $("#toggle-button-text").html("<span class='ui-button-text'>&lt;<br>&lt;</span>");
+		else $("#toggle-button-text").html("<span class='ui-button-text'>&gt;<br>&gt;</span>");
 	});
 });
 
 
-$('#toggleButText').click(
+$('#toggle-button-text').click(
 	function() {
 		$('#map').toggle();
 		google.maps.event.trigger(map, 'resize');
@@ -33,4 +33,4 @@ $('#toggleButText').click(
 		$('#map').toggleClass('extend-map');
 		google.maps.event.trigger(map, 'resize');
 		map.setZoom( map.getZoom() );
-	});
+});

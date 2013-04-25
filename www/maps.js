@@ -14,12 +14,35 @@ function starter() {
 
 	mapDiv = document.getElementById('map');
 
-	winH = winH * .85;
+	winH = winH * .89;
 	mapDiv.style.height = winH + "px";
 
 	google.maps.event.trigger(map, 'resize');
 	map.setZoom( map.getZoom() );
  }
+
+$(window).resize( function() {
+	var winH = 460;
+	
+	if (document.body && document.body.offsetWidth) {
+	    winH = document.body.offsetHeight;
+	}
+	if (document.compatMode=='CSS1Compat' &&
+	    document.documentElement &&
+	    document.documentElement.offsetWidth ) {
+	    winH = document.documentElement.offsetHeight;
+	}
+	if (window.innerWidth && window.innerHeight) {
+		winH = window.innerHeight;
+	}
+	
+	mapDiv = document.getElementById('map');
+	winH = winH * .89;
+	mapDiv.style.height = winH + "px";
+	
+	google.maps.event.trigger(map, 'resize');
+	map.setZoom( map.getZoom() );	
+});
 
 function toggleBox(id){
 	if (document.getElementById(id).style.display == "") {
