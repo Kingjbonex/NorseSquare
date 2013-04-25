@@ -140,54 +140,55 @@
 
 </head> 
 <body onLoad="starter();">        
-    <div id="mainPageContainer">
+    <div id="main-page-container">
         
         <div id="header">
-            <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+            <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
         </div><!--header-->
         	
-            <div id="personalStatus">
-            	<!--picture, fname, lname, position-->
-            </div>
+        <div id="lower-page-container">
+       
+            <a id="janrainLink" class="janrainEngage" href="#"></a>
+            <div id="map"></div> 
+        
+            <div id="toggle-button">
+            	<button id="toggle-button-text">&gt;<br />&gt;</button>
+            </div><!-- toggle-button -->
             
-        	<div class="toggleBut">
-            	<button id="toggleButText">><br>></button>
-            </div>
-            
-        	<div id="tabs">
-                <div id="personal-status">
-                    <div class="personal-image">
-                        <img src="">
+            <div id="primary-content-container">
+                <div id="tabs">
+                    <div id="personal-status">
+                        <div class="personal-image">
+                            <img src="#"/>
+                        </div>
+                        <div class="personal-text">
+                            <span class="name">James Penning</span>
+                            <span class="ui-icon ui-icon-flag"></span><span class="location">Library Lawn</span>
+                            <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                        </div>
+                        <div class="check-in">
+                            <button id="check-in-button">Check-in</button>
+                        </div>
+                    </div><!--personal-status -->
+                    
+                    <ul>
+                        <li><a href="#friends">Friends</a></li>
+                        <li><a href="#plans">Plans</a></li>
+                        <li><a href="#settings">Settings</a></li>
+                    </ul>
+                    <div id="friends">
+                    
+                    </div><!-- friends -->  
+                    <div id="plans">
+                        <p>Where our plans section will be placed.</p>
                     </div>
-                    <div class="personal-text">
-                        <span class="name">James Penning</span>
-                        <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                        <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                    <div id="settings">
+                        <p>Where our settings section will be placed.</p>
                     </div>
-                    <div class="check-in">
-                        <button id="check-in-button">Check-in</button>
-                    </div>
-                </div><!--personal-status -->
-            	<ul>
-                	<li><a href="#friends">Friends</a></li>
-                    <li><a href="#plans">Plans</a></li>
-                    <li><a href="#settings">Settings</a></li>
-                </ul>
-                <div id="friends">
-                
-                </div><!-- friends -->  
-                <div id="plans">
-                    <p>Where our plans section will be placed.</p>
-                </div>
-                <div id="settings">
-                    <p>Where our settings section will be placed.</p>
-                </div>
-             </div><!--jQueryTabs-->
-     
-            
-        <a id="janrainLink" class="janrainEngage" href="#"></a>
-        <div id="map"></div> 
-     
+                 </div><!--jQueryTabs-->
+                 
+       		</div><!-- primary-content-container -->
+    	</div><!-- lower-page-container --> 
     </div><!--mainDiv-->
 </body> 
 

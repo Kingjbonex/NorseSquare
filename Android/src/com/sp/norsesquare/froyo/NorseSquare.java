@@ -534,9 +534,9 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     
-    	//storeMarker(ll,"Timmy Jimmy","This is a snippet");
-    	redrawMarkers();
     	
+//storeMarker(ll,"Timmy Jimmy","This is a snippet");
+    	redrawMarkers();    	
     	
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));	
     }
