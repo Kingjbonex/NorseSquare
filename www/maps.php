@@ -102,7 +102,7 @@
 					$("#check-in-button").button({
 						icons: { primary: "ui-icon-circle-check" },
 						text: true
-					}).click(checkIn(););
+					}).click(function(){checkIn();});
 				;});
 			},'text');
 
