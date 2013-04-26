@@ -98,7 +98,7 @@
 			time = $(this).find("time").text(),
 			gid = $(this).find("googleid").text(),
 			photo = $(this).find("photourl").text();
-		alert(fname,lname,lat,long,time,gid,photo);}
+		alert(fname,lname,lat,long,time,gid,photo);});
 
 		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
