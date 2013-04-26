@@ -14,8 +14,7 @@ function starter() {
 
 	mapDiv = document.getElementById('map');
 
-	winH = winH * .89;
-	mapDiv.style.height = winH + "px";
+	mapDiv.style.height = winH - 120;
 
 	google.maps.event.trigger(map, 'resize');
 	map.setZoom( map.getZoom() );
@@ -37,8 +36,7 @@ $(window).resize( function() {
 	}
 	
 	mapDiv = document.getElementById('map');
-	winH = winH * .89;
-	mapDiv.style.height = winH + "px";
+	mapDiv.style.height = winH - 120;
 	
 	google.maps.event.trigger(map, 'resize');
 	map.setZoom( map.getZoom() );	

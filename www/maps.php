@@ -173,6 +173,10 @@
        		</div><!-- primary-content-container -->
     	</div><!-- lower-page-container --> 
     </div><!--mainDiv-->
+    <div id="footer">
+    	Copyright &copy; NorseSquare<br/>
+		Designed by Luther College Seniors
+    </div>
 </body> 
 
    <script type="text/javascript" src="jquery-ui.js"></script>
