@@ -4,6 +4,7 @@ $fname = $_GET['fname'];
 $lname = $_GET['lname'];
 $email = $_GET['email'];
 $gid = $_GET['gid'];
+$time = date("Y-m-d H:i:s", time());
 
 $connection = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
 if (!$connection)
@@ -20,8 +21,8 @@ $photourl = $result['Location'];
 //else update with name and photo
 //select any info we want and pass it back
 
-$Query = 'INSERT INTO users (uid,fname,lname,username,googleid) SELECT (MAX(uid)+1),"' 
-	. $fname . '","' . $lname . '","' . $email . '","' . $gid . '" FROM users WHERE not exists (SELECT
+$Query = 'INSERT INTO users (uid,fname,lname,username,googleid,time) SELECT (MAX(uid)+1),"' 
+	. $fname . '","' . $lname . '","' . $email . '","' . $gid . '","' . $time . '" FROM users WHERE not exists (SELECT
 	 * from users WHERE users.username = "' . $email . '")';
 
 $result = mysql_query($Query,$connection);
