@@ -124,14 +124,8 @@
 					friendLong = $(this).find("longitude").text();
 					friendTime = $(this).find("time").text();
 				
-					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button" /></button></div></div>'); 
-					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(event){
-						alert("here");
-						if (navigator.geolocation) {
-						    navigator.geolocation.getCurrentPosition(checkIn, errorFunction);
-						} else {
-						    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-						}});
+					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button" onclick="checkIn()"/></button></div></div>'); 
+					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 				}
 			);
 

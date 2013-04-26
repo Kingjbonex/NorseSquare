@@ -180,9 +180,16 @@ function saveLocation(lat, long)
 
 }
 
-function checkIn(position){
-	
-		
+function checkIn(){
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	} else {
+	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	}
+};
+
+function successFuction(postion){
+
 	var image;	
 	if (email == "") {
 		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
