@@ -180,7 +180,7 @@ function saveLocation(lat, long)
 
 }
 
-function successFunction(postion){
+function successFunction(position){
 
 	var image;	
 	if (email == "") {
