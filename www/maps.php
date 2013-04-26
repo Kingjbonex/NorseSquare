@@ -99,7 +99,11 @@
 					gid = $(this).find("googleid").text(),
 					photo = $(this).find("photourl").text();
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
-				alert(fname,lname,lat,long,time,gid,photo);});
+					$("#check-in-button").button({
+						icons: { primary: "ui-icon-circle-check" },
+						text: true
+					}).click(function(){checkIn();});
+				;});
 			},'text');
 
 		
@@ -120,7 +124,7 @@
 					friendLong = $(this).find("longitude").text();
 					friendTime = $(this).find("time").text();
 				
-					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button" /></button></div></div>'); 
+					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
 					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 				}
 			);

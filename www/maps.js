@@ -179,6 +179,7 @@ function saveLocation(lat, long)
 }
 
 function successFunction(position){
+
 	var image;	
 	if (email == "") {
 		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
@@ -226,8 +227,16 @@ function successFunction(position){
 }
 
 function errorFunction(position) {
-    alert('Error!');
+    alert('Error! Your computer hates you. (And geolocation is not working!)');
 }
+
+function checkIn(){
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	} else {
+	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	}
+};
 
 function showFriends(data) {
     for (var i = 0; i < myPosMarkers.length; i++ ) {
@@ -335,7 +344,7 @@ function findMe(controlDiv, map) {
   google.maps.event.addDomListener(controlUI, 'click', function() {
 
 	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	    navigator.geolocation.getCurrentPosition(checkIn, errorFunction);
 	} else {
 	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 	}
