@@ -125,7 +125,7 @@
 						}
 					});
 					
-					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span><span class="ui-icon ui-icon-clock"></span></div><div class="right-button-icon"><button class="icon-button" /></button></div></div>');  
+					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span><span class="ui-icon ui-icon-clock"></span></div><div class="right-button-icon"><button class="friend-icon-button" /></button></div></div>');  
 					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 				}
 			);
@@ -152,7 +152,7 @@
             <div id="map"></div> 
         
             <div id="toggle-button">
-            	<button id="toggle-button-text">&gt;<br />&gt;</button>
+            	<button id="toggle-button-text">&gt;<br>&gt;</button>
             </div><!-- toggle-button -->
             
             <div id="primary-content-container">
@@ -176,7 +176,7 @@
                         <li><a href="#plans">Plans</a></li>
                         <li><a href="#settings">Settings</a></li>
                     </ul>
-                    <div id="friends">
+                    <div id="friends" class="calculated-height">
                     
                     </div><!-- friends -->  
                     <div id="plans">

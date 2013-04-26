@@ -167,6 +167,14 @@ html, body {
 }
 
 /* ----- FRIEND-LIST-ITEMS ----- */
+#friends {
+	overflow-y: scroll;	
+}
+.calculated-height {
+    height: -moz-calc(100% - 182px);
+    height: -webkit-calc(100% - 182px);
+    height: calc(100% - 182px);
+}
 .profile-image {
 	position: relative;
 	float: left;
