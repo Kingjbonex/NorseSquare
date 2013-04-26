@@ -98,7 +98,7 @@
 			time = $(this).find("time").text(),
 			gid = $(this).find("googleid").text(),
 			photo = $(this).find("photourl").text();
-		alert(fname,lname,lat,long,time,gid,photo);}
+		alert(fname,lname,lat,long,time,gid,photo);});
 
 		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
@@ -114,16 +114,10 @@
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
 					gid = $(this).find("googleid").text();
-					jQuery.ajax({
-						type: "GET",
-						url:"./services/getPhoto.php",
-						data: {UID:gid},
-						async: false, 
-						success: function(data){
-							if(!data){friendImage = './imageThumb.gif'}
-							else {friendImage = data};
-						}
-					});
+					friendImage = $(this).find("photourl").text(),
+					friendLat = $(this).find("latitude").text(),
+					friendLong = $(this).find("longitude").text();
+					friendTime = $('this').find("time").text();
 					
 					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span><span class="ui-icon ui-icon-clock"></span></div><div class="right-button-icon"><button class="friend-icon-button" /></button></div></div>');  
 					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
