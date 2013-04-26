@@ -113,18 +113,11 @@
 					var fname = $(this).find("fname").text(),
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
-					gid = $(this).find("googleid").text();
-					jQuery.ajax({
-						type: "GET",
-						url:"./services/getPhoto.php",
-						data: {UID:gid},
-						async: false, 
-						success: function(data){
-							if(!data){friendImage = './imageThumb.gif'}
-							else {friendImage = data};
-						}
-					});
-					
+					gid = $(this).find("googleid").text(),
+					friendImage = $(this).find("photourl").text(),
+					friendLat = $(this).find("latitude").text(),
+					friendLong = $(this).find("longitude").text();
+										
 					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span><span class="ui-icon ui-icon-clock"></span></div><div class="right-button-icon"><button class="icon-button" /></button></div></div>');  
 					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 				}

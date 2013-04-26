@@ -9,7 +9,7 @@ if (!$connection)
 mysql_select_db(DB_NAME, $connection);
 $start = (intval($page)-1)*30;
 $end =  intval($page)*30;
-$Query = 'SELECT users.fname,users.lname,users.uid,users.googleid FROM users LIMIT '.$start.','.$end;
+$Query = 'SELECT users.fname,users.lname,users.uid,users.googleid,users.photourl,users.longitude,users.latitude FROM users LIMIT '.$start.','.$end;
 //echo $Query;
 $result = mysql_query($Query,$connection);
 $gotarray = mysql_fetch_array($result);
