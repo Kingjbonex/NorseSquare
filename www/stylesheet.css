@@ -106,8 +106,8 @@ html, body {
 	position: absolute;
 	width: 100%;
 	margin-top: .8em;
-	margin-left: 5%;
-	font-size: 150%;
+	margin-left: 6%;
+	font-size: 125%;
 	font-weight: bold;
 	color: blue;
 	overflow: hidden;
@@ -208,8 +208,9 @@ html, body {
 .list-item-text .name {
 	position: absolute;
 	width: 100%;
-	margin-top: .4em;
-	font-size: 150%;
+	margin-top: .8em;
+	margin-left: 4%;
+	font-size: 125%;
 	font-weight: bold;
 	color: blue;
 }
@@ -220,6 +221,7 @@ html, body {
 }
 .list-item-text .ui-icon-flag {
 	float: left;
+	margin-left: 3%;
 	margin-top: 2.7em;
 }
 .list-item-text .location {
