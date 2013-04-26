@@ -156,7 +156,7 @@
                         <div class="personal-image">
                             <img src="#"/>
                         </div>
-                        <div class="personal-text"></div>
+                        <div id="personal-text" class="personal-text"></div>
                         <div class="check-in">
                             <button id="check-in-button">Check-in</button>
                         </div>
