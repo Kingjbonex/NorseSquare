@@ -180,14 +180,6 @@ function saveLocation(lat, long)
 
 }
 
-function checkIn(){
-	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-	} else {
-	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-	}
-};
-
 function successFuction(postion){
 
 	var image;	
@@ -237,8 +229,16 @@ function successFuction(postion){
 }
 
 function errorFunction(position) {
-    alert('Error!');
+    alert('Error! Your computer hates you. (And geolocation is not working!)');
 }
+
+function checkIn(){
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	} else {
+	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	}
+};
 
 function showFriends(data) {
     for (var i = 0; i < myPosMarkers.length; i++ ) {
