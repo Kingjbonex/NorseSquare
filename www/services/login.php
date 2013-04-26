@@ -26,7 +26,7 @@ $Query = 'INSERT INTO users (uid,fname,lname,username,googleid) SELECT (MAX(uid)
 
 $result = mysql_query($Query,$connection);
 
-$Query = 'UPDATE users SET photourl="' . $photourl . '" WHERE users.username = "' . $email . '")';
+$Query = 'UPDATE users SET photourl="' . $photourl . '" WHERE users.username = "' . $email . '"';
 $result = mysql_query($Query,$connection);
 
 $Query = 'SELECT uid,fname,lname,photourl,latitude,longitude FROM users WHERE users.username="'.$email.'"';
