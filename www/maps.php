@@ -98,6 +98,7 @@
 			time = $(this).find("time").text(),
 			gid = $(this).find("googleid").text(),
 			photo = $(this).find("photourl").text();
+			$('#personal-text').append("<span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span>");
 		alert(fname,lname,lat,long,time,gid,photo);});
 
 		
