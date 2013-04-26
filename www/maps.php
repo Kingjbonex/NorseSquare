@@ -99,7 +99,11 @@
 					gid = $(this).find("googleid").text(),
 					photo = $(this).find("photourl").text();
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
-				alert(fname,lname,lat,long,time,gid,photo);});
+					$("#check-in-button").button({
+						icons: { primary: "ui-icon-circle-check" },
+						text: true
+					});
+				;});
 			},'text');
 
 		
