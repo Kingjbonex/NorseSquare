@@ -85,27 +85,26 @@
     //Calling function to create new user
     if(email != "") {
 
-		var result = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
-		var xml = data,
-		xmlDoc = $.parseXML( xml ),
-		$xml = $( xmlDoc ),
-		$person = $xml.find( "response person" ).each(
-		function(){
-			var fname = $(this).find("fname").text(),
-			lname = $(this).find("lname").text(),
-			lat = $(this).find("latitude").text(),
-			long = $(this).find("longitude").text(),
-			time = $(this).find("time").text(),
-			gid = $(this).find("googleid").text(),
-			photo = $(this).find("photourl").text();
-			$('#personal-status').append("<div class='personal-image><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
-		alert(fname,lname,lat,long,time,gid,photo);});
-		});
+		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
+			var xml = data,
+			xmlDoc = $.parseXML( xml ),
+			$xml = $( xmlDoc ),
+			$person = $xml.find( "response person" ).each(
+				function(){
+					var fname = $(this).find("fname").text(),
+					lname = $(this).find("lname").text(),
+					lat = $(this).find("latitude").text(),
+					long = $(this).find("longitude").text(),
+					time = $(this).find("time").text(),
+					gid = $(this).find("googleid").text(),
+					photo = $(this).find("photourl").text();
+					$('#personal-status').append("<div class='personal-image><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
+				alert(fname,lname,lat,long,time,gid,photo);});
+			});
 
 		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
-			var friendsData = "";
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
 			$xml = $( xmlDoc ),
