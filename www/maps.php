@@ -138,13 +138,13 @@
 </script>
 
 </head> 
-<body onLoad="starter();">        
-    <div id="main-page-container">
-        
-        <div id="header">
-            <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-        </div><!--header-->
-        	
+<body onLoad="starter();">     
+
+    <div id="header">
+        <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+    </div><!--header-->   
+
+    <div id="main-page-container">        	
         <div id="lower-page-container">
        
             <a id="janrainLink" class="janrainEngage" href="#"></a>
