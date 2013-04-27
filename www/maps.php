@@ -132,13 +132,6 @@
 					
 		}, 'text');
 		
-		$('#login'	).append('<button id="login-button">Login</button>');
-		$("#login-button").button({
-		icons: { primary: "ui-icon-circle-check" },
-		text: true
-	}).click(function(){login();});
-
-
 	}
 
 })();
@@ -149,7 +142,7 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-        <div id="login-button"></div>        
+	   <button id="login-button" onclick="login():">Login</button>
     </div><!--header-->   
 
     <div id="main-page-container">        	

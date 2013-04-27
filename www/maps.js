@@ -319,7 +319,7 @@ function findAll(controlDiv, map) {
 }
 
 function login() {
-    $('#janrainLink').click()
+    $('#janrainLink').click();
 }
 
 
