@@ -142,6 +142,8 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+        <button id="login-button" type=button onclick="login();">Login</button>
+        
     </div><!--header-->   
 
     <div id="main-page-container">        	
