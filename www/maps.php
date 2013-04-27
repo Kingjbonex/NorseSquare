@@ -59,9 +59,6 @@
         if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
         
         janrain.settings.tokenUrl = 'http://norsesquare.luther.edu/maps.php';//switch to internal server
-    
-
-    janrain.settings.tokenUrl = 'http://norsesquare.luther.edu/maps.php';//switch to internal server
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
@@ -74,12 +71,13 @@
     e.type = 'text/javascript';
     e.id = 'janrainAuthWidget';
 
+
     if (document.location.protocol === 'https:') {
       e.src = 'https://rpxnow.com/js/lib/norsesquare/engage.js';
     } else {
       e.src = 'http://widget-cdn.rpxnow.com/js/lib/norsesquare/engage.js';
     }
-
+    
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(e, s);
 
