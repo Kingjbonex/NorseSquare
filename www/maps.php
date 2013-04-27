@@ -57,7 +57,7 @@
     if (typeof window.janrain !== 'object') window.janrain = {};
     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
     
-    janrain.settings.tokenUrl = '__REPLACE_WITH_YOUR_TOKEN_URL__';
+    janrain.settings.tokenUrl = 'http://norsesquare.com/maps.php';
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
