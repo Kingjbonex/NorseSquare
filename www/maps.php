@@ -149,7 +149,7 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-        <div id="login"></div>        
+        <div id="login-button"></div>        
     </div><!--header-->   
 
     <div id="main-page-container">        	
