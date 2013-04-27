@@ -142,7 +142,7 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-        <button id="login-button" type=button>Login</button>
+        <button id="check-in-button" type=button>Login</button>
         <script type="text/javascript" > $("#login-button").button({icons: { primary: "ui-icon-circle-check" },text: true}).click(function(){login();});</script>
         
     </div><!--header-->   
