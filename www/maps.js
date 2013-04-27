@@ -318,42 +318,6 @@ function findAll(controlDiv, map) {
   });
 }
 
-function findMe(controlDiv, map) {
-  controlDiv.style.padding = '5px';
-
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to find your location';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '12px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<strong>Find Me</strong>';
-  controlUI.appendChild(controlText);
-
-  // Setup the click event listeners: simply set the map to Chicago.
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-
-	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(checkIn, errorFunction);
-	} else {
-	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-	}
-
-  });
-}
-
-
-
 function login(controlDiv, map) {
   controlDiv.style.padding = '5px';
 
@@ -390,16 +354,12 @@ var friendImage;
 var myLat;
 var myLong;
 var myPosMarkers = [];
-var findMeDiv = document.createElement('div');
 var findAllDiv = document.createElement('div');
 var loginDiv = document.createElement('div');
-var findMe = new findMe(findMeDiv, map);
 var findAll = new findAll(findAllDiv, map);
 var login = new login(loginDiv, map);
-findMeDiv.index = 1;
 findAllDiv.index = 1;
 loginDiv.index = 1;
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginDiv);
-map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findMeDiv);
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findAllDiv);
 
