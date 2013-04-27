@@ -125,7 +125,6 @@
 					friendLat = $(this).find("latitude").text(),
 					friendLong = $(this).find("longitude").text();
 					friendTime = $(this).find("time").text();
-					alert(gid + " : " + usergid);
 					if (gid != usergid) {
 						$('#friends').append('<div class="list-item" onclick="alert(&quot;'+fname+'&quot;);"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
 						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
