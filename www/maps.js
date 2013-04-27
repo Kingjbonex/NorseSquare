@@ -318,7 +318,7 @@ function findAll(controlDiv, map) {
   });
 }
 
-function login() {
+function loginFunction() {
     $('#janrainLink').click();
 }
 
