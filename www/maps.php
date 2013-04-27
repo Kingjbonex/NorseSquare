@@ -97,7 +97,7 @@
 					lat = $(this).find("latitude").text(),
 					long = $(this).find("longitude").text(),
 					time = $(this).find("time").text(),
-					usergid = $(this).find("googleid").text(),
+					usergid = $(this).find("gid").text(),
 					photo = $(this).find("photourl").text();
 					myPhotourl = photo;
 					alert(usergid + " : " + gid);
