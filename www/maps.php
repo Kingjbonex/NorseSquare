@@ -43,15 +43,8 @@
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
-
-
 </script>
- <script type="text/javascript" src="jquery-ui.js"></script>
-   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-   <script type="text/javascript" src="polygons.js"> </script>
-   <script type="text/javascript" src="mapStyles.js"> </script>
-   <script type="text/javascript" src="maps.js"></script>
-   <script type="text/javascript" src="ui.js"></script>
+
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
@@ -149,7 +142,11 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-        <button id="login-button" type=button onclick="login();">Login</button>
+        <button id="login-button">Login</button>
+        <script type="text/javascript">	$("#login-button").button({
+		icons: { primary: "ui-icon-circle-check" },
+		text: true
+	}).click(function(){login();});</script>
 
         
     </div><!--header-->   
@@ -193,7 +190,12 @@
     </div>
 </body> 
 
-  
+   <script type="text/javascript" src="jquery-ui.js"></script>
+   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   <script type="text/javascript" src="polygons.js"> </script>
+   <script type="text/javascript" src="mapStyles.js"> </script>
+   <script type="text/javascript" src="maps.js"></script>
+   <script type="text/javascript" src="ui.js"></script>
 </html>
 
 <?php 
