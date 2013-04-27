@@ -329,12 +329,4 @@ var friendImage;
 var myLat;
 var myLong;
 var myPosMarkers = [];
-var findAllDiv = document.createElement('div');
-
-var findAll = new findAll(findAllDiv, map);
-
-findAllDiv.index = 1;
-
-
-map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findAllDiv);
 
