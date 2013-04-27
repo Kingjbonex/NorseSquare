@@ -171,6 +171,7 @@
                         <p>Where our plans section will be placed.</p>
                     </div>
                     <div id="settings">
+                    		<button id="show-all-friends" onclick="findAll();">Show all friends</button>
                         <p>Where our settings section will be placed.</p>
                     </div>
                  </div><!--jQueryTabs-->
