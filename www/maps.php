@@ -100,13 +100,14 @@
 					usergid = $(this).find("gid").text(),
 					photo = $(this).find("photourl").text();
 					myPhotourl = photo;
-
-					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
-					$("#check-in-button").button({
-						icons: { primary: "ui-icon-circle-check" },
-						text: true
-					}).click(function(){checkIn();});
-					
+					alert(usergid + " : " + gid);
+					if (usergid != gid) {
+						$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
+						$("#check-in-button").button({
+							icons: { primary: "ui-icon-circle-check" },
+							text: true
+						}).click(function(){checkIn();});
+					;}
 				}
 			);
 			},'text');
@@ -123,16 +124,14 @@
 					var fname = $(this).find("fname").text(),
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text();
+					gid = $(this).find("googleid").text();
 					friendImage = $(this).find("photourl").text(),
 					friendLat = $(this).find("latitude").text(),
 					friendLong = $(this).find("longitude").text();
 					friendTime = $(this).find("time").text();
-
-					if (usergid != gid) {
-						$('#friends').append('<div class="list-item" onclick="alert(&quot;'+fname+'&quot;);"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
-						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
-					};
+				
+					$('#friends').append('<div class="list-item" onclick="alert(&quot;'+fname+'&quot;);"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 				}
 			);
 
