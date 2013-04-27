@@ -43,8 +43,15 @@
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
-</script>
 
+
+</script>
+ <script type="text/javascript" src="jquery-ui.js"></script>
+   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   <script type="text/javascript" src="polygons.js"> </script>
+   <script type="text/javascript" src="mapStyles.js"> </script>
+   <script type="text/javascript" src="maps.js"></script>
+   <script type="text/javascript" src="ui.js"></script>
 <html> 
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
@@ -186,12 +193,7 @@
     </div>
 </body> 
 
-   <script type="text/javascript" src="jquery-ui.js"></script>
-   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-   <script type="text/javascript" src="polygons.js"> </script>
-   <script type="text/javascript" src="mapStyles.js"> </script>
-   <script type="text/javascript" src="maps.js"></script>
-   <script type="text/javascript" src="ui.js"></script>
+  
 </html>
 
 <?php 
