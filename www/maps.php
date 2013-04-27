@@ -120,7 +120,7 @@
 					var fname = $(this).find("fname").text(),
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
-					usergid = $(this).find("gid").text();
+					usergid = $(this).find("googleid").text();
 					friendImage = $(this).find("photourl").text(),
 					friendLat = $(this).find("latitude").text(),
 					friendLong = $(this).find("longitude").text();
