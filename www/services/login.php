@@ -30,7 +30,7 @@ $result = mysql_query($Query,$connection);
 $Query = 'UPDATE users SET photourl="' . $photourl . '" WHERE users.username = "' . $email . '"';
 $result = mysql_query($Query,$connection);
 
-$Query = 'SELECT uid,fname,lname,photourl,latitude,longitude,gid FROM users WHERE users.username="'.$email.'"';
+$Query = 'SELECT uid,fname,lname,photourl,latitude,longitude FROM users WHERE users.username="'.$email.'"';
 $result = mysql_query($Query,$connection);
 
 $gotarray = mysql_fetch_array($result);
