@@ -53,7 +53,7 @@
 	<title>NorseSquare</title> 
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript">
-  (function() {
+   (function() {
     if (typeof window.janrain !== 'object') window.janrain = {};
     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
     
