@@ -1,7 +1,6 @@
 <?php
   ini_set('display_errors', 'On');
   $rpx_api_key = "bd7c501491a9fb92613e1a98bf0882f79aa60ec7";
-  #$rpx_api_key = "afb1996de68eb3aa1764c1bca05843a2017c7412";
   if(isset($_POST['token'])){
 	$token = $_POST['token'];
 
