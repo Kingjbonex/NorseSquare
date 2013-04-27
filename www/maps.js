@@ -215,7 +215,7 @@ function successFunction(position){
 	animation: google.maps.Animation.DROP,
 	position: myPosition
 	});
-	map.panTo(myLat,myLong);
+	map.panTo(myPosition);
 	myPosMarkers.push(myPosMarker);
 
 	if (email == "") {
