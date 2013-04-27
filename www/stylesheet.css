@@ -31,6 +31,7 @@ html, body {
 	background: blue;
 }
 #footer {
+	padding-top: 12px;
 	position: relative;
 	height: 60px;
 	width: 100%;
