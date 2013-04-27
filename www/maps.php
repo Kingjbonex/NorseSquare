@@ -107,7 +107,8 @@
 							text: true
 						}).click(function(){checkIn();});
 					;}
-				);
+				}
+			);
 			},'text');
 
 		
