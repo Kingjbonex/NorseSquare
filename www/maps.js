@@ -185,49 +185,27 @@ function successFunction(position){
 	
 	myPosMarkers = [];
 
-	var image;	
-	if (email == "") {
-		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
-	} else {			
-		var UID = gid;
-		jQuery.ajax({
-			type: "POST",
-			url: "./services/getPhoto.php",
-			data: {UID:UID}, 
-			async: false,
-			success: function(data){
-				if (!data){image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');}
-				else {
-				 	image = new google.maps.MarkerImage(
-						data,
-						new google.maps.Size(50, 50), // desired size
-						new google.maps.Point(0, 0), // offset within the scaled sprite
-						null, // anchor point is half of the desired size
-						new google.maps.Size(50, 50) // scaled size of the entire sprite
-					   )
-				}
-		}});
-	}
+	var image = new google.maps.MarkerImage(
+		myPhotourl,
+		new google.maps.Size(50, 50), // desired size
+		new google.maps.Point(0, 0), // offset within the scaled sprite
+		null, // anchor point is half of the desired size
+		new google.maps.Size(50, 50) // scaled size of the entire sprite
+	)
 
 	myLat = position.coords.latitude;
 	myLong = position.coords.longitude;
 
 	var myPosition = new google.maps.LatLng(myLat, myLong);
 	var myPosMarker = new google.maps.Marker({
-	map:map,
-	draggable:false,
-	icon: image,
-	animation: google.maps.Animation.DROP,
-	position: myPosition
+		map:map,
+		draggable:false,
+		icon: image,
+		animation: google.maps.Animation.DROP,
+		position: myPosition
 	});
 	map.panTo(myPosition);
 	myPosMarkers.push(myPosMarker);
-
-	if (email == "") {
-		alert("Your location has been found, but will not be saved unless you login.");
-	} else {	
-		saveLocation(myLat,myLong);
-	}
 
 }
 
