@@ -330,11 +330,11 @@ var myLat;
 var myLong;
 var myPosMarkers = [];
 var findAllDiv = document.createElement('div');
-var loginDiv = document.createElement('div');
+
 var findAll = new findAll(findAllDiv, map);
-var login = new login(loginDiv, map);
+
 findAllDiv.index = 1;
-loginDiv.index = 1;
-map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginDiv);
+
+
 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findAllDiv);
 
