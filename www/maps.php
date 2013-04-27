@@ -130,7 +130,14 @@
 			);
 
 					
-		}, 'text');				
+		}, 'text');
+		
+		$('#login'	).append('<button id="login-button">Login</button>');
+		$("#login-button").button({
+		icons: { primary: "ui-icon-circle-check" },
+		text: true
+	}).click(function(){login();});<
+
 
 	}
 
@@ -142,13 +149,7 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-        <button id="login-button">Login</button>
-        <script type="text/javascript">	$("#login-button").button({
-		icons: { primary: "ui-icon-circle-check" },
-		text: true
-	}).click(function(){login();});</script>
-
-        
+        <div id="login"></div>        
     </div><!--header-->   
 
     <div id="main-page-container">        	
