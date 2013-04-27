@@ -179,6 +179,11 @@ function saveLocation(lat, long)
 }
 
 function successFunction(position){
+	for (var i = 0; i < myPosMarkers.length; i++ ) {
+	myPosMarkers[i].setMap(null);
+	}
+	
+	myPosMarkers = [];
 
 	var image;	
 	if (email == "") {
