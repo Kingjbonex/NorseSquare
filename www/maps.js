@@ -126,7 +126,6 @@ function showArrays(event) {
   infowindow.open(map);
 };
 
-var gmarkers = [];
 var gpolygons = [];
 
 var aColor = "red";
@@ -178,9 +177,37 @@ function saveLocation(lat, long)
 
 }
 
+function showFriend(fLat,fLong,fPhotourl) {
+	for (var i = 0; i < myPosMarkers.length; i++ ) {
+		myPosMarkers[i].setMap(null);
+	}
+	
+	myPosMarkers = [];
+
+	var image = new google.maps.MarkerImage(
+		photourl,
+		new google.maps.Size(50, 50), // desired size
+		new google.maps.Point(0, 0), // offset within the scaled sprite
+		null, // anchor point is half of the desired size
+		new google.maps.Size(50, 50) // scaled size of the entire sprite
+	)
+
+	var fPosition = new google.maps.LatLng(fLat, fLong);
+	var myPosMarker = new google.maps.Marker({
+		map:map,
+		draggable:false,
+		icon: image,
+		animation: google.maps.Animation.DROP,
+		position: fPosition
+	});
+	map.panTo(fPosition);
+	myPosMarkers.push(myPosMarker);
+
+}
+
 function successFunction(position){
 	for (var i = 0; i < myPosMarkers.length; i++ ) {
-	myPosMarkers[i].setMap(null);
+		myPosMarkers[i].setMap(null);
 	}
 	
 	myPosMarkers = [];
