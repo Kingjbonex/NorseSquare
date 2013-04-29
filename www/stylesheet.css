@@ -6,7 +6,7 @@
 html, body {
 	background-color:#b9b9bb;
 	width:100%;
-	height:100%
+	height:100%;
 	font-size:12px;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	margin:0;
@@ -15,22 +15,35 @@ html, body {
 #main-page-container {
 	position: relative;
 	background-color:#8c8d8f;
-	width:98%;
-	height: 99%;
-	margin: 0 1% 1% 1%;
+    height: -moz-calc(100% - 120px);
+    height: -webkit-calc(100% - 120px);
+    height: calc(100% - 120px);
+	width: 98%;
+	margin-left: 1%;
 }
 
 /* ----- HEADER STYLES ----- */
 
 #header {
 	position: relative;
-	height: 10%;
+	height: 60px;
+	width: 100%;
+	background: blue;
+}
+#footer {
+	padding-top: 12px;
+	position: relative;
+	height: 48px;
+	width: 100%;
+	background: blue;
+	text-align: center;
+	color: white;	
 }
 
 #norse-square-logo {
 	position: absolute;
 	float: left;
-	top: 30%;
+	top: 10px;
 	left: 10%;
 	clear: both;
 }
@@ -38,8 +51,9 @@ html, body {
 /* ----- MAIN PAGE STYLES ----- */
 
 #lower-page-container {
+	position: relative;
 	width: 100%;
-	height: 90%;
+    height: 100%;
 }
 #map {
 	position: relative;
@@ -85,29 +99,31 @@ html, body {
 .personal-image {
 	position: relative;
 	float: left;
-	width: 15%;
+	width: 105px;
 	height:100%;
 }
 .personal-image img {
 	position: absolute;
-	width: 90%;
-	height: 60%;
+	width: 75px;
+	height: 75px;
 	border-radius: 5px;
-	top: 20%;
-	left: 10%;
+	top: 12px;
+	left: 15px;
 }
 .personal-text {
 	position: relative;
 	float: left;
-	width: 55%;
+    width: -moz-calc(100% - 230px);
+    width: -webkit-calc(100% - 230px);
+    width: calc(100% - 230px);
 	height: 100%;
 }
 .personal-text .name {
 	position: absolute;
 	width: 100%;
-	margin-top: .8em;
-	margin-left: 5%;
-	font-size: 150%;
+	margin-top: 1.4em;
+	margin-left: 6%;
+	font-size: 125%;
 	font-weight: bold;
 	color: blue;
 	overflow: hidden;
@@ -143,13 +159,13 @@ html, body {
 .check-in {
 	position: relative;
 	float: left;
-	width: 30%;
+	width: 125px;
 	height: 100%;
 }
 #check-in-button {
 	position: absolute;
 	top: 33%;
-	right: 5%;
+	right: 15px;
 	height: 33%;
 }
 #check-in-button .ui-button-icon-primary {
@@ -165,12 +181,40 @@ html, body {
 	text-align: center;
 	font-size: 100%;
 }
+#login-button {
+	position: absolute;
+	float: right;
+	top: 10px;
+	right: 10%;
+	clear: both;
+}
+#login-button .ui-button-icon-primary {
+	position: absolute;
+	float: left;
+	margin-top: 0;
+	left: 3%;
+	top: 27%;
+
+}
+#login-button .ui-button-text {
+	position: relative;
+	text-align: center;
+	font-size: 100%;
+}
 
 /* ----- FRIEND-LIST-ITEMS ----- */
+#friends {
+	overflow-y: scroll;	
+}
+.calculated-height {
+    height: -moz-calc(100% - 170px);
+    height: -webkit-calc(100% - 170px);
+    height: calc(100% - 170px);
+}
 .profile-image {
 	position: relative;
 	float: left;
-	width: 15%;
+	width: 85px;
 	height: 100%;	
 }
 .profile-image img {
@@ -179,7 +223,7 @@ html, body {
 	border-radius: 5px;
 	position: absolute;
 	top: 12px;
-	left: 12px;
+	left: 15px;
 }
 .list-item {
 	position:relative;
@@ -194,14 +238,17 @@ html, body {
 .list-item-text {
 	position: relative;
 	float: left;
-	width: 75%;
+    width: -moz-calc(100% - 140px);
+    width: -webkit-calc(100% - 140px);
+    width: calc(100% - 140px);
 	height: 100%;
 }
 .list-item-text .name {
 	position: absolute;
 	width: 100%;
-	margin-top: .4em;
-	font-size: 150%;
+	margin-top: .6em;
+	margin-left: 4%;
+	font-size: 125%;
 	font-weight: bold;
 	color: blue;
 }
@@ -212,6 +259,7 @@ html, body {
 }
 .list-item-text .ui-icon-flag {
 	float: left;
+	margin-left: 3%;
 	margin-top: 2.7em;
 }
 .list-item-text .location {
@@ -231,14 +279,14 @@ html, body {
 .right-button-icon {
 	position: relative;
 	float: left;
-	width: 10%;
+	width: 50px;
 	height: 100%;
 	border-radius: 7px;
 }
 .right-button-icon button {
 	position: absolute;
-	top: 33%;	
-	right: 25%;
+	top: 28px;	
+	right: 15px;
 }
 .right-button-icon .ui-button-icon-primary {
 	position: absolute;

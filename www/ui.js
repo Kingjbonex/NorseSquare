@@ -9,6 +9,10 @@ $(function() {
 		icons: { primary: "ui-icon-circle-check" },
 		text: true
 	});
+	$("#login-button").button({
+		icons: { primary: "ui-icon-circle-check" },
+		text: true
+	});
 });
 
 $(function() {
@@ -29,7 +33,7 @@ $('#toggle-button-text').click(
 		map.setZoom( map.getZoom() );
 	},
 	function() {
-		$('#tabs').toggle();
+		$('#primary-content-container').toggle();
 		$('#map').toggleClass('extend-map');
 		google.maps.event.trigger(map, 'resize');
 		map.setZoom( map.getZoom() );
