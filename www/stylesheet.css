@@ -1,123 +1,221 @@
 @charset "utf-8";
 /* CSS Document */
 
-
 /* ----- GLOBAL STYLES ----- */
-body {
+
+html, body {
 	background-color:#b9b9bb;
 	width:100%;
-	min-height:90%;
+	height:100%;
 	font-size:12px;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	margin:0;
 }
 
-#mainPageContainer {
+#main-page-container {
+	position: relative;
 	background-color:#8c8d8f;
-	width:98%;
-	min-height:80%;
-	margin: 0 1% 1% 1%;
-	overflow:hidden;
+    height: -moz-calc(100% - 120px);
+    height: -webkit-calc(100% - 120px);
+    height: calc(100% - 120px);
+	width: 98%;
+	margin-left: 1%;
 }
+
 /* ----- HEADER STYLES ----- */
+
 #header {
-	height:10%;
-	margin:10px
+	position: relative;
+	height: 60px;
+	width: 100%;
+	background: blue;
+}
+#footer {
+	padding-top: 12px;
+	position: relative;
+	height: 48px;
+	width: 100%;
+	background: blue;
+	text-align: center;
+	color: white;	
 }
 
-#norseSquareLogo {
-	float:left;
-	margin:25px 0px 0px 70px;
-	clear:both;
+#norse-square-logo {
+	position: absolute;
+	float: left;
+	top: 10px;
+	left: 10%;
+	clear: both;
 }
 
-/* ----- MAIN STYLES ----- */
-.map {
+/* ----- MAIN PAGE STYLES ----- */
+
+#lower-page-container {
+	position: relative;
+	width: 100%;
+    height: 100%;
+}
+#map {
+	position: relative;
+	float: left;
 	width: 70%;
 	height: 600px; 
-	float:left;
-	padding:0 0 25px 25px;	
-}
-.toggleBut button {
-	float:right;
-	width: 1%;
-	height: 85%;
-	padding: 0;
-		
 }
 .extend-map {
-	width: 98.9%;
+	width: 99% !important;
+}
+#toggle-button {
+	position: relative;
+	float: left;
+	width: 1%;
+	height: 100%;
+}
+#toggle-button-text {
+	width: 100%;
+	height: 100%;	
 }
 
+/* ----- TAB STYLES ----- */
+
+#primary-content-container {
+	position: relative;
+	float: left;
+	width: 29%;
+	height: 100%;	
+}
+#tabs {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
 #personal-status {
+	position: relative;
 	width:100%;
-	height: 75px;
+	height: 100px;
 	background-color: #f7f7f7;	
 	border-top-left-radius: 7px;
 	border-top-right-radius: 7px;
 }
+.personal-image {
+	position: relative;
+	float: left;
+	width: 105px;
+	height:100%;
+}
 .personal-image img {
-	width: 50px;
-	height: 50px;
-	border-radius: 5px;
 	position: absolute;
+	width: 75px;
+	height: 75px;
+	border-radius: 5px;
 	top: 12px;
-	left: 12px;
+	left: 15px;
+}
+.personal-text {
+	position: relative;
+	float: left;
+    width: -moz-calc(100% - 230px);
+    width: -webkit-calc(100% - 230px);
+    width: calc(100% - 230px);
+	height: 100%;
 }
 .personal-text .name {
 	position: absolute;
-	top: 15px;
-	left: 80px;
-	font-size: 20px;
+	width: 100%;
+	margin-top: 1.4em;
+	margin-left: 6%;
+	font-size: 125%;
 	font-weight: bold;
 	color: blue;
+	overflow: hidden;
 }
 .personal-text .ui-icon-clock {
-	position: absolute;
-	top: 45px;
-	left: 150px;	
+	float: left;
+	margin-top: 3.4em;
+	margin-left: 2%;
+	
 }
 .personal-text .ui-icon-flag {
-	position: absolute;
-	top: 45px;
-	left: 80px;	
+	float: left;
+	margin-top: 3.4em;
+	margin-left: 5%;
+
 }
 .personal-text .location {
-	position: absolute;
-	top: 45px;
-	left: 96px;
-	font-size: 12px;
+	float: left;
+	margin-top: 4.5em;
+	margin-left: 1%;
+	font-size: 75%;
 	color: blue;
+	overflow: hidden;
 }
 .personal-text .check-in-date {
-	position: absolute;
-	top: 45px;
-	left: 168px;
-	font-size: 12px;
+	float: left;
+	margin-top: 4.5em;
+	margin-left: 1%;
+	font-size: 75%;
 	color: blue;
+	overflow: hidden;
+}
+.check-in {
+	position: relative;
+	float: left;
+	width: 125px;
+	height: 100%;
 }
 #check-in-button {
 	position: absolute;
-	top: 25px;
-	right: 25px;
+	top: 33%;
+	right: 15px;
+	height: 33%;
 }
 #check-in-button .ui-button-icon-primary {
-   display:table-cell;
-   vertical-align: middle;
-   text-align: center;
-   float: none;
+	position: absolute;
+	float: left;
+	margin-top: 0;
+	left: 3%;
+	top: 27%;
+
 }
 #check-in-button .ui-button-text {
-	text-align:center;
-	float: none;	
+	position: relative;
+	text-align: center;
+	font-size: 100%;
+}
+#login-button {
+	position: absolute;
+	float: right;
+	top: 10px;
+	right: 10%;
+	clear: both;
+}
+#login-button .ui-button-icon-primary {
+	position: absolute;
+	float: left;
+	margin-top: 0;
+	left: 3%;
+	top: 27%;
+
+}
+#login-button .ui-button-text {
+	position: relative;
+	text-align: center;
+	font-size: 100%;
 }
 
-/* ----- TAB STYLES ----- */
-#tabs {
-	width: 25%;
-	min-height: 82%;
-	max-height: 82%;
-	float: right;	
+/* ----- FRIEND-LIST-ITEMS ----- */
+#friends {
+	overflow-y: scroll;	
+}
+.calculated-height {
+    height: -moz-calc(100% - 170px);
+    height: -webkit-calc(100% - 170px);
+    height: calc(100% - 170px);
+}
+.profile-image {
+	position: relative;
+	float: left;
+	width: 85px;
+	height: 100%;	
 }
 .profile-image img {
 	width: 50px;
@@ -125,8 +223,7 @@ body {
 	border-radius: 5px;
 	position: absolute;
 	top: 12px;
-	left: 12px;
-		
+	left: 15px;
 }
 .list-item {
 	position:relative;
@@ -138,46 +235,64 @@ body {
 .list-item:hover {
 	background-color:#f7f7f7
 }
+.list-item-text {
+	position: relative;
+	float: left;
+    width: -moz-calc(100% - 140px);
+    width: -webkit-calc(100% - 140px);
+    width: calc(100% - 140px);
+	height: 100%;
+}
 .list-item-text .name {
 	position: absolute;
-	top: 15px;
-	left: 80px;
-	font-size: 20px;
+	width: 100%;
+	margin-top: .6em;
+	margin-left: 4%;
+	font-size: 125%;
 	font-weight: bold;
 	color: blue;
 }
 .list-item-text .ui-icon-clock {
-	position: absolute;
-	top: 45px;
-	left: 150px;	
+	float: left;
+	margin-top: 2.7em;
+	margin-left: 2%;	
 }
 .list-item-text .ui-icon-flag {
-	position: absolute;
-	top: 45px;
-	left: 80px;	
+	float: left;
+	margin-left: 3%;
+	margin-top: 2.7em;
 }
 .list-item-text .location {
-	position: absolute;
-	top: 45px;
-	left: 96px;
-	font-size: 12px;
+	float: left;
+	margin-top: 3.5em;
+	margin-left: 1%;
+	font-size: 75%;
 	color: blue;
 }
 .list-item-text .check-in-date {
-	position: absolute;
-	top: 45px;
-	left: 168px;
-	font-size: 12px;
+	float: left;
+	margin-top: 3.5em;
+	margin-left: 1%;
+	font-size: 75%;
 	color: blue;
 }
 .right-button-icon {
-	position: absolute;
-	top: 25px;
-	right: 25px;
+	position: relative;
+	float: left;
+	width: 50px;
+	height: 100%;
 	border-radius: 7px;
 }
+.right-button-icon button {
+	position: absolute;
+	top: 28px;	
+	right: 15px;
+}
 .right-button-icon .ui-button-icon-primary {
-	margin-top:6%;
-	margin-left:6;	
+	position: absolute;
+	margin-top: 1%;
+	margin-left: 1%;
+	left: 1%;
+	top: 25%;
 }
 

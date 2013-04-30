@@ -242,7 +242,7 @@ button.ui-button-icons-only {
 }
 .ui-button-text-icon-primary .ui-button-text,
 .ui-button-text-icons .ui-button-text {
-	padding: .4em 1em .4em 2.1em;
+	padding: 0em .4em .1em 1.3em;
 }
 .ui-button-text-icon-secondary .ui-button-text,
 .ui-button-text-icons .ui-button-text {
@@ -729,9 +729,9 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tabs {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-	padding: 0;
 }
 .ui-tabs .ui-tabs-nav {
+	width: 100%;
 	margin: 0;
 	padding-top: .2em;
 }
@@ -744,7 +744,8 @@ button.ui-button::-moz-focus-inner {
 	border-bottom-width: 0;
 	padding: 0;
 	white-space: nowrap;
-	width: 33%;
+	width: 32.75%;
+	display: inline-block;
 }
 .ui-tabs .ui-tabs-nav li a {
 	float: left;
@@ -754,14 +755,10 @@ button.ui-button::-moz-focus-inner {
 	outline: none;
 	text-align: center;
 }
-.ui-tabs .ui-tabs-nav li.ui-tabs-active {
-	margin-bottom: -1px;
-	padding-bottom: 1px;
-}
 .ui-tabs .ui-tabs-nav li.ui-tabs-active a,
 .ui-tabs .ui-tabs-nav li.ui-state-disabled a,
 .ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
-	cursor: text;
+	cursor: pointer;
 }
 .ui-tabs .ui-tabs-nav li a, /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
@@ -770,7 +767,7 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
-	padding: 1em 1.4em;
+	margin: 1em 1.4em;
 	background: none;
 }
 .ui-tooltip {
@@ -802,7 +799,6 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	border: 1px solid #888888;
 	background: #666666
 	color: #ffffff;
 }
@@ -810,7 +806,6 @@ body .ui-tooltip {
 	color: #ffffff;
 }
 .ui-widget-header {
-	border: 1px solid #333333;
 	background: #333333 url(images/ui-bg_gloss-wave_25_333333_500x100.png) 50% 50% repeat-x;
 	color: #ffffff;
 	font-weight: bold;

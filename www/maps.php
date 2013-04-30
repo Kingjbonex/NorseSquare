@@ -43,6 +43,7 @@
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
+  var myPhotourl;
 </script>
 
 <html> 
@@ -85,25 +86,31 @@
     //Calling function to create new user
     if(email != "") {
 
-		var result = jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid});
-		var xml = result,
-		xmlDoc = $.parseXML( xml ),
-		$xml = $( xmlDoc ),
-		$person = $xml.find( "response person" ).each(
-		function(){
-			var fname = $(this).find("fname").text(),
-			lname = $(this).find("lname").text(),
-			lat = $(this).find("latitude").text(),
-			long = $(this).find("longitude").text(),
-			time = $(this).find("time").text(),
-			gid = $(this).find("googleid").text(),
-			photo = $(this).find("photourl").text();
-		alert(fname,lname,lat,long,time,gid,photo);}
+		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
+			var xml = data,
+			xmlDoc = $.parseXML( xml ),
+			$xml = $( xmlDoc ),
+			$person = $xml.find( "response person" ).each(
+				function(){
+					var fname = $(this).find("fname").text(),
+					lname = $(this).find("lname").text(),
+					lat = $(this).find("latitude").text(),
+					long = $(this).find("longitude").text(),
+					time = $(this).find("time").text(),
+					gid = $(this).find("googleid").text(),
+					photo = $(this).find("photourl").text();
+					myPhotourl = photo;
+					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
+					$("#check-in-button").button({
+						icons: { primary: "ui-icon-circle-check" },
+						text: true
+					}).click(function(){checkIn();});
+				;});
+			},'text');
 
 		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
-			var friendsData = "";
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
 			$xml = $( xmlDoc ),
@@ -113,82 +120,73 @@
 					var fname = $(this).find("fname").text(),
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
-					gid = $(this).find("googleid").text();
-					jQuery.ajax({
-						type: "GET",
-						url:"./services/getPhoto.php",
-						data: {UID:gid},
-						async: false, 
-						success: function(data){
-							if(!data){friendImage = './imageThumb.gif'}
-							else {friendImage = data};
-						}
-					});
-					
-					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span><span class="ui-icon ui-icon-clock"></span></div><div class="right-button-icon"><button class="icon-button" /></button></div></div>');  
-					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+					usergid = $(this).find("googleid").text(),
+					friendImage = $(this).find("photourl").text(),
+					friendLat = $(this).find("latitude").text(),
+					friendLong = $(this).find("longitude").text(),
+					friendTime = $(this).find("time").text(),
+					plusUrl = "http://plus.google.com/" + usergid;
+					if (gid != usergid) {
+						$('#friends').append('<div class="list-item" onclick="showFriend(friendLat,friendLong,friendImage);"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+					}
 				}
 			);
 
 					
-		}, 'text');				
-
+		}, 'text');
+		
 	}
 
 })();
 </script>
 
 </head> 
-<body onLoad="starter();">        
-    <div id="mainPageContainer">
+<body onLoad="starter();">     
+
+    <div id="header">
+        <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+	   <button id="login-button" onclick="loginFunction();">Login</button>
+    </div><!--header-->   
+
+    <div id="main-page-container">        	
+        <div id="lower-page-container">
+       
+            <a id="janrainLink" class="janrainEngage" href="#"></a>
+            <div id="map"></div> 
         
-        <div id="header">
-            <a id="norseSquareLogo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-        </div><!--header-->
-        	
-            <div id="personalStatus">
-            	<!--picture, fname, lname, position-->
-            </div>
+            <div id="toggle-button">
+            	<button id="toggle-button-text">&gt;<br>&gt;</button>
+            </div><!-- toggle-button -->
             
-        	<div class="toggleBut">
-            	<button id="toggleButText">><br>></button>
-            </div>
-            
-        	<div id="tabs">
-                <div id="personal-status">
-                    <div class="personal-image">
-                        <img src="">
+            <div id="primary-content-container">
+                <div id="tabs">
+                    <div id="personal-status"></div><!--personal-status -->
+                    
+                    <ul>
+                        <li><a href="#friends">Friends</a></li>
+                        <li><a href="#plans">Plans</a></li>
+                        <li><a href="#settings">Settings</a></li>
+                    </ul>
+                    <div id="friends" class="calculated-height">
+                    
+                    </div><!-- friends -->  
+                    <div id="plans">
+                        <p>Where our plans section will be placed.</p>
                     </div>
-                    <div class="personal-text">
-                        <span class="name">James Penning</span>
-                        <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                        <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                    <div id="settings">
+                    		<button id="show-all-friends" onclick="findAll();">Show all friends</button>
+                        <p>Where our settings section will be placed.</p>
                     </div>
-                    <div class="check-in">
-                        <button id="check-in-button">Check-in</button>
-                    </div>
-                </div><!--personal-status -->
-            	<ul>
-                	<li><a href="#friends">Friends</a></li>
-                    <li><a href="#plans">Plans</a></li>
-                    <li><a href="#settings">Settings</a></li>
-                </ul>
-                <div id="friends">
-                
-                </div><!-- friends -->  
-                <div id="plans">
-                    <p>Where our plans section will be placed.</p>
-                </div>
-                <div id="settings">
-                    <p>Where our settings section will be placed.</p>
-                </div>
-             </div><!--jQueryTabs-->
-     
-            
-        <a id="janrainLink" class="janrainEngage" href="#"></a>
-        <div id="map"></div> 
-     
+                 </div><!--jQueryTabs-->
+                 
+       		</div><!-- primary-content-container -->
+    	</div><!-- lower-page-container --> 
     </div><!--mainDiv-->
+    <div id="footer">
+    	Copyright &copy; NorseSquare<br/>
+		Designed by Luther College Seniors
+    </div>
 </body> 
 
    <script type="text/javascript" src="jquery-ui.js"></script>

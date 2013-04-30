@@ -14,12 +14,33 @@ function starter() {
 
 	mapDiv = document.getElementById('map');
 
-	winH = winH * .85;
-	mapDiv.style.height = winH + "px";
+	mapDiv.style.height = winH - 120;
 
 	google.maps.event.trigger(map, 'resize');
 	map.setZoom( map.getZoom() );
  }
+
+$(window).resize( function() {
+	var winH = 460;
+	
+	if (document.body && document.body.offsetWidth) {
+	    winH = document.body.offsetHeight;
+	}
+	if (document.compatMode=='CSS1Compat' &&
+	    document.documentElement &&
+	    document.documentElement.offsetWidth ) {
+	    winH = document.documentElement.offsetHeight;
+	}
+	if (window.innerWidth && window.innerHeight) {
+		winH = window.innerHeight;
+	}
+	
+	mapDiv = document.getElementById('map');
+	mapDiv.style.height = winH - 120;
+	
+	google.maps.event.trigger(map, 'resize');
+	map.setZoom( map.getZoom() );	
+});
 
 function toggleBox(id){
 	if (document.getElementById(id).style.display == "") {
@@ -105,7 +126,6 @@ function showArrays(event) {
   infowindow.open(map);
 };
 
-var gmarkers = [];
 var gpolygons = [];
 
 var aColor = "red";
@@ -157,56 +177,76 @@ function saveLocation(lat, long)
 
 }
 
-function successFunction(position){
-	var image;	
-	if (email == "") {
-		image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');
-	} else {			
-		var UID = gid;
-		jQuery.ajax({
-			type: "POST",
-			url: "./services/getPhoto.php",
-			data: {UID:UID}, 
-			async: false,
-			success: function(data){
-				if (!data){image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/marker.png');}
-				else {
-				 	image = new google.maps.MarkerImage(
-						data,
-						new google.maps.Size(50, 50), // desired size
-						new google.maps.Point(0, 0), // offset within the scaled sprite
-						null, // anchor point is half of the desired size
-						new google.maps.Size(50, 50) // scaled size of the entire sprite
-					   )
-				}
-		}});
+function showFriend(fLat,fLong,fPhotourl) {
+	for (var i = 0; i < myPosMarkers.length; i++ ) {
+		myPosMarkers[i].setMap(null);
 	}
+	
+	myPosMarkers = [];
+
+	var image = new google.maps.MarkerImage(
+		photourl,
+		new google.maps.Size(50, 50), // desired size
+		new google.maps.Point(0, 0), // offset within the scaled sprite
+		null, // anchor point is half of the desired size
+		new google.maps.Size(50, 50) // scaled size of the entire sprite
+	)
+
+	var fPosition = new google.maps.LatLng(fLat, fLong);
+	var myPosMarker = new google.maps.Marker({
+		map:map,
+		draggable:false,
+		icon: image,
+		animation: google.maps.Animation.DROP,
+		position: fPosition
+	});
+	map.panTo(fPosition);
+	myPosMarkers.push(myPosMarker);
+
+}
+
+function successFunction(position){
+	for (var i = 0; i < myPosMarkers.length; i++ ) {
+		myPosMarkers[i].setMap(null);
+	}
+	
+	myPosMarkers = [];
+
+	var image = new google.maps.MarkerImage(
+		myPhotourl,
+		new google.maps.Size(50, 50), // desired size
+		new google.maps.Point(0, 0), // offset within the scaled sprite
+		null, // anchor point is half of the desired size
+		new google.maps.Size(50, 50) // scaled size of the entire sprite
+	)
 
 	myLat = position.coords.latitude;
 	myLong = position.coords.longitude;
 
 	var myPosition = new google.maps.LatLng(myLat, myLong);
 	var myPosMarker = new google.maps.Marker({
-	map:map,
-	draggable:false,
-	icon: image,
-	animation: google.maps.Animation.DROP,
-	position: myPosition
+		map:map,
+		draggable:false,
+		icon: image,
+		animation: google.maps.Animation.DROP,
+		position: myPosition
 	});
-
+	map.panTo(myPosition);
 	myPosMarkers.push(myPosMarker);
-
-	if (email == "") {
-		alert("Your location has been found, but will not be saved unless you login.");
-	} else {	
-		saveLocation(myLat,myLong);
-	}
 
 }
 
 function errorFunction(position) {
-    alert('Error!');
+    alert('Error! Your computer hates you. (And geolocation is not working!)');
 }
+
+function checkIn(){
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	} else {
+	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	}
+};
 
 function showFriends(data) {
     for (var i = 0; i < myPosMarkers.length; i++ ) {
@@ -260,97 +300,11 @@ function showFriends(data) {
 }
 
 function findAll(controlDiv, map) {
-  controlDiv.style.padding = '5px';
-
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to find your location';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '12px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<strong>Find ALL!</strong>';
-  controlUI.appendChild(controlText);
-
-  // Setup the click event listeners: simply set the map to Chicago.
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-
 	users = jQuery.post("./services/findAll.php",{}, function(data){showFriends(data);},'text');
-  });
 }
 
-function findMe(controlDiv, map) {
-  controlDiv.style.padding = '5px';
-
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to find your location';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '12px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<strong>Find Me</strong>';
-  controlUI.appendChild(controlText);
-
-  // Setup the click event listeners: simply set the map to Chicago.
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-
-	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-	} else {
-	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-	}
-
-  });
-}
-
-
-
-function login(controlDiv, map) {
-  controlDiv.style.padding = '5px';
-
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to find your location';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '12px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<strong>Login</strong>';
-  controlUI.appendChild(controlText);
-
-  // Setup the click event listeners:.
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-  	    $('#janrainLink').click()
-  });
-
+function loginFunction() {
+    $('#janrainLink').click();
 }
 
 
@@ -360,16 +314,4 @@ var friendImage;
 var myLat;
 var myLong;
 var myPosMarkers = [];
-var findMeDiv = document.createElement('div');
-var findAllDiv = document.createElement('div');
-var loginDiv = document.createElement('div');
-var findMe = new findMe(findMeDiv, map);
-var findAll = new findAll(findAllDiv, map);
-var login = new login(loginDiv, map);
-findMeDiv.index = 1;
-findAllDiv.index = 1;
-loginDiv.index = 1;
-map.controls[google.maps.ControlPosition.TOP_RIGHT].push(loginDiv);
-map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findMeDiv);
-map.controls[google.maps.ControlPosition.TOP_RIGHT].push(findAllDiv);
 
