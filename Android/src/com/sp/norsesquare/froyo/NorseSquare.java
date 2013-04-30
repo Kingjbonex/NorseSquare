@@ -415,18 +415,18 @@ ConnectionCallbacks, OnConnectionFailedListener
 				     Northeast: Lat - 43.309191  Long - -91.766739
 				     */
 					
-					
-					LatLng boundSW = new LatLng(43.282454,-91.827679);
-			        LatLng boundNE = new LatLng(43.309191,-91.766739);
-			        
-			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-			        builder.include(boundSW);
-			        builder.include(boundNE);
-			        
-			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);			        
-			        
-			   
-			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
+//					
+//					LatLng boundSW = new LatLng(43.282454,-91.827679);
+//			        LatLng boundNE = new LatLng(43.309191,-91.766739);
+//			        
+//			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//			        builder.include(boundSW);
+//			        builder.include(boundNE);
+//			        
+//			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);			        
+//			        
+//			   
+//			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
 					
 					wifiLocate(findViewById(R.id.main_map));
 					
@@ -462,7 +462,7 @@ ConnectionCallbacks, OnConnectionFailedListener
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
-    	Checkin(coarseLocation);
+    	checkIn();
     	//placeSingleMarker(v, new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
     	//updateLocation(coarseLocation);
     }
@@ -564,12 +564,12 @@ ConnectionCallbacks, OnConnectionFailedListener
 
     
     
-    public void checkIn()
+    public void checkIn(View view)
     {
 		// Get and Send current location and information to web server. Update current position for logged in user, and add marker to map for current location.
     	//TODO - Include name?
     	
-    	Location locate = this.returnCurrentWifiLocation();
+    	Location locate = wifiLocate(view);
     	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
