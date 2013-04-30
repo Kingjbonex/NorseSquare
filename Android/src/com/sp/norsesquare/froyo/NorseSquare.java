@@ -4,23 +4,12 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -29,6 +18,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.location.Location;
@@ -36,6 +26,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -59,21 +50,10 @@ import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.model.people.Person;
 
 
-
-/**
- * This shows how to create a simple activity with a map and a marker on the map.
- * <p>
- * Notice how we deal with the possibility that the Google Play services APK is not
- * installed/enabled/updated on a user's device.
- */
-
 public class NorseSquare extends NSBaseActivity implements View.OnClickListener,
-ConnectionCallbacks, OnConnectionFailedListener
+ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 {
-    /**
-     * Note that this may be null if the Google Play services APK is not available.
-     * TODO - Add dependency for Google Maps application, must be installed for Maps API to work
-     */
+   
 	
     private GoogleMap mMap;
     private CameraUpdate cUpdate;
@@ -282,6 +262,35 @@ ConnectionCallbacks, OnConnectionFailedListener
 		super.onDestroy();
 		Log.i(TAG, "OnDestroy");
 	}
+	
+	public void showDialog()
+	{
+		DialogFragment eDialog = (DialogFragment) CreateEventAlertDialog.instantiate(this, "edialog");
+		eDialog.show(getSupportFragmentManager(), "eDialog");
+	}
+	
+	//Functions for Dialog Menus
+    public void doPositiveClick(String en,String ed)
+    {
+    	String eventName = en;
+    	String eventDescription = ed;
+    	Date date = new Date();
+    	String dateString = date.toString();
+    	Location location = this.returnCurrentWifiLocation();
+    	
+    	
+    	
+    	String snippetString = "Created on: " + dateString + "\n\n" + eventDescription; 
+    	LatLng ll = new LatLng(location.getLatitude(),location.getLongitude());
+    	
+    	
+        this.storeEventMarker(ll,eventName,snippetString);
+    }
+    
+    public void doNegativeClick()
+    {
+    	//Do nothing, user canceled event creation
+    }
 	
     
    /*Functions for options menus*/  
@@ -568,7 +577,12 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     }
 
-    
+    public void checkInClicked(View v)
+    {
+    	//This method allows checkIn() to be called by a button, and also 
+    	//avoid dealing with issues of scope and inconvenient refactoring of existing calls to checkIn()
+    	checkIn();
+    }
     
     public void checkIn()
     {
@@ -886,6 +900,14 @@ public class PlusPictureTask extends AsyncTask<Void, Void, Void>
 		
 
 	
+	
+}
+
+
+@Override
+public void onClick(DialogInterface arg0, int arg1)
+{
+	// TODO Auto-generated method stub
 	
 }
 
