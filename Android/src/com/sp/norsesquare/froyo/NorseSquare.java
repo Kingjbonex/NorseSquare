@@ -455,9 +455,12 @@ ConnectionCallbacks, OnConnectionFailedListener
     	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
     	Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     	
-    	checkIn();
+    	
     	//placeSingleMarker(v, new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
-    	//updateLocation(coarseLocation);
+    	updateLocation(coarseLocation);
+    	
+    	//Check In after location has been loaded
+    	checkIn();
     }
     
     public Location returnCurrentWifiLocation()
@@ -513,7 +516,7 @@ ConnectionCallbacks, OnConnectionFailedListener
     {
     	//Instantiate a CreateEventAlertDialog, which will add an appropriate marker to the stored marker list 
     	
-    	CreateEventAlertDialog eDialog = new CreateEventAlertDialog(this);
+    	CreateEventAlertDialog eDialog = new CreateEventAlertDialog();
 //    	View v = ((View) findViewById(R.id.RelativeMapLayout));
 //    	v.requestFocus();
     	
@@ -521,8 +524,8 @@ ConnectionCallbacks, OnConnectionFailedListener
 //    	i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //    	startActivity(i);
     	
-    	
-    	eDialog.show();
+    	eDialog.show(getSupportFragmentManager(), "event_creation");
+
     	
     }
     
