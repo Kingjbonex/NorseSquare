@@ -97,7 +97,7 @@ public class SlideList extends SherlockListFragment {
 				
 			case 3:
 				Log.i(TAG,text + " Clicked");
-				ns.createEvent();
+				ns.createEvent(ns.findViewById(R.id.main_map));
 			
 			default:
 				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");

@@ -498,7 +498,7 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     }
     
-    public void createEvent()
+    public void createEvent(View v)
     {
     	//Instantiate a CreateEventAlertDialog, which will add an appropriate marker to the stored marker list 
     	
@@ -510,7 +510,6 @@ ConnectionCallbacks, OnConnectionFailedListener
 //    	i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //    	startActivity(i);
     	
-    	this.setBehindContentView(R.layout.menu_frame);
     	
     	eDialog.show();
     	

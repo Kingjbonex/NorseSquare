@@ -17,6 +17,8 @@
     <string name="text_box">Enter Something!</string>
     <string name="display_above_text">Display that!</string>
     <string name="find_all">Find All</string>
+    <string name="new_event">New Event</string>
+    <string name="create_event">Create Event</string>
 
     
     <string name="list_1">Hello</string>
