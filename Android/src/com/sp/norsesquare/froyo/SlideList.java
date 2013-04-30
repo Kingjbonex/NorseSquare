@@ -1,6 +1,7 @@
 package com.sp.norsesquare.froyo;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingFragmentActivity;
-
 
 import com.actionbarsherlock.app.SherlockListFragment;
 //import com.actionbarsherlock.view.*;
@@ -33,6 +30,8 @@ public class SlideList extends SherlockListFragment {
 	String[] listCont;
 	
 	Context context;
+	
+	Activity mainact = ((NorseSquare) getActivity());
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		listView  = (ListView) inflater.inflate(R.layout.list, container, false);
@@ -81,12 +80,12 @@ public class SlideList extends SherlockListFragment {
 //				getSlidingMenu().toggle();
 //				intent = new Intent(context, NewActivity.class);
 //				startActivity(intent);
+				toggle();
 
 				break;
 			
 			case 1:
 				Log.i(TAG, text + " Clicked");
-				
 				ns.wifiLocate(listView);
 //				intent = new Intent(context, FragmentSwap.class);
 //				startActivity(intent);
@@ -109,6 +108,10 @@ public class SlideList extends SherlockListFragment {
 	{
 		//Call method from main activity
 	    ns.wifiLocate(view);
+	}
+	public void toggle()
+	{
+//		mainact.toggle();
 	}
 
 }
