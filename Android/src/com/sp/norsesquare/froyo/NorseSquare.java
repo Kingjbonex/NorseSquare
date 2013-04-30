@@ -430,14 +430,7 @@ ConnectionCallbacks, OnConnectionFailedListener
 					
 					wifiLocate(findViewById(R.id.main_map));
 					
-					LatLng boundSW = new LatLng(43.282454,-91.827679);
-			        LatLng boundNE = new LatLng(43.309191,-91.766739);
-			        
-			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-			        builder.include(boundSW);
-			        builder.include(boundNE);
-			        
-			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);
+					
 			   
 			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
 					
@@ -466,6 +459,16 @@ ConnectionCallbacks, OnConnectionFailedListener
     	//placeSingleMarker(v, new LatLng(coarseLocation.getLatitude(),coarseLocation.getLongitude()));
     	//updateLocation(coarseLocation);
     }
+    
+    public Location returnCurrentWifiLocation()
+        {
+          //Get and return the current location from Wifi. 
+          
+          locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
+          Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+          
+          return coarseLocation;
+        }
     
     public void storeMarker(LatLng latlong,String title, String snippet)
     {
