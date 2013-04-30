@@ -88,6 +88,7 @@ ConnectionCallbacks, OnConnectionFailedListener
     
     
     private ArrayList<MapMarker> storedMarkerList;
+    private ArrayList<EventMarker> storedEventList;
     
     //Authentication variables
     AccountManager mAccountManager;
@@ -99,6 +100,11 @@ ConnectionCallbacks, OnConnectionFailedListener
     ProgressDialog mConnectionProgressDialog;
     private ConnectionResult mConnectionResult;
     private static final int REQUEST_CODE_RESOLVE_ERR = 9000;
+    
+    private static final LatLng PREUS = new LatLng(43.312306,-91.802734);
+    private static final LatLng LIBRARY_LAWN = new LatLng(43.312345,-91.803957);
+    private static final LatLng CFL = new LatLng(43.312954,-91.805288);
+    private static final LatLng BRUNSDALE = new LatLng(43.315405,-91.80503);
     
     GoogleUser me;
     
@@ -123,7 +129,12 @@ ConnectionCallbacks, OnConnectionFailedListener
         AccountManager accountManager = AccountManager.get(this);
         accountList = getAccountNames();
         super.setUpSlidingMenu();
-
+       
+        storedEventList = new ArrayList<EventMarker>();
+        storedEventList.add(new EventMarker(PREUS,"Study Session for Paideia","Wisdom in Community."));
+        storedEventList.add(new EventMarker(BRUNSDALE,"Birthday Party for Sheila","The cake is, sadly, a lie."));
+        storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH"));
+        storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME."));
         
         
         //TODO Make a case that handles if there is no luther.edu account on the phone.
@@ -350,7 +361,7 @@ ConnectionCallbacks, OnConnectionFailedListener
     @Override
     public void onDisconnected() {
         Log.d(TAG, "disconnected");
-        Toast.makeText(this, "Account has been disconnected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Account has been disconnected", Toast.LENGTH_SHORT).show();
     }
 	
     public void setReleaseLocation(boolean b)
@@ -404,6 +415,20 @@ ConnectionCallbacks, OnConnectionFailedListener
 				     Northeast: Lat - 43.309191  Long - -91.766739
 				     */
 					
+					
+					LatLng boundSW = new LatLng(43.282454,-91.827679);
+			        LatLng boundNE = new LatLng(43.309191,-91.766739);
+			        
+			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+			        builder.include(boundSW);
+			        builder.include(boundNE);
+			        
+			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);			        
+			        
+			   
+			        cUpdate = CameraUpdateFactory.newLatLngBounds(decorahBound, 5);
+					
+					wifiLocate(findViewById(R.id.main_map));
 					
 					LatLng boundSW = new LatLng(43.282454,-91.827679);
 			        LatLng boundNE = new LatLng(43.309191,-91.766739);
@@ -480,13 +505,73 @@ ConnectionCallbacks, OnConnectionFailedListener
     	
     	
     }
+    
+    public void createEvent(View v)
+    {
+    	//Instantiate a CreateEventAlertDialog, which will add an appropriate marker to the stored marker list 
+    	
+    	CreateEventAlertDialog eDialog = new CreateEventAlertDialog(this);
+//    	View v = ((View) findViewById(R.id.RelativeMapLayout));
+//    	v.requestFocus();
+    	
+//    	Intent i = new Intent(this,NorseSquare.class);
+//    	i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//    	startActivity(i);
+    	
+    	
+    	eDialog.show();
+    	
+    }
+    
+    public void storeEventMarker(LatLng latlong,String title, String snippet)
+    {
+    	//Add marker to list of stored markers, making sure that it is not a duplicate
+    	//Duplicate = marker with same title (person's name)
+    	
+        //Log.i("Store Marker","Store Marker called");
+    	//Log.i("Store Marker","Size of storeMarkerList is " + storedEventList.size());
+    	
+        //If duplicate item found, delete and add newest version. If not, add current item (must be new).
+    	
+    	if (storedEventList.size()==0)
+    	{
+    		storedEventList.add(new EventMarker(latlong,title,snippet));
+    	}
+    	else
+    	{
+    		for (int i=0;i<storedEventList.size();i++)
+        	{
+        	   MapMarker m = storedEventList.get(i);
+        	   
+        	   if (m.getTitle() != title)
+        	   {
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedEventList.add(new EventMarker(latlong,title,snippet));
+        	   }
+        	   else
+        	   {
+        		   storedEventList.remove(m);
+        		   Log.i("StoreMarker","New marker added wth title " + title);
+        		   storedEventList.add(new EventMarker(latlong,title,snippet));
+        	   }
+        	  
+        	}
+    	}
+    	
+    	
+    	
+    }
 
-    //checkin function, calling the database to be updated
-    private void Checkin(Location locate) {
-		// TODO Auto-generated method stub
-    	//LatLng latlong = new LatLng(locate.getLatitude(),locate.getLongitude());
-    	//mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-		System.out.println(googleAuthToken);
+    
+    
+    public void checkIn()
+    {
+		// Get and Send current location and information to web server. Update current position for logged in user, and add marker to map for current location.
+    	//TODO - Include name?
+    	
+    	Location locate = this.returnCurrentWifiLocation();
+    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
+		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 	}
 
@@ -508,18 +593,32 @@ ConnectionCallbacks, OnConnectionFailedListener
     
     public void placeStoredMarkers()
     {
-        Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
     	
     	Iterator i = storedMarkerList.iterator();
     	
         if (i.hasNext()==false)
         {
-        	Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
+        	//Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
         }
     	while (i.hasNext())
     	{
     	   Log.i("Map Marker", "Placing Map Marker");
     	   MapMarker m = (MapMarker) i.next();
+    	   mMap.addMarker(m.getMarkerOptions());
+    	}
+    	
+        Iterator<EventMarker> h = storedEventList.iterator();
+    	
+        if (h.hasNext()==false)
+        {
+        	//Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
+        	Log.i("EventMarkers", "no Stored event markers");
+        }
+    	while (h.hasNext())
+    	{
+    	   Log.i("Map Marker", "Placing Map Marker");
+    	   EventMarker m = (EventMarker) h.next();
     	   mMap.addMarker(m.getMarkerOptions());
     	}
     }
@@ -535,15 +634,15 @@ ConnectionCallbacks, OnConnectionFailedListener
     	LatLng ll = new LatLng(l.getLatitude(),l.getLongitude());
     
     	
-//storeMarker(ll,"Timmy Jimmy","This is a snippet");
-    	redrawMarkers();    	
+    	//mMap.moveCamera(CameraUpdateFactory.zoomBy(7));
+    	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
     	
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));	
     }
     
     public void redrawMarkers()
     {
-    	Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
+    	//Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
     	
     	mMap.clear();
     	
@@ -596,7 +695,7 @@ ConnectionCallbacks, OnConnectionFailedListener
 	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
 	        	
 	        	Log.i("FINDALL",fname);
-	        	Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
+	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
             }
           
@@ -701,6 +800,11 @@ public class GoogleUser
 	public String getLastName()
 	{
 		return lastName;
+	}
+	
+	public String getFullName()
+	{
+		return firstName + " " + lastName;
 	}
 	
 	public String getEmail()

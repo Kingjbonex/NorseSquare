@@ -53,6 +53,9 @@ public class SlideList extends SherlockListFragment {
 		
 		listView.setOnItemClickListener(new ListClickHandler());
 		
+		//Get main NS activity for use in calling other methods
+		ns = (NorseSquare) this.getActivity();
+		
 		
 		
 		
@@ -89,7 +92,11 @@ public class SlideList extends SherlockListFragment {
 				break;
 			case 2:
 				Log.i(TAG, text+ " Clicked");
-//				ns.Checkin();
+				ns.checkIn();
+				
+			case 3:
+				Log.i(TAG,text + " Clicked");
+				ns.createEvent(ns.findViewById(R.id.main_map));
 			
 			default:
 				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");

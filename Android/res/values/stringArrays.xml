@@ -3,7 +3,8 @@
     <string-array name="slidingMenuContents">
         <item>Get Location From Wifi</item>
         <item>Find All</item>
-        <item>Current Events</item>
+        <item>Check In</item>
+        <item>Load Current Events</item>
 		
     </string-array>
     

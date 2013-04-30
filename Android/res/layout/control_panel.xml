@@ -36,4 +36,13 @@
         android:onClick="findAll" 
         android:text="@string/find_all"
         />
+    
+    <Button 
+        android:id="@+id/button_new_event"
+        android:layout_height="match_parent"
+        android:layout_width="150sp"
+        android:onClick="createEvent" 
+        android:text="@string/new_event"
+        />
+    
 </LinearLayout>
