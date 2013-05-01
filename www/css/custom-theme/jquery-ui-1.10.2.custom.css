@@ -799,7 +799,7 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	background: #666666
+	background: url('debut_dark.png');
 	color: #ffffff;
 }
 .ui-widget-content a {
