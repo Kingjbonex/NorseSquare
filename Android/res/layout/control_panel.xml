@@ -5,13 +5,14 @@
     android:orientation="vertical"
     android:visibility="visible"  >
     
-    <Button 
+    <ImageButton 
         android:id="@+id/button_wifi_locate"
-        android:layout_width="150sp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textStyle="italic"
         android:onClick="wifiLocate"
-        android:text="@string/wifi_locate" />
+        android:src="@drawable/gps" />
+    
     <!-- <EditText
         android:id="@+id/text_box"
         android:layout_width="fill_parent"

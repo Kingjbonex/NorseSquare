@@ -69,6 +69,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     private ArrayList<MapMarker> storedMarkerList;
     private ArrayList<EventMarker> storedEventList;
+    private ArrayList<Friend> storedFriendList;
     
     //Authentication variables
     AccountManager mAccountManager;
@@ -269,7 +270,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		eDialog.show(getSupportFragmentManager(), "eDialog");
 	}
 	
-	//Functions for Dialog Menus
+	//Functions for Event Creation Dialog
     public void doPositiveClick(String en,String ed)
     {
     	String eventName = en;
@@ -280,7 +281,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     	
     	
-    	String snippetString = "Created on: " + dateString + "\n\n" + eventDescription; 
+    	String snippetString = "Created on: " + dateString + "\n" + eventDescription; 
     	LatLng ll = new LatLng(location.getLatitude(),location.getLongitude());
     	
     	
@@ -291,9 +292,18 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     {
     	//Do nothing, user canceled event creation
     }
+    
+    
+    
+    
+    //Methods for Friends feature
+    public void addFriend()
+    {
+       	
+    }
 	
     
-   /*Functions for options menus*/  
+   /*Functions for options menus*/   
   
     /*
     @Override
@@ -422,11 +432,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 					   * Greater Decorah Area
 				     Southwest: Lat - 43.282454  Long - -91.827679
 				     Northeast: Lat - 43.309191  Long - -91.766739
+				     
+				     Server map limits: lat 43.327113 to 43.305803 long -91.820776 to -91.794444
+
 				     */
 					
 					
-					LatLng boundSW = new LatLng(43.282454,-91.827679);
-			        LatLng boundNE = new LatLng(43.309191,-91.766739);
+					LatLng boundSW = new LatLng(43.305803,-91.820776);
+			        LatLng boundNE = new LatLng(43.327113,-91.820776);
 			        
 			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
 			        builder.include(boundSW);
