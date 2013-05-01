@@ -31,8 +31,9 @@ html, body {
 	background: url('http://oi42.tinypic.com/2upq13a.jpg');
 }
 #footer {
+	padding-top: 12px;
 	position: relative;
-	height: 60px;
+	height: 48px;
 	width: 100%;
 	background: url('http://oi42.tinypic.com/2upq13a.jpg');
 	text-align: center;
@@ -176,6 +177,26 @@ html, body {
 
 }
 #check-in-button .ui-button-text {
+	position: relative;
+	text-align: center;
+	font-size: 100%;
+}
+#login-button {
+	position: absolute;
+	float: right;
+	top: 10px;
+	right: 10%;
+	clear: both;
+}
+#login-button .ui-button-icon-primary {
+	position: absolute;
+	float: left;
+	margin-top: 0;
+	left: 3%;
+	top: 27%;
+
+}
+#login-button .ui-button-text {
 	position: relative;
 	text-align: center;
 	font-size: 100%;

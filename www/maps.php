@@ -43,6 +43,7 @@
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
+  var myPhotourl;
 </script>
 
 <html> 
@@ -98,6 +99,7 @@
 					time = $(this).find("time").text(),
 					gid = $(this).find("googleid").text(),
 					photo = $(this).find("photourl").text();
+					myPhotourl = photo;
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
 					$("#check-in-button").button({
 						icons: { primary: "ui-icon-circle-check" },
@@ -118,20 +120,22 @@
 					var fname = $(this).find("fname").text(),
 					lname = $(this).find("lname").text(),
 					uid = $(this).find("uid").text(),
-					gid = $(this).find("googleid").text();
+					usergid = $(this).find("googleid").text(),
 					friendImage = $(this).find("photourl").text(),
 					friendLat = $(this).find("latitude").text(),
-					friendLong = $(this).find("longitude").text();
-					friendTime = $(this).find("time").text();
-				
-					$('#friends').append('<div class="list-item"><div class="profile-image"><img src="' + friendImage + '"></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
-					$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+					friendLong = $(this).find("longitude").text(),
+					friendTime = $(this).find("time").text(),
+					plusUrl = "http://plus.google.com/" + usergid;
+					if (gid != usergid) {
+						$('#friends').append('<div class="list-item" onclick="showFriend(friendLat,friendLong,friendImage);"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+					}
 				}
 			);
 
 					
-		}, 'text');				
-
+		}, 'text');
+		
 	}
 
 })();
@@ -142,6 +146,7 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
+	   <button id="login-button" onclick="loginFunction();">Login</button>
     </div><!--header-->   
 
     <div id="main-page-container">        	
@@ -170,6 +175,7 @@
                         <p>Where our plans section will be placed.</p>
                     </div>
                     <div id="settings">
+                    		<button id="show-all-friends" onclick="findAll();">Show all friends</button>
                         <p>Where our settings section will be placed.</p>
                     </div>
                  </div><!--jQueryTabs-->
