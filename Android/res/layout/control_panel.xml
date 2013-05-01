@@ -4,7 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:visibility="visible"  >
-
+    
+    <ImageButton 
+        android:id="@+id/button_wifi_locate"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textStyle="italic"
+        android:onClick="wifiLocate"
+        android:src="@drawable/gps" />
+    
     <!-- <EditText
         android:id="@+id/text_box"
         android:layout_width="fill_parent"
@@ -24,12 +32,18 @@
 
     <Button
         android:id="@+id/button_find_all"
-        android:layout_width="144dp"
-        android:layout_height="62dp"
-        android:onClick="findAll"
-        android:text="@string/find_all" />
-    <Button android:id="@+id/button_wifi_locate" android:layout_width="144dp" android:layout_height="66dp" android:onClick="wifiLocate" android:text="@string/wifi_locate" android:textStyle="italic"/>
-
+        android:layout_height="match_parent"
+        android:layout_width="150sp"
+        android:onClick="findAll" 
+        android:text="@string/find_all"
+        />
     
-
+    <Button 
+        android:id="@+id/button_new_event"
+        android:layout_height="match_parent"
+        android:layout_width="150sp"
+        android:onClick="createEvent" 
+        android:text="@string/new_event"
+        />
+    
 </LinearLayout>

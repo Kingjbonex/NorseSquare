@@ -5,6 +5,7 @@
     <string name="title_activity_norse_square">Norse Square</string>
     <string name="title_activity_locate_me_coarse">Locate Me Coarse</string>
     <string name="title_activity_locate_me_fine">Locate Me Fine</string>
+    <string name="title_create_event">Create New Event</string>
     
     <string name="button_place_marker">Mark Current Location</string>
     <string name="button_locateCoarse">Pinpoint WiFi Location</string>
@@ -16,6 +17,9 @@
     <string name="text_box">Enter Something!</string>
     <string name="display_above_text">Display that!</string>
     <string name="find_all">Find All</string>
+    <string name="new_event">New Event</string>
+    <string name="create_event">Create Event</string>
+    <string name="add_friends">Add Friends</string>
 
     
     <string name="list_1">Hello</string>
