@@ -10,7 +10,7 @@ $(function() {
 		text: true
 	});
 	$("#login-button").button({
-		icons: { primary: "ui-icon-circle-check" },
+		icons: { primary: "ui-icon-locked" },
 		text: true
 	});
 });
