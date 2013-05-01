@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -567,6 +569,8 @@ ConnectionCallbacks, OnConnectionFailedListener
 
     public void findAll(View w){
     	
+    	storedMarkerList.clear();
+    	
     	AsyncTask<String, Void, String> Task = new DatabaseTask().execute((String[])null);
     	try{
     		String xmlString = Task.get();
@@ -587,14 +591,16 @@ ConnectionCallbacks, OnConnectionFailedListener
 	        	String lname = UserInfo.item(1).getTextContent();
 	        	String username = UserInfo.item(2).getTextContent();
 	        	String googleid = UserInfo.item(3).getTextContent();
-	        	String time = UserInfo.item(4).getTextContent();
+	        	String gtime = UserInfo.item(4).getTextContent();
 	        	Double longitude = Double.parseDouble(UserInfo.item(5).getTextContent());
 	        	Double latitude = Double.parseDouble(UserInfo.item(6).getTextContent());
 	        	
+	        	String timedif = parsetime(gtime);
+	        	
+	        	
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
-	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
-	        	
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in on "+ timedif);
 	        	Log.i("FINDALL",fname);
 	        	Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
@@ -609,6 +615,22 @@ ConnectionCallbacks, OnConnectionFailedListener
     	}
     	
     }
+
+
+
+
+private String parsetime(String gtime) {
+		// TODO Auto-generated method stub
+	
+	Calendar c = Calendar.getInstance();
+	Date curtime = c.getTime();
+	String currenttime = curtime.toString();
+	
+	
+	return currenttime;
+	
+		
+	}
 
 
 
