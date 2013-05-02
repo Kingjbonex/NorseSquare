@@ -14,10 +14,10 @@ $Query = 'SELECT users.fname,users.lname,users.uid,users.googleid,users.photourl
 $result = mysql_query($Query,$connection);
 $gotarray = mysql_fetch_array($result);
 
-function humanTiming ($time)
+function humanTiming ($ftime)
 {
 
-    $time = time() - $time; // to get the time since that moment
+    $ftime = time() - strtotime($ftime); // to get the time since that moment
 
     $tokens = array (
         31536000 => 'year',
@@ -30,8 +30,8 @@ function humanTiming ($time)
     );
 
     foreach ($tokens as $unit => $text) {
-        if ($time < $unit) continue;
-        $numberOfUnits = floor($time / $unit);
+        if ($ftime < $unit) continue;
+        $numberOfUnits = floor($ftime / $unit);
         return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
     }
 
