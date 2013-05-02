@@ -38,7 +38,7 @@ public class AddFriendsAlertDialog extends DialogFragment
 			builder
 	        .setPositiveButton("Create Event", new DialogInterface.OnClickListener() {
 	            public void onClick(DialogInterface dialog, int id) {
-	            	((NorseSquare) getActivity()).addFriend(friendName.getText().toString(),friendEmail.getText().toString());
+//	            	((NorseSquare) getActivity()).addFriend(friendName.getText().toString(),friendEmail.getText().toString());
 	            }
 	        })
 	        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

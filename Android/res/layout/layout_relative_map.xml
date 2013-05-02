@@ -17,11 +17,14 @@
         android:layout_height="match_parent" 
         android:background="@android:color/transparent" />
      <!-- Control panel fragment - V1.0 -->
+
     <fragment
         android:id="@+id/main_control_panel"
         android:name="com.sp.norsesquare.froyo.ControlPanel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
 
