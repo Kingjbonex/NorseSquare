@@ -2,16 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="170sp"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:visibility="visible"  >
     
     <ImageButton 
         android:id="@+id/button_wifi_locate"
-        android:layout_width="wrap_content"
+        android:layout_width="125sp"
         android:layout_height="match_parent"
         android:textStyle="italic"
-        android:onClick="wifiLocate"
+        android:onClick="datCheckIn"
         android:src="@drawable/gps" />
+    
+    <Button 
+        android:id="@+id/help_button"
+        android:layout_width="125sp"
+        android:layout_height="match_parent"
+        android:text="@string/help_text"/>
     
     <!-- <EditText
         android:id="@+id/text_box"
@@ -30,20 +36,20 @@
         android:layout_height="match_parent"
         android:text="@string/find_all"/> -->
 
-    <Button
+    <!-- <Button
         android:id="@+id/button_find_all"
         android:layout_height="match_parent"
         android:layout_width="150sp"
         android:onClick="findFriends" 
         android:text="@string/find_all"
-        />
+        /> -->
     
-    <Button 
+    <!-- <Button 
         android:id="@+id/button_new_event"
         android:layout_height="match_parent"
         android:layout_width="150sp"
         android:onClick="createEvent" 
         android:text="@string/new_event"
-        />
+        /> -->
     
 </LinearLayout>

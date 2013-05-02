@@ -68,7 +68,9 @@ public class ControlPanel extends SherlockFragment implements OnGestureListener
 		ns = (NorseSquare) this.getActivity();
 	}
 	
-
+//	public void datCheckIn() {
+//		ns.datCheckIn();
+//	}
 	
 	public void wifiLocate()
 	{

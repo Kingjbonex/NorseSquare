@@ -30,4 +30,7 @@
     <string name="button_Ping_Url">request url</string>
     <string name="text_v1">Dat Row Text</string>
     
+    <string name="help_text">Help</string>
+    <string name="exit_text">Exit</string>
+    
 </resources>    
