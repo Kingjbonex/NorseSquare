@@ -286,6 +286,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     	
         this.storeEventMarker(ll,eventName,snippetString);
+        this.redrawMarkers();
     }
     
     public void doNegativeClick()
@@ -433,13 +434,16 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 				     Southwest: Lat - 43.282454  Long - -91.827679
 				     Northeast: Lat - 43.309191  Long - -91.766739
 				     
-				     Server map limits: lat 43.327113 to 43.305803 long -91.820776 to -91.794444
+				     Luther Campus:
+				     Southwest: lat 43.310503, long -91.808732
+				     Northeast: lat 43.314999, long -91.801114
+				    
 
 				     */
 					
 					
-					LatLng boundSW = new LatLng(43.305803,-91.820776);
-			        LatLng boundNE = new LatLng(43.327113,-91.820776);
+					LatLng boundSW = new LatLng(43.310503,-91.808732);
+			        LatLng boundNE = new LatLng(43.314999,-91.801114);
 			        
 			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
 			        builder.include(boundSW);
@@ -447,9 +451,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 			        
 			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);			        
 			        
-			   
 
-					
+					// TODO - Find out why a null pointer is thrown sometimes
 					wifiLocate(findViewById(R.id.main_map));
 					
 					
@@ -494,6 +497,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
           
           return coarseLocation;
         }
+    
+    public void addFriend(String n, String e)
+    {
+    	Friend f = new Friend(n,e);
+    	storedFriendList.add(f);
+    	
+    }
+    
     
     public void storeMarker(LatLng latlong,String title, String snippet)
     {
@@ -547,7 +558,6 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 //    	startActivity(i);
     	
     	eDialog.show(getSupportFragmentManager(), "event_creation");
-
     	
     }
     
@@ -673,6 +683,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));	
     }
     
+
+    
     public void redrawMarkers()
     {
     	//Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
@@ -680,6 +692,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	mMap.clear();
     	
     	placeStoredMarkers();
+    
     }
     
     //Joel's classes/etc for not location related things.
