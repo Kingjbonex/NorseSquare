@@ -21,6 +21,8 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 	//declaration of the upper class for callbacks or whatevs in onOptionsItemSelected
 	NorseSquare ns;
 	
+	SlidingMenu sm;
+	
 	private boolean visible = true;
 	
 	//gotta have it private first (right?)
@@ -65,7 +67,7 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 	
 	public void setUpSlidingMenu()
 	{
-		SlidingMenu sm = getSlidingMenu();
+		sm = getSlidingMenu();
 		
 		//This is already in pixels, if you have res in there, then you have to specify an xml file.
 		
@@ -117,8 +119,26 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 		getSupportMenuInflater().inflate(R.menu.menu_main_settings, menu);
 		return true;
 	}
+	
+	public SlidingMenu getNsSlidingMenu() 
+	{	
+		return sm;
+	}
+	
+	public void myToggle() 
+	{
+//		toggle();
+		SlidingMenu sm = getSlidingMenu();
+		if (getSlidingMenu().isBehindShowing()) {
+			showAbove();
+		} else {
+			showBehind();
+		}
+	}
+	
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
         // Handle item selection
 //    	View mapFrag = (View) findViewById(R.id.RelativeMapLayout);
 //    	View controlFrag = (View) findViewById(R.id.main_control_panel);
@@ -126,7 +146,7 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
         switch (item.getItemId())
         {
 			case android.R.id.home:
-				toggle();
+				myToggle();
 				Log.i(TAG, "Sliding menu item Clicked");
 				return true;
             case R.id.menu_settings_reveal_location:

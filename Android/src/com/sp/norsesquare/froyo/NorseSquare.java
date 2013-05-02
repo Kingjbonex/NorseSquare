@@ -483,7 +483,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	updateLocation(coarseLocation);
     	
     	//Check In after location has been loaded
-    	checkIn();
+    	//TODO - uncomment this
+//    	checkIn();
     }
     
     public Location returnCurrentWifiLocation()
