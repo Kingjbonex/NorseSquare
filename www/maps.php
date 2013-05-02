@@ -125,7 +125,7 @@
 					friendImage = $(this).find("photourl").text(),
 					plusUrl = "http://plus.google.com/" + usergid;
 					if (gid != usergid) {
-						$('#plans').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+						$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
 						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 					}
 				}
@@ -170,7 +170,9 @@
                     		<button id="show-all-friends" onClick="findAll();">Show all friends</button>
                         </div>
                     </div><!-- friends -->  
-                    <div id="plans" class="calculated-height"></div><!-- users -->
+                    <div id="users" class="calculated-height">
+                    	<div id="users-list-item-container" class="list-item-container users-calculated-height"></div>
+                    </div><!-- users -->
                  </div><!--jQueryTabs-->
                  
        		</div><!-- primary-content-container -->
