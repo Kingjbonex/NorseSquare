@@ -121,39 +121,38 @@ html, body {
 .personal-text .name {
 	position: absolute;
 	width: 100%;
-	margin-top: 1.4em;
-	margin-left: 6%;
+	margin-top: 1.8em;
+	margin-left: 2%;
 	font-size: 125%;
 	font-weight: bold;
-	color: blue;
+	color: #595454;
 	overflow: hidden;
 }
 .personal-text .ui-icon-clock {
 	float: left;
-	margin-top: 3.4em;
+	margin-top: 4em;
 	margin-left: 2%;
 	
 }
 .personal-text .ui-icon-flag {
 	float: left;
-	margin-top: 3.4em;
-	margin-left: 5%;
+	margin-top: 4em;
 
 }
 .personal-text .location {
 	float: left;
-	margin-top: 4.5em;
+	margin-top: 5.6em;
 	margin-left: 1%;
 	font-size: 75%;
-	color: blue;
+	color: #413839;
 	overflow: hidden;
 }
 .personal-text .check-in-date {
 	float: left;
-	margin-top: 4.5em;
+	margin-top: 5.6em;
 	margin-left: 1%;
 	font-size: 75%;
-	color: blue;
+	color: #413839;
 	overflow: hidden;
 }
 .check-in {
@@ -247,7 +246,7 @@ html, body {
 	margin-top: 20px;
 	font-size: 125%;
 	font-weight: bold;
-	color: blue;
+	color: #595454;
 }
 .list-item-text .ui-icon-clock {
 	float: left;
@@ -262,13 +261,13 @@ html, body {
 	float: left;
 	margin-top: 42px;
 	font-size: 75%;
-	color: blue;
+	color: #413839;
 }
 .list-item-text .check-in-date {
 	float: left;
 	margin-top: 42px;
 	font-size: 75%;
-	color: blue;
+	color: #413839;
 }
 .right-button-icon {
 	position: relative;

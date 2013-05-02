@@ -19,9 +19,9 @@ $(function() {
 	$('#toggle-button-text')
 	.button()
 	.click(function() {
-		var buttonText = $("#toggle-button-text").html();
-		if (buttonText == "<span class='ui-button-text'>&gt;<br>&gt;</span>") $("#toggle-button-text").html("<span class='ui-button-text'>&lt;<br>&lt;</span>");
-		else $("#toggle-button-text").html("<span class='ui-button-text'>&gt;<br>&gt;</span>");
+		var buttonText = $("#toggle-button-text").text();
+		if (buttonText == ">>") $("#toggle-button-text").html("<<br><");
+		else $("#toggle-button-text").html("><br>>");
 	});
 });
 
