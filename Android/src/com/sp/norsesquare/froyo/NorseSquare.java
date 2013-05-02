@@ -450,7 +450,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 			   
 
 					
-					wifiLocate(findViewById(R.id.main_map));
+					//wifiLocate(findViewById(R.id.main_map));
 					
 					
 			   
@@ -483,7 +483,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     	//Check In after location has been loaded
     	//TODO - uncomment this
-//    	checkIn();
+    	checkIn();
     }
     
     public Location returnCurrentWifiLocation()
@@ -604,7 +604,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	//TODO - Include name?
     	
     	Location locate = this.returnCurrentWifiLocation();
-    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
+//    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 	}
