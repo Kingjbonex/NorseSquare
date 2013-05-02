@@ -271,6 +271,22 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		eDialog.show(getSupportFragmentManager(), "eDialog");
 	}
 	
+//	public void showEventListDialog()
+//	{
+//		DialogFragment eDialog = (DialogFragment) CreateEventListView.instantiate(this, "edialog");
+//		eDialog.show(getSupportFragmentManager(), "eDialog");
+//		
+////		eDialog = new CreateEventListView();
+//////    	View v = ((View) findViewById(R.id.RelativeMapLayout));
+//////    	v.requestFocus();
+////    	
+//////    	Intent i = new Intent(this,NorseSquare.class);
+//////    	i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//////    	startActivity(i);
+////    	
+////    	eDialog.show(getSupportFragmentManager(), "event_list");
+//	}
+	
 	//Functions for Event Creation Dialog
     public void doPositiveClick(String en,String ed)
     {
@@ -553,6 +569,13 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     }
     
+    public void showEventList(View v)
+    {
+    	CreateEventListView eDialog = new CreateEventListView();
+    	
+    	eDialog.show(getSupportFragmentManager(), "event_list");
+    }
+    
     public void storeEventMarker(LatLng latlong,String title, String snippet)
     {
     	//Add marker to list of stored markers, making sure that it is not a duplicate
@@ -609,6 +632,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 	}
+    
+    
 
 
 	public void placeSingleMarker(View v,LatLng latlong)
@@ -697,8 +722,19 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     
     //Listener classes for location management
+    @Override
+    public void myToggle() {
+    	toggle();
+    }
     
+    public void datCheckIn(View v) {
+		wifiLocate(findViewById(R.id.main_map));
+		findAll(findViewById(R.id.main_map));
+	//	ns.checkInClicked(ns.findViewById(R.id.main_map));
 
+    }
+	
+	
     public void findAll(View w){
     	
     	storedMarkerList.clear();
@@ -732,7 +768,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
-	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in on "+ timedif);
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in on "+ gtime);
 	        	Log.i("FINDALL",fname);
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);

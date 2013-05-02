@@ -2,9 +2,11 @@
 <resources>
     <string-array name="slidingMenuContents">
         <item>Check In</item>
-        <item>Find All</item>
         <item>Create Event</item>
-        <item>View Some Events</item>
+        <item>View Events</item>
+        <item>Help</item>
+        <item>Exit</item>
+        
 		
     </string-array>
     

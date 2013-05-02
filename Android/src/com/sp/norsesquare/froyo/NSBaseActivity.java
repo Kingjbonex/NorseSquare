@@ -2,12 +2,11 @@ package com.sp.norsesquare.froyo;
 
 //import static android.view.View.INVISIBLE;
 //import static android.view.View.VISIBLE;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -127,13 +126,7 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 	
 	public void myToggle() 
 	{
-//		toggle();
-		SlidingMenu sm = getSlidingMenu();
-		if (getSlidingMenu().isBehindShowing()) {
-			showAbove();
-		} else {
-			showBehind();
-		}
+		toggle();
 	}
 	
     @Override
@@ -149,26 +142,15 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 				myToggle();
 				Log.i(TAG, "Sliding menu item Clicked");
 				return true;
-            case R.id.menu_settings_reveal_location:
-                if (item.isChecked())
-                {
-                	ns.setReleaseLocation(false);
-                	item.setChecked(false);
-                }
-                else
-                {
-                	ns.setReleaseLocation(true);
-                	item.setChecked(true);
-                }
-                return true;
-            case R.id.menu_settings_david_duba:
-            {
-            	if (item.isChecked())
-            	{
-            		Toast toast = Toast.makeText(this, "Hi Duba!!!", Toast.LENGTH_LONG);
-            		toast.show();
-            	}
-            }
+				
+			case R.id.exit_button:
+				Log.i(TAG, "Exiting");
+//				Intent intent = new Intent(Intent.ACTION_MAIN);
+//				intent.addCategory(Intent.CATEGORY_HOME);
+//				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				startActivity(intent);
+				finish();
+				return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -74,27 +74,37 @@ public class SlideList extends SherlockListFragment {
 			
 //			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
 			switch (position)
-			{			
+			{
 			case 0:
+				//CHECK IN
 				Log.i(TAG, text + " Clicked");
 				wifiLocate(ns.findViewById(R.id.main_map));
+				ns.findAll(ns.findViewById(R.id.main_map));
 //				ns.checkInClicked(ns.findViewById(R.id.main_map));
 				Log.i(TAG, view.toString());
-				//make menu close 
+				//make menu close
 				
 				break;
 			
 			case 1:
-				Log.i(TAG, text + " Clicked");
-				ns.findAll(ns.findViewById(R.id.main_map));
-				ns.myToggle();
-
-				break;
-			case 2:
+				//CREATE EVENT
 				Log.i(TAG,text + " Clicked");
 				ns.createEvent(ns.findViewById(R.id.main_map));
-
-			
+				break;
+				
+			case 2:
+				//VIEW EVENTS
+				Log.i(TAG,text + " Clicked");
+				ns.showEventList(ns.findViewById(R.id.main_map));
+				break;
+				
+			case 3:
+				//HELP
+				break;
+			case 4:
+				//EXIT
+				ns.finish();
+				break;
 			default:
 				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
 			}
