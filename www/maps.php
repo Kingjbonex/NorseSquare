@@ -36,6 +36,30 @@
 	    }
 	  }
   }
+
+
+function humanTiming ($time)
+{
+
+    $time = time() - $time; // to get the time since that moment
+
+    $tokens = array (
+        31536000 => 'year',
+        2592000 => 'month',
+        604800 => 'week',
+        86400 => 'day',
+        3600 => 'hour',
+        60 => 'minute',
+        1 => 'second'
+    );
+
+    foreach ($tokens as $unit => $text) {
+        if ($time < $unit) continue;
+        $numberOfUnits = floor($time / $unit);
+        return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
+    }
+
+}
 ?>
 
 <script type="text/javascript">
@@ -100,7 +124,7 @@
 					gid = $(this).find("googleid").text(),
 					photo = $(this).find("photourl").text();
 					myPhotourl = photo;
-					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
+					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + <?php echo humanTiming(time); ?> + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
 					$("#check-in-button").button({
 						icons: { primary: "ui-icon-circle-check" },
 						text: true
@@ -127,7 +151,7 @@
 					friendTime = $(this).find("time").text(),
 					plusUrl = "http://plus.google.com/" + usergid;
 					if (gid != usergid) {
-						$('#friends').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + ' ' + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + '<span class="location">Luther College</span>' + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+						$('#friends').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + ' ' + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + '<span class="location">Luther College</span>' + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + <?php echo humanTiming(friendTime); ?> + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
 						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 					}
 				}
