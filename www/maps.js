@@ -190,7 +190,7 @@ function showFriend(fLat,fLong,fPhotourl) {
 		new google.maps.Point(0, 0), // offset within the scaled sprite
 		null, // anchor point is half of the desired size
 		new google.maps.Size(50, 50) // scaled size of the entire sprite
-	)
+	);
 
 	var fPosition = new google.maps.LatLng(fLat, fLong);
 	var myPosMarker = new google.maps.Marker({
