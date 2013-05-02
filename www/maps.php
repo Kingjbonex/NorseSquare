@@ -51,7 +51,7 @@
 <head> 
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
 	<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.2.custom.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
 	<title>NorseSquare</title> 
 	<script type="text/javascript" src="jquery.js"></script>
