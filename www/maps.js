@@ -185,7 +185,7 @@ function showFriend(fLat,fLong,fPhotourl) {
 	myPosMarkers = [];
 
 	var image = new google.maps.MarkerImage(
-		photourl,
+		fPhotourl,
 		new google.maps.Size(50, 50), // desired size
 		new google.maps.Point(0, 0), // offset within the scaled sprite
 		null, // anchor point is half of the desired size
