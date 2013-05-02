@@ -9,5 +9,17 @@
         
 		
     </string-array>
-    
+    <string-array name="dumbyListContents">
+        <item>Check In</item>
+        <item>Create Event</item>
+        <item>View Events</item>
+        <item>Help</item>
+        <item>Exit</item>
+        <item>Check In</item>
+        <item>Create Event</item>
+        <item>View Events</item>
+        <item>Help</item>
+        <item>Exit</item>
+		
+    </string-array>
 </resources>
