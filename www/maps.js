@@ -222,6 +222,7 @@ function successFunction(position){
 
 	myLat = position.coords.latitude;
 	myLong = position.coords.longitude;
+	saveLocation(myLat,myLong);
 
 	var myPosition = new google.maps.LatLng(myLat, myLong);
 	var myPosMarker = new google.maps.Marker({
