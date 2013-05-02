@@ -23,10 +23,10 @@ if ($photourl == "") {$photourl = "imageThumb.gif";}
 //else update with name and photo
 //select any info we want and pass it back
 
-function humanTiming ($time)
+function humanTiming ($ftime)
 {
 
-    $time = time() - $time; // to get the time since that moment
+    $ftime = time() - strtotime($ftime); // to get the time since that moment
 
     $tokens = array (
         31536000 => 'year',
@@ -39,14 +39,14 @@ function humanTiming ($time)
     );
 
     foreach ($tokens as $unit => $text) {
-        if ($time < $unit) continue;
-        $numberOfUnits = floor($time / $unit);
+        if ($ftime < $unit) continue;
+        $numberOfUnits = floor($ftime / $unit);
         return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
     }
 
 }
 
-$Query = 'INSERT INTO users (uid,fname,lname,username,googleid,time) SELECT (MAX(uid)+1),"' 
+$Query = 'INSERT INTO users (uid,fname,lname,username,googleid,logintime) SELECT (MAX(uid)+1),"' 
 	. $fname . '","' . $lname . '","' . $email . '","' . $gid . '","' . $time . '" FROM users WHERE not exists (SELECT
 	 * from users WHERE users.username = "' . $email . '")';
 
@@ -55,7 +55,7 @@ $result = mysql_query($Query,$connection);
 $Query = 'UPDATE users SET photourl="' . $photourl . '" WHERE users.username = "' . $email . '"';
 $result = mysql_query($Query,$connection);
 
-$Query = 'SELECT uid,fname,lname,photourl,latitude,longitude FROM users WHERE users.username="'.$email.'"';
+$Query = 'SELECT uid,fname,lname,photourl,latitude,longitude,time FROM users WHERE users.username="'.$email.'"';
 $result = mysql_query($Query,$connection);
 
 $gotarray = mysql_fetch_array($result);
@@ -65,7 +65,7 @@ while($gotarray){
 	echo '<person>';
 	foreach($gotarray as $index => $userinfo) {
 		if(!is_numeric($index)){
-			if ($index == time) {$userinfo = humanTiming($userinfo);}
+			if ($index == "time") {$userinfo = humanTiming ($userinfo);}
 			echo '<',$index, '>';
 			echo $userinfo;
 			echo '</',$index,'>';
