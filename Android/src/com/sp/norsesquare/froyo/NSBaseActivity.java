@@ -127,13 +127,13 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 	
 	public void myToggle() 
 	{
-//		toggle();
-		SlidingMenu sm = getSlidingMenu();
-		if (getSlidingMenu().isBehindShowing()) {
-			showAbove();
-		} else {
-			showBehind();
-		}
+		toggle();
+//		SlidingMenu sm = getSlidingMenu();
+//		if (getSlidingMenu().isBehindShowing()) {
+//			showAbove();
+//		} else {
+//			showBehind();
+//		}
 	}
 	
     @Override
