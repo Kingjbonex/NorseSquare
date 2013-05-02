@@ -15,6 +15,7 @@ mysql_select_db(DB_NAME, $connection);
 
 $result = get_headers("https://www.google.com/s2/photos/profile/" . $gid, 1);
 $photourl = $result['Location'];
+if ($photourl == "") {$photourl = "imageThumb.gif"};
 
 //select from users where username = email
 //if empty insert user
