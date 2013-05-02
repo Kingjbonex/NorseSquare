@@ -264,9 +264,15 @@ function showFriends(data) {
 		long = $(this).find("longitude").text(),
 		time = $(this).find("time").text(),
 		gid = $(this).find("googleid").text(),
-		friendImage = $(this).find("photourl").text();
-		
-		
+		url = $(this).find("photourl").text();
+
+		friendImage = new google.maps.MarkerImage(
+			url,
+			new google.maps.Size(50, 50), // desired size
+			new google.maps.Point(0, 0), // offset within the scaled sprite
+			null, // anchor point is half of the desired size
+			new google.maps.Size(50, 50) // scaled size of the entire sprite
+		);
 
 		var myPosition = new google.maps.LatLng(lat, long);
 		var myPosMarker = new google.maps.Marker({
