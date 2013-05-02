@@ -7,7 +7,7 @@ if (!$connection)
 	echo "Could not connect: " . mysql_error();
 }
 mysql_select_db(DB_NAME, $connection);
-$Query = 'SELECT fname,lname,username,googleid,time,longitude,latitude FROM users';
+$Query = 'SELECT fname,lname,username,googleid,time,longitude,latitude,photourl FROM users';
 
 $result = mysql_query($Query,$connection);
 $gotarray = mysql_fetch_array($result);
