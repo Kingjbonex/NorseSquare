@@ -200,13 +200,31 @@ html, body {
 }
 
 /* ----- FRIEND-LIST-ITEMS ----- */
-#friends {
+.list-item-container {
 	overflow-y: scroll;	
 }
-.calculated-height {
-    height: -moz-calc(100% - 170px);
-    height: -webkit-calc(100% - 170px);
-    height: calc(100% - 170px);
+#users {
+	overflow-y: scroll;	
+}
+.friends-calculated-height {
+	position: absolute;
+	top: 185px;
+    height: -moz-calc(100% - 200px);
+    height: -webkit-calc(100% - 200px);
+    height: calc(100% - 200px);
+	width: -moz-calc(100% - 40px);
+	width: -webkit-calc(100% - 40px);
+	width: calc(100% - 40px);
+}
+.users-calculated-height {
+	position: absolute;
+	top: 185px;
+    height: -moz-calc(100% - 200px);
+    height: -webkit-calc(100% - 200px);
+    height: calc(100% - 200px);
+	width: -moz-calc(100% - 40px);
+	width: -webkit-calc(100% - 40px);
+	width: calc(100% - 40px);
 }
 .profile-image {
 	position: relative;
@@ -286,4 +304,11 @@ html, body {
 	margin-top: -3px!important;
 	margin-left: 1px!important;
 	left: 0!important;
+}
+#show-all-button {
+	position: absolute;
+	left: calc(50% - 55px);
+    left: -moz-calc(50% - 55px);
+    left: -webkit-calc(50% - 55px);
+	padding-bottom: 5px;	
 }

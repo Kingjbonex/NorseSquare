@@ -1,9 +1,10 @@
 $('#tabs').tabs();
+$(".right-button-icon" ).tooltip({ content: "Add friend" });
 
 $(function() {
-	$( ".friend-icon-button" ).button({
-			icons: { primary: "ui-icon-circle-plus" },
-			text: false
+	$(".friend-icon-button").button({
+		icons: { primary: "ui-icon-circle-plus" },
+		text: false
 	});
 	$("#check-in-button").button({
 		icons: { primary: "ui-icon-circle-check" },
@@ -12,6 +13,9 @@ $(function() {
 	$("#login-button").button({
 		icons: { primary: "ui-icon-locked" },
 		text: true
+	});
+	$("#show-all-friends").button({ 
+		text: true 
 	});
 });
 

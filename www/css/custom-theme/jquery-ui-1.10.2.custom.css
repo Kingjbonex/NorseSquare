@@ -233,7 +233,7 @@ button.ui-button-icons-only {
 	line-height: normal;
 }
 .ui-button-text-only .ui-button-text {
-	padding-top: .4em;
+	padding: .4em;
 }
 .ui-button-icon-only .ui-button-text,
 .ui-button-icons-only .ui-button-text {
@@ -727,7 +727,7 @@ button.ui-button::-moz-focus-inner {
 	border-bottom-width: 0;
 	padding: 0;
 	white-space: nowrap;
-	width: 32.75%;
+	width: 49.25%;
 	display: inline-block;
 }
 .ui-tabs .ui-tabs-nav li a {
@@ -763,6 +763,7 @@ button.ui-button::-moz-focus-inner {
 }
 body .ui-tooltip {
 	border-width: 2px;
+	font-color: #000;
 }
 
 /* Component containers

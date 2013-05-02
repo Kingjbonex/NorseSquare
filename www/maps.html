@@ -24,7 +24,7 @@
             <div id="map"></div> 
 
             <div id="toggle-button">
-            	<button id="toggle-button-text">&gt;<br>&gt;</button>
+            	<button id='toggle-button-text'>&gt;<br>&gt;</button>
             </div><!-- toggle-button -->
         
         	<div id="primary-content-container">
@@ -45,277 +45,372 @@
                 
                     <ul>
                         <li><a href="#friends">Friends</a></li>
-                        <li><a href="#plans">Plans</a></li>
-                        <li><a href="#settings">Settings</a></li>
+                        <li><a href="#users">Users</a></li>
                     </ul>
-                    <div id="friends" class="calculated-height">
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
+                    <div id="friends">
+                    	<div id="show-all-button">
+                    		<button id="show-all-friends" onclick="findAll();">Show all friends</button>
                         </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text calculated-width">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text calculated-width">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text calculated-width">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="profile-image">
-                                <img src="">
-                            </div>
-                            <div class="list-item-text">
-                                <span class="name">Steph Drewes</span>
-                                <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
-                                <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
-                            </div>
-                            <div class="right-button-icon">
-                                <button class="friend-icon-button" /></button>
-                            </div>
+                        <div class="list-item-container friends-calculated-height">
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text calculated-width">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text calculated-width">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text calculated-width">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+   
+                          </div>
+                          <div class="list-item">
+                              <div class="profile-image">
+                                  <img src="">
+                              </div>
+                              <div class="list-item-text">
+                                  <span class="name">Steph Drewes</span>
+                                  <span class="ui-icon ui-icon-flag"></span><span class="location">Olin</span>
+                                  <span class="ui-icon ui-icon-clock"></span><span class="check-in-date">~45 minutes</span>
+                              </div>
+                          </div><!-- list-item-container -->
+ 
                         </div>
                     </div>
-                    <div id="plans">
-                        <p>Where our plans section will be placed.</p>
-                    </div>
-                    <div id="settings">
-                        <p>Where our settings section will be placed.</p>
-                    </div>
+                    <div id="users">
+                    	<div class="list-item-container users-calculated-height">
+                    	<div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                        	<div class="profile-image">
+                                <img src="">
+                            </div>
+                            <div class="list-item-text">
+                                <span class="name">Steph Drewes</span>
+                            </div>
+ 
+                            <div class="right-button-icon">
+                                <button class="friend-icon-button" /></button>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        
+                    </div><!-- users --> 
                 </div><!--jQueryTabs-->
                 
        		</div><!-- primary-content-container -->

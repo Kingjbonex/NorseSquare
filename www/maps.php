@@ -122,13 +122,36 @@
 					uid = $(this).find("uid").text(),
 					usergid = $(this).find("googleid").text(),
 					friendImage = $(this).find("photourl").text(),
+					plusUrl = "http://plus.google.com/" + usergid;
+					if (gid != usergid) {
+						$('#plans').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+					}
+				}
+			);
+
+					
+		}, 'text');
+		
+		jQuery.get("./services/request.php", type:getfriends, {uid:uid} , function(data){
+			
+			var xml = data,
+			xmlDoc = $.parseXML( xml ),
+			$xml = $( xmlDoc ),
+			$person = $xml.find( "response person" ).each(
+				function(){
+					var friendImage;
+					var fname = $(this).find("fname").text(),
+					lname = $(this).find("lname").text(),
+					uid = $(this).find("uid").text(),
+					usergid = $(this).find("googleid").text(),
+					friendImage = $(this).find("photourl").text(),
 					friendLat = $(this).find("latitude").text(),
 					friendLong = $(this).find("longitude").text(),
 					friendTime = $(this).find("time").text(),
 					plusUrl = "http://plus.google.com/" + usergid;
 					if (gid != usergid) {
-						$('#friends').append('<div class="list-item" onclick="showFriend(friendLat,friendLong,friendImage);"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
-						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+						$('#friends').append('<div class="list-item" onclick="showFriend(friendLat,friendLong,friendImage);"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>'); 
 					}
 				}
 			);
@@ -146,7 +169,7 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-	   <button id="login-button" onclick="loginFunction();">Login</button>
+	   <button id="login-button" onClick="loginFunction();">Login</button>
     </div><!--header-->   
 
     <div id="main-page-container">        	
@@ -165,19 +188,14 @@
                     
                     <ul>
                         <li><a href="#friends">Friends</a></li>
-                        <li><a href="#plans">Plans</a></li>
-                        <li><a href="#settings">Settings</a></li>
+                        <li><a href="#users">Users</a></li>
                     </ul>
                     <div id="friends" class="calculated-height">
-                    
-                    </div><!-- friends -->  
-                    <div id="plans">
-                        <p>Where our plans section will be placed.</p>
-                    </div>
-                    <div id="settings">
+                    	<div id="show-all-button">
                     		<button id="show-all-friends" onclick="findAll();">Show all friends</button>
-                        <p>Where our settings section will be placed.</p>
-                    </div>
+                        </div>
+                    </div><!-- friends -->  
+                    <div id="plans" class="calculated-height"></div><!-- users -->
                  </div><!--jQueryTabs-->
                  
        		</div><!-- primary-content-container -->
