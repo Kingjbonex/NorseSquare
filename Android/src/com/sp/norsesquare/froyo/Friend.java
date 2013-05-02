@@ -8,11 +8,21 @@ public class Friend
 	Integer UID;
 	boolean hasAcceptedInvite;  //Boolean to indicate whether or not this Friend has accepted my friend request
 
+	public Friend(String n, String e)
+	{
+		//Default constructor to add local friends absent UID from server
+		name = n;
+		email = e;
+		UID = 000;
+		hasAcceptedInvite = false;
+	}
+	
 	public Friend(String n, String e,Integer u)
 	{
 		name = n;
 		email = e;
 		UID = u;
+		hasAcceptedInvite = false;
 	}
 	
 	public String getName()

@@ -5,6 +5,7 @@ $long = $_POST['long'];
 $email = $_POST['email'];
 $time = date("Y-m-d H:i:s", time());
 
+
 $connection = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
 if (!$connection)
 {

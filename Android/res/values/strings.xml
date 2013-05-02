@@ -6,6 +6,7 @@
     <string name="title_activity_locate_me_coarse">Locate Me Coarse</string>
     <string name="title_activity_locate_me_fine">Locate Me Fine</string>
     <string name="title_create_event">Create New Event</string>
+    <string name="title_add_friend">Add New friend</string>
     
     <string name="button_place_marker">Mark Current Location</string>
     <string name="button_locateCoarse">Pinpoint WiFi Location</string>
@@ -20,6 +21,7 @@
     <string name="new_event">New Event</string>
     <string name="create_event">Create Event</string>
     <string name="add_friends">Add Friends</string>
+    
 
     
     <string name="list_1">Hello</string>
