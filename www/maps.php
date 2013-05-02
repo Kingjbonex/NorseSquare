@@ -190,8 +190,8 @@
                     <div id="friends" class="calculated-height">
                     	<div id="show-all-button">
                     		<button id="show-all-friends" onClick="findAll();">Show all friends</button>
-                            <div id="friends-list-item-container" class="list-item-container friends-calculated-height"></div>
                         </div>
+                        <div id="friends-list-item-container" class="list-item-container friends-calculated-height"></div>
                     </div><!-- friends -->  
                     <div id="users" class="calculated-height">
                     	<div id="users-list-item-container" class="list-item-container users-calculated-height"></div>
