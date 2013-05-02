@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.slidingmenu.lib.SlidingMenu;
 //import com.actionbarsherlock.view.*;
 
 public class SlideList extends SherlockListFragment {
@@ -69,26 +70,25 @@ public class SlideList extends SherlockListFragment {
 			TextView listText = (TextView) view.findViewById(R.id.listText);
 			Intent intent;
 			String text = listText.getText().toString();
+			ns.myToggle();
 			
-			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
+//			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
 			switch (position)
 			{			
 			case 0:
 				Log.i(TAG, text + " Clicked");
-//				wifiLocate();
+				
+				ns.wifiLocate(listView);
 				Log.i(TAG, view.toString());
-//				getSlidingMenu().toggle();
-//				intent = new Intent(context, NewActivity.class);
-//				startActivity(intent);
-				toggle();
-
+				//make menu close 
+				
 				break;
 			
 			case 1:
 				Log.i(TAG, text + " Clicked");
-				ns.wifiLocate(listView);
-//				intent = new Intent(context, FragmentSwap.class);
-//				startActivity(intent);
+				ns.findAll(ns.findViewById(R.id.main_map));
+				ns.myToggle();
+
 				break;
 			case 2:
 				Log.i(TAG, text+ " Clicked");
@@ -108,10 +108,6 @@ public class SlideList extends SherlockListFragment {
 	{
 		//Call method from main activity
 	    ns.wifiLocate(view);
-	}
-	public void toggle()
-	{
-//		mainact.toggle();
 	}
 
 }
