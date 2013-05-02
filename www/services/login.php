@@ -6,6 +6,7 @@ $email = $_GET['email'];
 $gid = $_GET['gid'];
 $time = date("Y-m-d H:i:s", time());
 
+
 $connection = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
 if (!$connection)
 {
