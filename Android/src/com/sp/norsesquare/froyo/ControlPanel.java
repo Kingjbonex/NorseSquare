@@ -80,7 +80,7 @@ public class ControlPanel extends SherlockFragment implements OnGestureListener
 	
 	public void findAll(){
 		
-		ns.findAll(this.getView());
+		ns.findFriends(this.getView());
 	}
 	
 	/*joel is fiddling with these methods.*/

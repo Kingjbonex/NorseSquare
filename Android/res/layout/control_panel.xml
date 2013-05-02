@@ -40,7 +40,7 @@
         android:id="@+id/button_find_all"
         android:layout_height="match_parent"
         android:layout_width="150sp"
-        android:onClick="findAll" 
+        android:onClick="findFriends" 
         android:text="@string/find_all"
         /> -->
     
