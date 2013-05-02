@@ -77,8 +77,8 @@ public class SlideList extends SherlockListFragment {
 			{			
 			case 0:
 				Log.i(TAG, text + " Clicked");
-				
-				ns.wifiLocate(listView);
+				wifiLocate(ns.findViewById(R.id.main_map));
+//				ns.checkInClicked(ns.findViewById(R.id.main_map));
 				Log.i(TAG, view.toString());
 				//make menu close 
 				
@@ -91,12 +91,9 @@ public class SlideList extends SherlockListFragment {
 
 				break;
 			case 2:
-				Log.i(TAG, text+ " Clicked");
-				ns.checkIn();
-				
-			case 3:
 				Log.i(TAG,text + " Clicked");
 				ns.createEvent(ns.findViewById(R.id.main_map));
+
 			
 			default:
 				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
@@ -104,6 +101,7 @@ public class SlideList extends SherlockListFragment {
 		}
 		
 	}
+	
 	public void wifiLocate(View view)
 	{
 		//Call method from main activity
