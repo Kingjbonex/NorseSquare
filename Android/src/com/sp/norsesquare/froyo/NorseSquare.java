@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -270,6 +271,22 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		eDialog.show(getSupportFragmentManager(), "eDialog");
 	}
 	
+//	public void showEventListDialog()
+//	{
+//		DialogFragment eDialog = (DialogFragment) CreateEventListView.instantiate(this, "edialog");
+//		eDialog.show(getSupportFragmentManager(), "eDialog");
+//		
+////		eDialog = new CreateEventListView();
+//////    	View v = ((View) findViewById(R.id.RelativeMapLayout));
+//////    	v.requestFocus();
+////    	
+//////    	Intent i = new Intent(this,NorseSquare.class);
+//////    	i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//////    	startActivity(i);
+////    	
+////    	eDialog.show(getSupportFragmentManager(), "event_list");
+//	}
+	
 	//Functions for Event Creation Dialog
     public void doPositiveClick(String en,String ed)
     {
@@ -286,6 +303,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     	
         this.storeEventMarker(ll,eventName,snippetString);
+        this.redrawMarkers();
     }
     
     public void doNegativeClick()
@@ -433,13 +451,16 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 				     Southwest: Lat - 43.282454  Long - -91.827679
 				     Northeast: Lat - 43.309191  Long - -91.766739
 				     
-				     Server map limits: lat 43.327113 to 43.305803 long -91.820776 to -91.794444
+				     Luther Campus:
+				     Southwest: lat 43.310503, long -91.808732
+				     Northeast: lat 43.314999, long -91.801114
+				    
 
 				     */
 					
 					
-					LatLng boundSW = new LatLng(43.305803,-91.820776);
-			        LatLng boundNE = new LatLng(43.327113,-91.820776);
+					LatLng boundSW = new LatLng(43.310503,-91.808732);
+			        LatLng boundNE = new LatLng(43.314999,-91.801114);
 			        
 			        LatLngBounds.Builder builder = new LatLngBounds.Builder();
 			        builder.include(boundSW);
@@ -447,10 +468,9 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 			        
 			        LatLngBounds decorahBound = new LatLngBounds(boundSW,boundNE);			        
 			        
-			   
 
-					
-					wifiLocate(findViewById(R.id.main_map));
+					// TODO - Find out why a null pointer is thrown sometimes
+					//wifiLocate(findViewById(R.id.main_map));
 					
 					
 			   
@@ -482,6 +502,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	updateLocation(coarseLocation);
     	
     	//Check In after location has been loaded
+    	//TODO - uncomment this
     	checkIn();
     }
     
@@ -494,6 +515,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
           
           return coarseLocation;
         }
+    
+//    public void addFriend(String n, String e)
+//    {
+//    	Friend f = new Friend(n,e);
+//    	storedFriendList.add(f);
+//    	
+//    }
+    
     
     public void storeMarker(LatLng latlong,String title, String snippet)
     {
@@ -547,8 +576,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 //    	startActivity(i);
     	
     	eDialog.show(getSupportFragmentManager(), "event_creation");
-
     	
+    }
+    
+    public void showEventList(View v)
+    {
+    	CreateEventListView eDialog = new CreateEventListView();
+    	
+    	eDialog.show(getSupportFragmentManager(), "event_list");
     }
     
     public void storeEventMarker(LatLng latlong,String title, String snippet)
@@ -603,10 +638,12 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	//TODO - Include name?
     	
     	Location locate = this.returnCurrentWifiLocation();
-    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
+//    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 	}
+    
+    
 
 
 	public void placeSingleMarker(View v,LatLng latlong)
@@ -673,6 +710,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));	
     }
     
+
+    
     public void redrawMarkers()
     {
     	//Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
@@ -680,6 +719,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	mMap.clear();
     	
     	placeStoredMarkers();
+    
     }
     
     //Joel's classes/etc for not location related things.
@@ -695,9 +735,22 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     
     //Listener classes for location management
+    @Override
+    public void myToggle() {
+    	toggle();
+    }
     
+    public void datCheckIn(View v) {
+		wifiLocate(findViewById(R.id.main_map));
+		findAll(findViewById(R.id.main_map));
+	//	ns.checkInClicked(ns.findViewById(R.id.main_map));
 
+    }
+	
+	
     public void findAll(View w){
+    	
+    	storedMarkerList.clear();
     	
     	AsyncTask<String, Void, String> Task = new DatabaseTask().execute((String[])null);
     	try{
@@ -719,14 +772,16 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	String lname = UserInfo.item(1).getTextContent();
 	        	String username = UserInfo.item(2).getTextContent();
 	        	String googleid = UserInfo.item(3).getTextContent();
-	        	String time = UserInfo.item(4).getTextContent();
+	        	String gtime = UserInfo.item(4).getTextContent();
 	        	Double longitude = Double.parseDouble(UserInfo.item(5).getTextContent());
 	        	Double latitude = Double.parseDouble(UserInfo.item(6).getTextContent());
 	        	
+	        	String timedif = parsetime(gtime);
+	        	
+	        	
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
-	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in at "+ time);
-	        	
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in on "+ gtime);
 	        	Log.i("FINDALL",fname);
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
@@ -741,6 +796,22 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	}
     	
     }
+
+
+
+
+private String parsetime(String gtime) {
+		// TODO Auto-generated method stub
+	
+	Calendar c = Calendar.getInstance();
+	Date curtime = c.getTime();
+	String currenttime = curtime.toString();
+	
+	
+	return currenttime;
+	
+		
+	}
 
 
 
@@ -848,6 +919,8 @@ public class GoogleUser
 	{
 		pictureURL = u;
 	}
+	
+
 }
 
 public class UserInfoAsyncTask extends AsyncTask<Void, Void, String>

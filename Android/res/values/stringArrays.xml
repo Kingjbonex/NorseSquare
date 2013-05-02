@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="slidingMenuContents">
-        <item>Get Location From Wifi</item>
-        <item>Find All</item>
         <item>Check In</item>
-        <item>Load Current Events</item>
+        <item>Create Event</item>
+        <item>View Events</item>
+        <item>Help</item>
+        <item>Exit</item>
+        
 		
     </string-array>
-    
+    <string-array name="dumbyListContents">
+        <item>Check In</item>
+        <item>Create Event</item>
+        <item>View Events</item>
+        <item>Help</item>
+        <item>Exit</item>
+        <item>Check In</item>
+        <item>Create Event</item>
+        <item>View Events</item>
+        <item>Help</item>
+        <item>Exit</item>
+		
+    </string-array>
 </resources>

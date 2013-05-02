@@ -36,6 +36,7 @@
 	    }
 	  }
   }
+
 ?>
 
 <script type="text/javascript">
@@ -109,31 +110,7 @@
 			},'text');
 
 		
-		jQuery.get("./services/users.php", {page:'1'}, function(data){
-			
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					plusUrl = "http://plus.google.com/" + usergid;
-					if (gid != usergid) {
-						$('#plans').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
-						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
-					}
-				}
-			);
-
-					
-		}, 'text');
-		
-		jQuery.get("./services/request.php", type:getfriends, {uid:uid} , function(data){
+		jQuery.get("./services/users.php", type:getfriends, {uid:uid} , function(data){
 			
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
@@ -151,7 +128,8 @@
 					friendTime = $(this).find("time").text(),
 					plusUrl = "http://plus.google.com/" + usergid;
 					if (gid != usergid) {
-						$('#friends').append('<div class="list-item" onclick="showFriend(friendLat,friendLong,friendImage);"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>'); 
+						$('#friends').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + ' ' + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + '<span class="location">Luther College</span>' + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
 					}
 				}
 			);
@@ -192,7 +170,7 @@
                     </ul>
                     <div id="friends" class="calculated-height">
                     	<div id="show-all-button">
-                    		<button id="show-all-friends" onclick="findAll();">Show all friends</button>
+                    		<button id="show-all-friends" onClick="findAll();">Show all friends</button>
                         </div>
                     </div><!-- friends -->  
                     <div id="plans" class="calculated-height"></div><!-- users -->

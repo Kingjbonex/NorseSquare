@@ -2,12 +2,11 @@ package com.sp.norsesquare.froyo;
 
 //import static android.view.View.INVISIBLE;
 //import static android.view.View.VISIBLE;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -20,6 +19,8 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 
 	//declaration of the upper class for callbacks or whatevs in onOptionsItemSelected
 	NorseSquare ns;
+	
+	SlidingMenu sm;
 	
 	private boolean visible = true;
 	
@@ -65,7 +66,7 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 	
 	public void setUpSlidingMenu()
 	{
-		SlidingMenu sm = getSlidingMenu();
+		sm = getSlidingMenu();
 		
 		//This is already in pixels, if you have res in there, then you have to specify an xml file.
 		
@@ -117,8 +118,20 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
 		getSupportMenuInflater().inflate(R.menu.menu_main_settings, menu);
 		return true;
 	}
+	
+	public SlidingMenu getNsSlidingMenu() 
+	{	
+		return sm;
+	}
+	
+	public void myToggle() 
+	{
+		toggle();
+	}
+	
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
         // Handle item selection
 //    	View mapFrag = (View) findViewById(R.id.RelativeMapLayout);
 //    	View controlFrag = (View) findViewById(R.id.main_control_panel);
@@ -126,29 +139,18 @@ public abstract class NSBaseActivity extends SlidingFragmentActivity {
         switch (item.getItemId())
         {
 			case android.R.id.home:
-				toggle();
+				myToggle();
 				Log.i(TAG, "Sliding menu item Clicked");
 				return true;
-            case R.id.menu_settings_reveal_location:
-                if (item.isChecked())
-                {
-                	ns.setReleaseLocation(false);
-                	item.setChecked(false);
-                }
-                else
-                {
-                	ns.setReleaseLocation(true);
-                	item.setChecked(true);
-                }
-                return true;
-            case R.id.menu_settings_david_duba:
-            {
-            	if (item.isChecked())
-            	{
-            		Toast toast = Toast.makeText(this, "Hi Duba!!!", Toast.LENGTH_LONG);
-            		toast.show();
-            	}
-            }
+				
+			case R.id.exit_button:
+				Log.i(TAG, "Exiting");
+//				Intent intent = new Intent(Intent.ACTION_MAIN);
+//				intent.addCategory(Intent.CATEGORY_HOME);
+//				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				startActivity(intent);
+				finish();
+				return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

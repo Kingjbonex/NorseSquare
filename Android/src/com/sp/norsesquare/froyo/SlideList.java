@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.slidingmenu.lib.SlidingMenu;
 //import com.actionbarsherlock.view.*;
 
 public class SlideList extends SherlockListFragment {
@@ -69,49 +70,52 @@ public class SlideList extends SherlockListFragment {
 			TextView listText = (TextView) view.findViewById(R.id.listText);
 			Intent intent;
 			String text = listText.getText().toString();
+			ns.myToggle();
 			
-			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
+//			Toast.makeText(context, text + " @ position "+ position, Toast.LENGTH_SHORT).show();
 			switch (position)
-			{			
+			{
 			case 0:
+				//CHECK IN
 				Log.i(TAG, text + " Clicked");
-//				wifiLocate();
+				wifiLocate(ns.findViewById(R.id.main_map));
+				ns.findAll(ns.findViewById(R.id.main_map));
+//				ns.checkInClicked(ns.findViewById(R.id.main_map));
 				Log.i(TAG, view.toString());
-//				getSlidingMenu().toggle();
-//				intent = new Intent(context, NewActivity.class);
-//				startActivity(intent);
-				toggle();
-
+				//make menu close
+				
 				break;
 			
 			case 1:
-				Log.i(TAG, text + " Clicked");
-				ns.wifiLocate(listView);
-//				intent = new Intent(context, FragmentSwap.class);
-//				startActivity(intent);
-				break;
-			case 2:
-				Log.i(TAG, text+ " Clicked");
-				ns.checkIn();
-				
-			case 3:
+				//CREATE EVENT
 				Log.i(TAG,text + " Clicked");
 				ns.createEvent(ns.findViewById(R.id.main_map));
-			
+				break;
+				
+			case 2:
+				//VIEW EVENTS
+				Log.i(TAG,text + " Clicked");
+				ns.showEventList(ns.findViewById(R.id.main_map));
+				break;
+				
+			case 3:
+				//HELP
+				break;
+			case 4:
+				//EXIT
+				ns.finish();
+				break;
 			default:
 				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
 			}
 		}
 		
 	}
+	
 	public void wifiLocate(View view)
 	{
 		//Call method from main activity
 	    ns.wifiLocate(view);
-	}
-	public void toggle()
-	{
-//		mainact.toggle();
 	}
 
 }
