@@ -77,8 +77,8 @@ public class SlideList extends SherlockListFragment {
 			{			
 			case 0:
 				Log.i(TAG, text + " Clicked");
-				
-				ns.checkInClicked(ns.findViewById(R.id.main_map));
+				wifiLocate(ns.findViewById(R.id.main_map));
+//				ns.checkInClicked(ns.findViewById(R.id.main_map));
 				Log.i(TAG, view.toString());
 				//make menu close 
 				
