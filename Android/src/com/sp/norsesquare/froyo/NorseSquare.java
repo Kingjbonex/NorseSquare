@@ -118,6 +118,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH"));
         storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME."));
         
+        storedFriendList = new ArrayList<Friend>();
+        
         
         //TODO Make a case that handles if there is no luther.edu account on the phone.
         for (int i=0;i<accountList.length;i++)
@@ -373,7 +375,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         //Retrieve logged in user
         Person p = mPlusClient.getCurrentPerson();
         
-        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName());
+        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName(),this.googleAuthToken);
         
         
         //Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
@@ -500,9 +502,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
           return coarseLocation;
         }
     
-    public void addFriend(String n, String e)
+    public void addFriend(Friend f)
     {
-    	Friend f = new Friend(n,e);
     	storedFriendList.add(f);
     	
     }
@@ -635,6 +636,24 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     
     }
+	
+	public void populateStoredMarkers()
+	{
+		Iterator<Friend> i = storedFriendList.iterator();
+		storedMarkerList.clear();
+		
+		if (i.hasNext()==false)
+        {
+        	Toast.makeText(this,"No StoredFriends", Toast.LENGTH_SHORT).show();
+        }
+		while (i.hasNext())
+		{
+			Friend f = (Friend) i.next();
+			MapMarker m = new MapMarker(f.getLatLong(),f.getFullName(),"Checked in on "+ f.getCheckInTime());
+			
+			storedMarkerList.add(m);
+		}
+	}
     
     public void placeStoredMarkers()
     {
@@ -644,12 +663,13 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
         if (i.hasNext()==false)
         {
-        	//Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
+        	Toast.makeText(this,"No Stored Markers", Toast.LENGTH_SHORT).show();
         }
     	while (i.hasNext())
     	{
-    	   Log.i("Map Marker", "Placing Map Marker");
+    	   
     	   MapMarker m = (MapMarker) i.next();
+    	   Log.i("Map Marker", "Placing Map Marker: " + m.title);
     	   mMap.addMarker(m.getMarkerOptions());
     	}
     	
@@ -692,7 +712,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	//Toast.makeText(this, "Redrawing Markers", Toast.LENGTH_LONG).show();
     	
     	mMap.clear();
-    	
+    	this.populateStoredMarkers();
     	placeStoredMarkers();
     
     }
@@ -712,9 +732,11 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     //Listener classes for location management
     
 
-    public void findAll(View w){
+    public void findFriends(View w)
+    {
+    	//This method finds all friends for the user, but uses displayFriends() helper method to only display those users who have accepted our friend request
     	
-    	storedMarkerList.clear();
+    	storedFriendList.clear();
     	
     	AsyncTask<String, Void, String> Task = new DatabaseTask().execute((String[])null);
     	try{
@@ -742,15 +764,22 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	
 	        	String timedif = parsetime(gtime);
 	        	
-	        	
+	        	/* Old code to add all users to map
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
 	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in on "+ timedif);
 	        	Log.i("FINDALL",fname);
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
+	        	
+	        	*/
+	        	
+	        	//TODO - See if we can add friend requests and UIDs later
+	        	Log.i("Friends", "Friend " + username + " has been added");
+	        	storedFriendList.add(new Friend(fname,lname,username,new LatLng(latitude,longitude),timedif));
             }
           
+            
         	redrawMarkers();
             
     	}
@@ -850,8 +879,9 @@ public class GoogleUser
 	String lastName;
 	String accountEmail;
 	URL pictureURL = null;
+	String googleID;
 	
-	public GoogleUser(String fn, String ln, String email)
+	public GoogleUser(String fn, String ln, String email,String gid)
 	{
 	   firstName = fn;
 	   lastName = ln;
@@ -882,6 +912,11 @@ public class GoogleUser
 	public void setPictureURL(URL u)
 	{
 		pictureURL = u;
+	}
+	
+	public String getGoogleID()
+	{
+	   	return googleID;
 	}
 }
 

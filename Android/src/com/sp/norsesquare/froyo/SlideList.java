@@ -86,7 +86,7 @@ public class SlideList extends SherlockListFragment {
 			
 			case 1:
 				Log.i(TAG, text + " Clicked");
-				ns.findAll(ns.findViewById(R.id.main_map));
+				ns.findFriends(ns.findViewById(R.id.main_map));
 				ns.myToggle();
 
 				break;
