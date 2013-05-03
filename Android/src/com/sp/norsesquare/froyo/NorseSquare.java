@@ -90,6 +90,12 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     GoogleUser me;
     
+    //Dialog Box variables
+    CreateEventListView eDialog;
+    HelpDialogBox hDialog;
+    HelpDialogBoxTwo h2Dialog;
+    HelpDialogBoxThree h3Dialog;
+    
     //Get context for use in inner classes
     Context context = this;
     public NorseSquare()
@@ -605,16 +611,47 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     public void showHelpDialog(View v)
     {
-    	HelpDialogBox hDialog = new HelpDialogBox();
-    	
+    	hDialog = new HelpDialogBox();
     	hDialog.show(getSupportFragmentManager(), "help_dialog_one");
     }
     
     public void showHelpDialogTwo(View v)
     {
-    	HelpDialogBoxTwo hDialog = new HelpDialogBoxTwo();
-    	
-    	hDialog.show(getSupportFragmentManager(), "help_dialog_two");
+    	hDialog.dismiss();
+    	h2Dialog = new HelpDialogBoxTwo();
+    	h2Dialog.show(getSupportFragmentManager(), "help_dialog_two");
+    }
+    public void showHelpDialogThree(View v)
+    {
+    	h2Dialog.dismiss();
+    	h3Dialog = new HelpDialogBoxThree();
+    	h3Dialog.show(getSupportFragmentManager(), "help_dialog_three");
+    }
+    
+    public void backToDialogOne(View v)
+    {
+    	h2Dialog.dismiss();
+    	hDialog = new HelpDialogBox();
+    	hDialog.show(getSupportFragmentManager(), "help_dialog_one");
+    }
+    public void backToDialogTwo(View v)
+    {
+    	h3Dialog.dismiss();
+    	h2Dialog = new HelpDialogBoxTwo();
+    	h2Dialog.show(getSupportFragmentManager(), "help_dialog_two");
+    }
+    
+    public void closeHelpDialogOne(View v)
+    {
+    	hDialog.dismiss();
+    }
+    public void closeHelpDialogTwo(View v)
+    {
+    	h2Dialog.dismiss();
+    }
+    public void closeHelpDialogThree(View v)
+    {
+    	h3Dialog.dismiss();
     }
     
     public void storeEventMarker(LatLng latlong,String title, String snippet)
