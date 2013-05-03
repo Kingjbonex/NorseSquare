@@ -46,6 +46,7 @@
 		$fname = $_COOKIE['fname'];
 		$lname = $_COOKIE['lname'];
 		$lname = $_COOKIE['lname'];
+		echo $email;
 	}
   }
 
@@ -56,10 +57,10 @@
    <script type="text/javascript" src="polygons.js"> </script>
 
 <script type="text/javascript">
-  var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
-  var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
-  var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
-  var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
+  var email = "<?php   if(isset($_POST['token'])){Print($email);} else {if (isset($_COOKIE)) {Print($email);}}?>";
+  var fname = "<?php   if(isset($_POST['token'])){Print($fname);} else {if (isset($_COOKIE)) {Print($fname);}}?>";
+  var lname = "<?php   if(isset($_POST['token'])){Print($lname);} else {if (isset($_COOKIE)) {Print($lname);}}?>";
+  var gid = "<?php   if(isset($_POST['token'])){Print($gid);} else {if (isset($_COOKIE)) {Print($gid);}} ?>";
   var myPhotourl;
   var userId;
 </script>
