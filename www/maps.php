@@ -45,8 +45,8 @@
 		$email = $_COOKIE['email'];
 		$fname = $_COOKIE['fname'];
 		$lname = $_COOKIE['lname'];
-		$lname = $_COOKIE['lname'];
-		echo $email;
+		$gid = $_COOKIE['gid'];
+
 	}
   }
 
