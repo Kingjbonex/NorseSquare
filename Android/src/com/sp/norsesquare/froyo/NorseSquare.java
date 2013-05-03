@@ -119,11 +119,11 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         super.setUpSlidingMenu();
        
         storedEventList = new ArrayList<EventMarker>();
-        storedEventList.add(new EventMarker(PREUS,"Study Session for Paideia","Wisdom in Community."));
-        storedEventList.add(new EventMarker(BRUNSDALE,"Birthday Party for Sheila","The cake is, sadly, a lie."));
-        storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH"));
-        storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME."));
-        
+//        storedEventList.add(new EventMarker(PREUS,"Study Session for Paideia","Wisdom in Community."));
+//        storedEventList.add(new EventMarker(BRUNSDALE,"Birthday Party for Sheila","The cake is, sadly, a lie."));
+//        storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH"));
+//        storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME."));
+//        
         
         //TODO Make a case that handles if there is no luther.edu account on the phone.
         for (int i=0;i<accountList.length;i++)
@@ -311,21 +311,20 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 //	}
 	
 	//Functions for Event Creation Dialog
-    public void doPositiveClick(String en,String ed)
+    public void doPositiveClick(String en,String ed,String d)
     {
     	String eventName = en;
     	String eventDescription = ed;
-    	Date date = new Date();
-    	String dateString = date.toString();
+    	String date = d;
     	Location location = this.returnCurrentWifiLocation();
     	
     	
     	
-    	String snippetString = "Created on: " + dateString + "\n" + eventDescription; 
+    	String snippetString = "Created on: " + date + "\n" + eventDescription; 
     	LatLng ll = new LatLng(location.getLatitude(),location.getLongitude());
     	
     	
-        this.storeEventMarker(ll,eventName,snippetString);
+        this.storeEventMarker(ll,eventName,snippetString,date);
         this.redrawMarkers();
     }
     
@@ -654,7 +653,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	h3Dialog.dismiss();
     }
     
-    public void storeEventMarker(LatLng latlong,String title, String snippet)
+    public void storeEventMarker(LatLng latlong,String title, String snippet,String date)
     {
     	//Add marker to list of stored markers, making sure that it is not a duplicate
     	//Duplicate = marker with same title (person's name)
@@ -666,7 +665,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     	if (storedEventList.size()==0)
     	{
-    		storedEventList.add(new EventMarker(latlong,title,snippet));
+    		storedEventList.add(new EventMarker(latlong,title,snippet,date));
     	}
     	else
     	{
@@ -677,13 +676,13 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         	   if (m.getTitle() != title)
         	   {
         		   Log.i("StoreMarker","New marker added wth title " + title);
-        		   storedEventList.add(new EventMarker(latlong,title,snippet));
+        		   storedEventList.add(new EventMarker(latlong,title,snippet,date));
         	   }
         	   else
         	   {
         		   storedEventList.remove(m);
         		   Log.i("StoreMarker","New marker added wth title " + title);
-        		   storedEventList.add(new EventMarker(latlong,title,snippet));
+        		   storedEventList.add(new EventMarker(latlong,title,snippet,date));
         	   }
         	  
         	}
