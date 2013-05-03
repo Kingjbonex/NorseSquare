@@ -102,6 +102,8 @@
 					gid = $(this).find("googleid").text(),
 					photo = $(this).find("photourl").text();
 					myPhotourl = photo;
+					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
+					$('#show-all-friends').button({ text: true });
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>Luther College</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
 					$("#check-in-button").button({
 						icons: { primary: "ui-icon-circle-check" },
@@ -179,8 +181,11 @@
 				}
 			);		
 		}, 'text');
-		
+
+
+
 	}
+	
 
 })();
 </script>
@@ -205,16 +210,13 @@
             
             <div id="primary-content-container">
                 <div id="tabs">
-                    <div id="personal-status"></div><!--personal-status -->
-                    
+                    <div id="personal-status"></div><!--personal-status -->                    
                     <ul>
                         <li><a href="#friends">Friends</a></li>
                         <li><a href="#users">Users</a></li>
                     </ul>
                     <div id="friends" class="calculated-height">
-                    	<div id="show-all-button">
-                    		<button id="show-all-friends" onClick="findAll();">Show all friends</button>
-                        </div>
+                    	<div id="show-all-button"></div>
                         <div id="friends-list-item-container" class="list-item-container friends-calculated-height"></div>
                     </div><!-- friends -->  
                     <div id="users" class="calculated-height">

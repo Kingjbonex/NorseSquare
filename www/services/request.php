@@ -9,9 +9,9 @@ if (!$connection)
 }else{
 mysql_select_db(DB_NAME, $connection);
 
-if ( $type == "getfriends"){
+if ( $type == "getpending"){
 $uid = $_GET['uid'];
-$Query = 'SELECT users.uid,fname,lname,frequests.pending FROM users INNER JOIN frequests ON users.uid=frequests.uid WHERE fuid='.$uid;
+$Query = 'SELECT users.uid,fname,lname,frequests.pending FROM users INNER JOIN frequests ON users.uid=frequests.uid WHERE fuid='.$uid.' AND (frequest.pending = 2 OR frequest.pending=1)';
 //echo $Query;
 $result = mysql_query($Query,$connection);
 $gotarray = mysql_fetch_array($result);
