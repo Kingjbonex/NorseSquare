@@ -90,6 +90,12 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     GoogleUser me;
     
+    //Dialog Box variables
+    CreateEventListView eDialog;
+    HelpDialogBox hDialog;
+    HelpDialogBoxTwo h2Dialog;
+    HelpDialogBoxThree h3Dialog;
+    
     //Get context for use in inner classes
     Context context = this;
     public NorseSquare()
@@ -133,9 +139,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         	
         }
         
+       // SECTION TO LOG IN 
+        //LOGGING INTO GOOGLE
        //Get authToken for luther.edu account 
        AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
        Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
+       
+      
+       
        
        //new UserInfoAsyncTask(googleAuthToken).execute();
        //Initialize PlusClient
@@ -160,9 +171,18 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
         
         Log.i(TAG, "OnCreate");
+        
+        
+        
     }
 
-    @Override
+    private void LoginToDatabase() {
+		// TODO Auto-generated method stub
+    	Log.i("hello ppls", me.getGID());
+    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+	}
+
+	@Override
     protected void onResume() 
     {
         super.onResume();
@@ -183,6 +203,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		  
 	  	super.onStart();
 
+	  	
+	  	
 	  	// obtain location manager at restart of activity
 	  	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 	  	
@@ -588,16 +610,47 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     public void showHelpDialog(View v)
     {
-    	HelpDialogBox hDialog = new HelpDialogBox();
-    	
+    	hDialog = new HelpDialogBox();
     	hDialog.show(getSupportFragmentManager(), "help_dialog_one");
     }
     
     public void showHelpDialogTwo(View v)
     {
-    	HelpDialogBoxTwo hDialog = new HelpDialogBoxTwo();
-    	
-    	hDialog.show(getSupportFragmentManager(), "help_dialog_two");
+    	hDialog.dismiss();
+    	h2Dialog = new HelpDialogBoxTwo();
+    	h2Dialog.show(getSupportFragmentManager(), "help_dialog_two");
+    }
+    public void showHelpDialogThree(View v)
+    {
+    	h2Dialog.dismiss();
+    	h3Dialog = new HelpDialogBoxThree();
+    	h3Dialog.show(getSupportFragmentManager(), "help_dialog_three");
+    }
+    
+    public void backToDialogOne(View v)
+    {
+    	h2Dialog.dismiss();
+    	hDialog = new HelpDialogBox();
+    	hDialog.show(getSupportFragmentManager(), "help_dialog_one");
+    }
+    public void backToDialogTwo(View v)
+    {
+    	h3Dialog.dismiss();
+    	h2Dialog = new HelpDialogBoxTwo();
+    	h2Dialog.show(getSupportFragmentManager(), "help_dialog_two");
+    }
+    
+    public void closeHelpDialogOne(View v)
+    {
+    	hDialog.dismiss();
+    }
+    public void closeHelpDialogTwo(View v)
+    {
+    	h2Dialog.dismiss();
+    }
+    public void closeHelpDialogThree(View v)
+    {
+    	h3Dialog.dismiss();
     }
     
     public void storeEventMarker(LatLng latlong,String title, String snippet,String date)
@@ -655,7 +708,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 //    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
-	}
+		
+		try{
+        	LoginToDatabase();
+        }
+       catch(Exception e){
+    	   e.printStackTrace();
+       }
+    }
     
     
 
@@ -795,8 +855,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
-	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "Checked in "+ gtime + " ago.");
-	        	Log.i("FINDALL",fname);
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in "+ gtime+" ago");
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
             }
@@ -876,6 +935,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 	       catch (Exception e) {
 	    	   e.printStackTrace();
 	       }
+		
 		return authToken;
 	}
 	
@@ -889,6 +949,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 		
         Log.i("GOOGLEAUTH", "Returning Received Google Token");
         googleAuthToken = result;
+        
        
     }
 	

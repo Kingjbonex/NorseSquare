@@ -127,11 +127,10 @@
 					time = $(this).find("time").text(),
 					gid = $(this).find("googleid").text(),
 					photo = $(this).find("photourl").text(),
-					myPhotourl = photo,
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
 					userId = $(this).find("uid").text();
-					
+					myPhotourl = photo;
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>" + location + "</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
@@ -155,9 +154,18 @@
 						uid = $(this).find("uid").text(),
 						usergid = $(this).find("googleid").text(),
 						friendImage = $(this).find("photourl").text(),
+						pending = $(this).find("pending").text(),
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
-							$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " Pending"+'</span></div></div>'); 
+							if (pending == 2){
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button">Accept Request</button></div></div>'); 
+								$(".accept-request").button({
+									text: true
+								}).click(function(){accept();});
+							}
+							else{
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
+							}
 						}
 					}
 				);	

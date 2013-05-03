@@ -6,32 +6,32 @@
     android:scrollbars="vertical"
     android:maxLines="10"  >
 	
-    <ImageView  
+    <!-- <ImageView  
         android:id="@+id/dummy_locate_button"
         android:layout_width="125sp"
         android:layout_height="match_parent"
         android:layout_marginTop="5sp"
-        android:src="@drawable/ic_launcher"/>
+        android:src="@drawable/ic_launcher"/> -->
     
     <TextView
-        android:id="@+id/helpTextViewTwo"
+        android:id="@+id/helpTextViewThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Do you see the button that looks like this up in the top left corner? It will open a fancy sliding menu with more features!"
+        android:text="These are markers. The red ones are your friends and the green ones are events at Luther"
         android:textAppearance="?android:attr/textAppearanceLarge"
         />
     <Button
-        android:id="@+id/help_two_back_button"
+        android:id="@+id/help_three_back_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="backToDialogOne"
+        android:onClick="backToDialogTwo"
         android:text="Back" />
     <Button 
         android:id="@+id/help_next_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="showHelpDialogThree"
-        android:text="Sweet! What do the things on the map mean?" />
+        
+        android:text="Third" />
     
     
 
