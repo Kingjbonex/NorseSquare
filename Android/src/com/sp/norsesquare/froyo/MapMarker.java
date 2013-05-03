@@ -56,6 +56,7 @@ public class MapMarker
 		        .position(latlong)
 		        .title(title)
 		        .snippet(snippet)
+		        .draggable(true)
 		        );
 		      //.icon(BitmapDescriptorFactory.fromAsset("fiddle.png")
 	}

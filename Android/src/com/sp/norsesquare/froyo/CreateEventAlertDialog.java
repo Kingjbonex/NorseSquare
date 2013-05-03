@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class CreateEventAlertDialog extends DialogFragment
 {
@@ -16,6 +17,7 @@ public class CreateEventAlertDialog extends DialogFragment
 	public EditText eventName;
 	public EditText eventDescription;
 	public DatePicker eventDate;
+	public Spinner location;
 	
 	
 	public Dialog onCreateDialog(Bundle savedInstanceState)

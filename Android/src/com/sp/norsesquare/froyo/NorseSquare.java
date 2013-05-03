@@ -88,6 +88,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     private static final LatLng CFL = new LatLng(43.312954,-91.805288);
     private static final LatLng BRUNSDALE = new LatLng(43.315405,-91.80503);
     
+    
     GoogleUser me;
     
     //Dialog Box variables
@@ -179,7 +180,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     private void LoginToDatabase() {
 		// TODO Auto-generated method stub
     	Log.i("hello ppls", me.getGID());
-    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+    	//AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
 	}
 
 	@Override
@@ -320,7 +321,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     	
     	
-    	String snippetString = "Created on: " + date + "\n" + eventDescription; 
+    	String snippetString = eventDescription; 
     	LatLng ll = new LatLng(location.getLatitude(),location.getLongitude());
     	
     	
