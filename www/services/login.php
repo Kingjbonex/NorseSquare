@@ -46,7 +46,7 @@ function humanTiming ($ftime)
 
 }
 
-$Query = 'INSERT INTO users (uid,fname,lname,username,googleid,logintime) SELECT (MAX(uid)+1),"' 
+$Query = 'INSERT INTO users (uid,fname,lname,username,googleid,time) SELECT (MAX(uid)+1),"' 
 	. $fname . '","' . $lname . '","' . $email . '","' . $gid . '","' . $time . '" FROM users WHERE not exists (SELECT
 	 * from users WHERE users.username = "' . $email . '")';
 
