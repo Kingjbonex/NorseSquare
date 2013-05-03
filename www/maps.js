@@ -265,7 +265,6 @@ function showFriends(data) {
 		time = $(this).find("time").text(),
 		gid = $(this).find("googleid").text(),
 		url = $(this).find("photourl").text();
-
 		friendImage = new google.maps.MarkerImage(
 			url,
 			new google.maps.Size(50, 50), // desired size
@@ -289,8 +288,8 @@ function showFriends(data) {
 		
 }
 
-function findAll(id) {
-	users = jQuery.post("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
+function findAll(id, controlDiv, map) {
+	users = jQuery.get("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
 }
 
 function loginFunction() {
