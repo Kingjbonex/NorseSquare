@@ -143,8 +143,8 @@ function setUserId(id){
 						icons: { primary: "ui-icon-circle-check" },
 						text: true
 					}).click(function(){checkIn();});
-				;});
-			},'text');
+				//;});
+			//},'text');
 
 		alert("User ID: "+userId);
 		jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
@@ -193,7 +193,7 @@ function setUserId(id){
 					}
 				}
 			);	
-		}, 'text');
+		}, 'text'); ;}); },'text');
 		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
