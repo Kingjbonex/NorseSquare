@@ -108,8 +108,8 @@
 
     //Calling function to create new user
     if(email != "") {
-		var userId;
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
+			var userId = '';
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
 			$xml = $( xmlDoc ),
