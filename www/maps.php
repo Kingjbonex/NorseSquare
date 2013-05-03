@@ -39,12 +39,17 @@
 
 ?>
 
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   <script type="text/javascript" src="polygonContainer.js"></script>
+   <script type="text/javascript" src="polygons.js"> </script>
+
 <script type="text/javascript">
   var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
   var myPhotourl;
+  var userId;
 </script>
 
 <html> 
@@ -106,9 +111,9 @@
 	 	return building;
 	}
 
+
     //Calling function to create new user
     if(email != "") {
-		var userId;
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
@@ -134,57 +139,60 @@
 						icons: { primary: "ui-icon-circle-check" },
 						text: true
 					}).click(function(){checkIn();});
-				;});
-			},'text');
+			
 
-		alert("User ID: "+userId);
-		jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
-			// get already accepted (nonpending) friends
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					friendLat = $(this).find("latitude").text(),
-					friendLong = $(this).find("longitude").text(),
-					friendTime = $(this).find("time").text(),
-					plusUrl = "http://plus.google.com/" + usergid,
-					coordinate = new google.maps.LatLng(friendLat,friendLong),
-					location = getLocation(coordinate);
-					if (gid != usergid) {
-						$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>" + location + "</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
+
+			jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
+				// get pending friends
+				var xml = data,
+				xmlDoc = $.parseXML( xml ),
+				$xml = $( xmlDoc ),
+				$person = $xml.find( "response person" ).each(
+					function(){
+						var friendImage;
+						var fname = $(this).find("fname").text(),
+						lname = $(this).find("lname").text(),
+						uid = $(this).find("uid").text(),
+						usergid = $(this).find("googleid").text(),
+						friendImage = $(this).find("photourl").text(),
+						plusUrl = "http://plus.google.com/" + usergid;
+						if (gid != usergid) {
+							$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " Pending"+'</span></div></div>'); 
+						}
 					}
-				}
-			);	
-		}, 'text');
+				);	
+			}, 'text');
 
 
-		jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
-			// get pending friends
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					plusUrl = "http://plus.google.com/" + usergid;
-					if (gid != usergid) {
-						$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " Pending"+'</span></div></div>'); 
+			jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
+				// get already accepted (nonpending) friends
+				var xml = data,
+				xmlDoc = $.parseXML( xml ),
+				$xml = $( xmlDoc ),
+				$person = $xml.find( "response person" ).each(
+					function(){
+						var friendImage;
+						var fname = $(this).find("fname").text(),
+						lname = $(this).find("lname").text(),
+						uid = $(this).find("uid").text(),
+						usergid = $(this).find("googleid").text(),
+						friendImage = $(this).find("photourl").text(),
+						friendLat = $(this).find("latitude").text(),
+						friendLong = $(this).find("longitude").text(),
+						friendTime = $(this).find("time").text(),
+						plusUrl = "http://plus.google.com/" + usergid,
+						coordinate = new google.maps.LatLng(friendLat,friendLong),
+						location = getLocation(coordinate);
+						if (gid != usergid) {
+							$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>" + location + "</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
+						}
 					}
-				}
-			);	
-		}, 'text');
+				);	
+			}, 'text');
+
+ 
+		;}); 
+	},'text');
 		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
@@ -260,9 +268,6 @@
 </body> 
 
    <script type="text/javascript" src="jquery-ui.js"></script>
-   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-   <script type="text/javascript" src="polygonContainer.js"></script>
-   <script type="text/javascript" src="polygons.js"> </script>
    <script type="text/javascript" src="mapStyles.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
    <script type="text/javascript" src="ui.js"></script>
