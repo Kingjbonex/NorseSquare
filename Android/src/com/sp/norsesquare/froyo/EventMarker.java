@@ -21,8 +21,9 @@ public class EventMarker extends MapMarker
 	   return (new MarkerOptions()
        .position(latlong)
        .title(title)
-       .snippet("Date: " + date + "\n" +  snippet)
+       .snippet("Date: " + date + " - " +  snippet)
        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+       .draggable(true)
        );
    }
 }

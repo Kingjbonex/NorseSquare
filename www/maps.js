@@ -243,7 +243,7 @@ function errorFunction(position) {
 
 function checkIn(){
 	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	    navigator.geolocation.getCurrentPosition(function(position){successFunction(position);}, errorFunction);
 	} else {
 	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 	}
@@ -306,11 +306,7 @@ contextMenuOptions.classNames={menu:'context_menu', menuSeparator:'context_menu_
 
 //	create an array of ContextMenuItem objects
 var menuItems=[];
-menuItems.push({className:'context_menu_item', eventName:'zoom_in_click', label:'Zoom in'});
-menuItems.push({className:'context_menu_item', eventName:'zoom_out_click', label:'Zoom out'});
-//	a menuItem with no properties will be rendered as a separator
-menuItems.push({});
-menuItems.push({className:'context_menu_item', eventName:'center_map_click', label:'Center map here'});
+menuItems.push({className:'context_menu_item', eventName:'checkIn_here', label:'Check-In Here'});
 contextMenuOptions.menuItems=menuItems;
 
 //	create the ContextMenu object
@@ -326,14 +322,12 @@ google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng
 	//	latLng is the position of the ContextMenu
 	//	eventName is the eventName defined for the clicked ContextMenuItem in the ContextMenuOptions
 	switch(eventName){
-		case 'zoom_in_click':
-			map.setZoom(map.getZoom()+1);
-			break;
-		case 'zoom_out_click':
-			map.setZoom(map.getZoom()-1);
-			break;
-		case 'center_map_click':
-			map.panTo(latLng);
+		case 'checkIn_here':
+			var lat = latLng.lat();
+			var lng = latLng.lng();
+			// populate yor box/field with lat, lng
+			alert("Lat=" + lat + "; Lng=" + lng);
+
 			break;
 	}
 });
