@@ -45,7 +45,6 @@
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
   var myPhotourl;
-  var userId;
 </script>
 
 <html> 
@@ -87,6 +86,7 @@
     s.parentNode.insertBefore(e, s);
 
 	function getLocation(coordinate) {
+		var building = "Off-Campus";
 		for (polygon in polygonCoords) {
 			var name = polygonCoords[polygon][0];
 			var coords = polygonCoords[polygon][1];
@@ -98,12 +98,17 @@
 			 });
 			if (lutherPolygon.containsLatLng(coordinate)) {building = name;}
 	 		};
+
+	 	lutherPolygon = new google.maps.Polygon([new google.maps.LatLng(43.319933,-91.805792), new google.maps.LatLng(43.319933,-91.811457), new google.maps.LatLng(43.313188,-91.810255), new google.maps.LatLng(43.309722,-91.808538), new google.maps.LatLng(43.309597,-91.80665), new google.maps.LatLng(43.308629,-91.806693), new google.maps.LatLng(43.308723,-91.803217), new google.maps.LatLng(43.309535,-91.803002), new google.maps.LatLng(43.309441,-91.800127), new google.maps.LatLng(43.310909,-91.800127), new google.maps.LatLng(43.310909,-91.798282), new google.maps.LatLng(43.312345,-91.798754), new google.maps.LatLng(43.313001,-91.79944), new google.maps.LatLng(43.313282,-91.798754), new google.maps.LatLng(43.314,-91.798925), new google.maps.LatLng(43.313688,-91.799955), new google.maps.LatLng(43.315561,-91.801972), new google.maps.LatLng(43.316155,-91.798711), new google.maps.LatLng(43.317622,-91.798067), new google.maps.LatLng(43.318371,-91.799655), new google.maps.LatLng(43.318777,-91.801414), new google.maps.LatLng(43.317841,-91.803732)],'#FF0000',1,0.6,'#FF0000',0.4);
+
+	 	if (building == "Off-Campus" && lutherPolygon.containsLatLng(coordinate)) {building = "Luther College";}
+	 		
 	 	return building;
 	}
 
     //Calling function to create new user
     if(email != "") {
-
+		var userId;
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
@@ -120,7 +125,7 @@
 					myPhotourl = photo,
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
-					userId = %(this).find("uid");
+					userId = $(this).find("uid").text();
 					
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
@@ -132,7 +137,7 @@
 				;});
 			},'text');
 
-		
+		alert("User ID: "+userId);
 		jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
 			// get already accepted (nonpending) friends
 			var xml = data,
@@ -153,7 +158,7 @@
 					coordinate = new google.maps.LatLng(friendLat,friendLong),
 					location = getLocation(coordinate);
 					if (gid != usergid) {
-						$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
+						$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>" + location + "</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
 					}
 				}
 			);	
