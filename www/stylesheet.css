@@ -129,9 +129,9 @@ html, body {
 	overflow: hidden;
 }
 .personal-text .ui-icon-clock {
+	position: absolute;
 	float: left;
-	margin-top: 4em;
-	margin-left: 2%;
+	top: 70px;
 	
 }
 .personal-text .ui-icon-flag {
@@ -148,9 +148,9 @@ html, body {
 	overflow: hidden;
 }
 .personal-text .check-in-date {
-	float: left;
-	margin-top: 5.6em;
-	margin-left: 1%;
+	position: absolute;
+	top: 72px;
+	left: 20px;
 	font-size: 75%;
 	color: #413839;
 	overflow: hidden;
