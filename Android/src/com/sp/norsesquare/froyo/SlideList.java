@@ -100,6 +100,7 @@ public class SlideList extends SherlockListFragment {
 				
 			case 3:
 				//HELP
+				ns.showHelpDialog(ns.findViewById(R.id.main_map));
 				break;
 			case 4:
 				//EXIT
