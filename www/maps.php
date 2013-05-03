@@ -250,7 +250,8 @@ function acceptRequest(myUid,friendUid){
 		},'text');
 
 	}
-	
+
+	$('#header').append('<button id="login-button" onClick="loginFunction();">Login</button>');
 
 })();
 </script>
@@ -260,7 +261,6 @@ function acceptRequest(myUid,friendUid){
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-	   <button id="login-button" onClick="loginFunction();">Login</button>
     </div><!--header-->   
 
     <div id="main-page-container">        	
