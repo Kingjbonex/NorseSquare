@@ -132,7 +132,7 @@ html, body {
 	position: absolute;
 	float: left;
 	top: 70px;
-	
+	left: -1px;	
 }
 .personal-text .ui-icon-flag {
 	float: left;
@@ -267,9 +267,9 @@ html, body {
 	color: #595454;
 }
 .list-item-text .ui-icon-clock {
-	float: left;
-	margin-top: 40px;
-	margin-left: 2%;	
+	position: absolute;
+	top: 55px;
+	left: -1px;	
 }
 .list-item-text .ui-icon-flag {
 	float: left;
@@ -283,7 +283,7 @@ html, body {
 }
 .list-item-text .check-in-date {
 	float: left;
-	margin-top: 42px;
+	top: 52px;
 	font-size: 75%;
 	color: #413839;
 }
