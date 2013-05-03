@@ -253,9 +253,9 @@ html, body {
 .list-item-text {
 	position: relative;
 	float: left;
-    width: -moz-calc(100% - 140px);
-    width: -webkit-calc(100% - 140px);
-    width: calc(100% - 140px);
+    width: -moz-calc(100% - 200px);
+    width: -webkit-calc(100% - 200px);
+    width: calc(100% - 200px);
 	height: 100%;
 }
 .list-item-text .name {
