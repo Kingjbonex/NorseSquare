@@ -33,9 +33,23 @@
 	      $fname = $auth_info['profile']['name']['givenName'];
 	      $lname = $auth_info['profile']['name']['familyName'];
 	      $gid = $auth_info['profile']['googleUserId'];
+	      setcookie('email', $email, time() + 60*60*24, '/');
+		 setcookie('fname', $fname, time() + 60*60*24, '/');
+		 setcookie('lname', $lname, time() + 60*60*24, '/');
+		 setcookie('gid', $gid, time() + 60*60*24, '/');
+	      	      	      	      
 	    }
 	  }
+  } else {
+	if (isset($_COOKIE)) {
+		$email = $_COOKIE['email'];
+		$fname = $_COOKIE['fname'];
+		$lname = $_COOKIE['lname'];
+		$lname = $_COOKIE['lname'];
+	}
   }
+
+}
 
 ?>
 
