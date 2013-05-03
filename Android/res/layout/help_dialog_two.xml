@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:scrollbars="vertical"
+    android:maxLines="10"  >
+	
+    <ImageButton 
+        android:id="@+id/dummy_locate_button"
+        android:layout_width="125sp"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_launcher"/>
+    
+    <TextView
+        android:id="@+id/helpTextViewTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you see the button that looks like this up in the top left corner? It will open a fancy sliding menu with more features!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
+    <Button 
+        android:id="@+id/help_next_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Sweet! What do the things on the map mean?"/>
+
+</LinearLayout>

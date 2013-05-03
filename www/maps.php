@@ -94,14 +94,6 @@
 	
 			lutherPolygon = new google.maps.Polygon({
 				paths: coords,
-				map: map,
-				strokeColor: tempColor,
-				strokeOpacity: 0.8,
-				strokeWeight: 2,
-				fillColor: tempColor,
-				fillOpacity: 0.35,
-				polyName: name,
-				category: cat,
 				id: polygon
 			 });
 			if (lutherPolygon.containsLatLng(coordinate)) {building = name;}
