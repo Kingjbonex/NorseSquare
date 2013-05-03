@@ -111,6 +111,10 @@
 	 	return building;
 	}
 
+function sendRequest(myUid,friendUid){
+	jQuery.get("./services/request.php", {type:send, uid:myUid, fuid:friendUid});
+}
+
 
     //Calling function to create new user
     if(email != "") {
