@@ -125,7 +125,12 @@
 	}
 
 function sendRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid});
+	//jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid});
+	jQuery.ajax({
+		url:"./services/request.php?fuid="+friendUid+"&uid="+uid+"&type=send"
+		async: false
+	});
+	window.location.reload();
 }
 
 function acceptRequest(myUid,friendUid){
