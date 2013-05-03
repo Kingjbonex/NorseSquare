@@ -201,6 +201,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 				//TODO - Find how often this is called, determine if it is too frequent.
 				//updateLocation(location);
 				//Toast.makeText(context, "Location is being updated", Toast.LENGTH_SHORT).show();
+				
 			}
 		
 		
@@ -795,7 +796,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
-	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in on "+ gtime);
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "Checked in "+ gtime + " ago.");
 	        	Log.i("FINDALL",fname);
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);

@@ -17,11 +17,14 @@
    <DatePicker
        android:id="@+id/eventDatePicker"
        android:layout_width="match_parent"
+       android:layout_height="wrap_content"
        android:spinnersShown="true"
        />
    
    <ExpandableListView
        android:id="@+id/eventLocationDropDown" 
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
        />
     
     <EditText
