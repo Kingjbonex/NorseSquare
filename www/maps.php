@@ -45,7 +45,6 @@
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
   var myPhotourl;
-  var userId;
 </script>
 
 <html> 
@@ -105,7 +104,7 @@
 
     //Calling function to create new user
     if(email != "") {
-
+		var userId;
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
