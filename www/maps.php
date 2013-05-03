@@ -125,11 +125,11 @@
 	}
 
 function sendRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid});
+	jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid},function(){window.location.reload();}, 'text');
 }
 
 function acceptRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:'accept', uid:myUid, fuid:friendUid});
+	jQuery.get("./services/request.php", {type:'accept', uid:myUid, fuid:friendUid},function(){window.location.reload();}, 'text');
 }
 
     //Calling function to create new user
@@ -183,7 +183,7 @@ function acceptRequest(myUid,friendUid){
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button class="accept-request-button-'+i+'">Accept Request</button></div></div>'); 
 								$(".accept-request-button-"+i).button({
 									text: true
-								}).click(function(){acceptRequest(userId,uid);window.location.reload();});
+								}).click(function(){acceptRequest(userId,uid);});
 							}
 							else{
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
