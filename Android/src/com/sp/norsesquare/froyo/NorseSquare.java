@@ -763,7 +763,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	{
     	   Log.i("Map Marker", "Placing Map Marker");
     	   MapMarker m = (MapMarker) i.next();
-    	   mMap.addMarker(m.getMarkerOptions()).showInfoWindow();
+    	   mMap.addMarker(m.getMarkerOptions());
     	}
     	
         Iterator<EventMarker> h = storedEventList.iterator();
