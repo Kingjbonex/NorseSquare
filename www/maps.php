@@ -39,7 +39,8 @@
 		 setcookie('gid', $gid, time() + 60*60*24, '/');
 	      	      	      	      
 	    }
-	  } else {
+	  }
+  } else {
 	if (isset($_COOKIE)) {
 		$email = $_COOKIE['email'];
 		$fname = $_COOKIE['fname'];
