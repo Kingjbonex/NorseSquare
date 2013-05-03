@@ -41,7 +41,7 @@
 	    }
 	  }
   } else {
-	if (isset($_COOKIE)) {
+	if ($_COOKIE['email']) {
 		$email = $_COOKIE['email'];
 		$fname = $_COOKIE['fname'];
 		$lname = $_COOKIE['lname'];
