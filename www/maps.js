@@ -149,7 +149,7 @@ for (polygon in polygonCoords) {
 	
 	lutherPolygon = new google.maps.Polygon({
 		paths: coords,
-		map: map,
+		map: null,
 		strokeColor: tempColor,
 		strokeOpacity: 0.8,
 		strokeWeight: 2,
