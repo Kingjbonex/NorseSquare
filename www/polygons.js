@@ -52,7 +52,7 @@ var brandt = [
 	];
 	
 	category = 'residential';
-	polygonCoords[count++] = new Array('Diderikke Brandt Hall', brandt, category);
+	polygonCoords[count++] = new Array('Brandt Hall', brandt, category);
 	
 var brunsdalelounge = [
 	new google.maps.LatLng(43.315183,-91.805314),
@@ -224,7 +224,7 @@ var jenson = [
 	];
 	
 	category = 'academic';
-	polygonCoords[count++] = new Array('Jenson Noble Hall of Music', jenson, category);
+	polygonCoords[count++] = new Array('Jenson Noble', jenson, category);
 
 var korsrud = [
 	new google.maps.LatLng(43.309837,-91.807079),
@@ -356,7 +356,7 @@ var olin = [
 	];
 	
 	category = 'academic';
-	polygonCoords[count++] = new Array('Franklin W. Olin Bldg', olin, category);
+	polygonCoords[count++] = new Array('Franklin W. Olin', olin, category);
 
 var olsen = [
 	new google.maps.LatLng(43.309646,-91.805245),
@@ -458,7 +458,7 @@ var sampsonhoffland = [
 	];
 	
 	category = 'academic';
-	polygonCoords[count++] = new Array('Sampson Hoffland Laboratories', sampsonhoffland, category);
+	polygonCoords[count++] = new Array('Sampson Hoffland', sampsonhoffland, category);
 
 var sperati = [
 	new google.maps.LatLng(43.310618,-91.801452),
@@ -558,7 +558,7 @@ var valders = [
 	];
 	
 	category = 'academic';
-	polygonCoords[count++] = new Array('Valders Hall of Science', valders, category);
+	polygonCoords[count++] = new Array('Valders', valders, category);
 
 var ylvisakerhall = [
 	new google.maps.LatLng(43.314183,-91.805545),

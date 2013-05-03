@@ -41,7 +41,7 @@
 	    }
 	  }
   } else {
-	if (isset($_COOKIE)) {
+	if (array_key_exists('email',$_COOKIE)) {
 		$email = $_COOKIE['email'];
 		$fname = $_COOKIE['fname'];
 		$lname = $_COOKIE['lname'];
@@ -157,6 +157,7 @@ function acceptRequest(myUid,friendUid){
 					userId = $(this).find("uid").text();
 					myPhotourl = photo;
 					document.getElementById('login-button-container').innerHTML = '<button id="login-button" onClick="location.href=&quot;./services/logout.php&quot;">Logout</button>';
+					$("#login-button").button({icons: { primary: "ui-icon-locked" },text: true});
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll("+userId+");'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>" + location + "</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
