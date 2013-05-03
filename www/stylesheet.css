@@ -326,3 +326,15 @@ html, body {
 	padding-bottom: 5px;	
 }
 
+/*For Map Context Menu */
+.context_menu{
+	background-color:white;
+	border:1px solid gray;
+}
+.context_menu_item{
+	padding:3px 6px;
+}
+.context_menu_item:hover{
+	background-color:#CCCCCC;
+}
+
