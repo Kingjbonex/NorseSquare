@@ -51,7 +51,7 @@ $Query = 'INSERT INTO frequests (uid,fuid,pending) SELECT '.$uid.','.$fuid.',2 F
 echo $Query;
 $result = mysql_query($Query,$connection);
 
-}
+
 
 
 }
