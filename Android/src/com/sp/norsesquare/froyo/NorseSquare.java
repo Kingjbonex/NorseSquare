@@ -121,10 +121,10 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         super.setUpSlidingMenu();
        
         storedEventList = new ArrayList<EventMarker>();
-//        storedEventList.add(new EventMarker(PREUS,"Study Session for Paideia","Wisdom in Community."));
-//        storedEventList.add(new EventMarker(BRUNSDALE,"Birthday Party for Sheila","The cake is, sadly, a lie."));
-//        storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH"));
-//        storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME."));
+        storedEventList.add(new EventMarker(PREUS,"Study Paideia","Wisdom in Community.","5/02/2013"));
+        storedEventList.add(new EventMarker(BRUNSDALE,"Birthday Party","The cake is, sadly, a lie.","5/19/2013"));
+        storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH","5/07/2013"));
+        storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME.","5/04/2013"));
 //        
         
         //TODO Make a case that handles if there is no luther.edu account on the phone.
@@ -968,7 +968,14 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
         googleAuthToken = result;
         
       //LOG INTO DATABASE
-       	LoginToDatabase(); 
+       	try {
+       		LoginToDatabase(); 	
+       	}
+       	catch(Exception e)
+       	{
+       		e.printStackTrace();
+       	}
+        
        
     }
 	
