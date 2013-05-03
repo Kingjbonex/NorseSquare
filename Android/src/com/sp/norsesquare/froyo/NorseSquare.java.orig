@@ -146,8 +146,9 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
        //Get authToken for luther.edu account 
        AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
        Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
- 
-        
+       
+      
+       
        
        //new UserInfoAsyncTask(googleAuthToken).execute();
        //Initialize PlusClient
@@ -180,7 +181,11 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     private void LoginToDatabase() {
 		// TODO Auto-generated method stub
     	Log.i("hello ppls", me.getGID());
-    	AsyncTask<String, Void, String> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+<<<<<<< HEAD
+//    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+=======
+    	//AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+>>>>>>> 25f8ce53156e7cfde44865b1ee39a5c7c4976736
 	}
 
 	@Override
@@ -722,7 +727,12 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 		
-		
+		try{
+        	LoginToDatabase();
+        }
+        catch(Exception e){
+    	    e.printStackTrace();
+        }
 		
 	
 		
@@ -967,8 +977,6 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
         Log.i("GOOGLEAUTH", "Returning Received Google Token");
         googleAuthToken = result;
         
-      //LOG INTO DATABASE
-       	LoginToDatabase(); 
        
     }
 	
