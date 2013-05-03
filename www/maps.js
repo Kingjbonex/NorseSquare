@@ -296,6 +296,12 @@ function loginFunction() {
     $('#janrainLink').click();
 }
 
+function logoutFunction() {
+	jQuery.post("/services/logout.php"};
+	window.location.reload();
+	
+}
+
 
 
 
