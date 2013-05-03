@@ -243,7 +243,7 @@ function errorFunction(position) {
 
 function checkIn(){
 	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	    navigator.geolocation.getCurrentPosition(function(position){successFunction(position);}, errorFunction);
 	} else {
 	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 	}
@@ -297,6 +297,42 @@ function findAll(controlDiv, map) {
 function loginFunction() {
     $('#janrainLink').click();
 }
+
+
+
+
+var contextMenuOptions={};
+contextMenuOptions.classNames={menu:'context_menu', menuSeparator:'context_menu_separator'};
+
+//	create an array of ContextMenuItem objects
+var menuItems=[];
+menuItems.push({className:'context_menu_item', eventName:'checkIn_here', label:'Check-In Here'});
+contextMenuOptions.menuItems=menuItems;
+
+//	create the ContextMenu object
+var contextMenu=new ContextMenu(map, contextMenuOptions);
+
+//	display the ContextMenu on a Map right click
+google.maps.event.addListener(map, 'rightclick', function(mouseEvent){
+	contextMenu.show(mouseEvent.latLng);
+});
+
+//	listen for the ContextMenu 'menu_item_selected' event
+google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng, eventName){
+	//	latLng is the position of the ContextMenu
+	//	eventName is the eventName defined for the clicked ContextMenuItem in the ContextMenuOptions
+	switch(eventName){
+		case 'checkIn_here':
+			var lat = latLng.lat();
+			var lng = latLng.lng();
+			// populate yor box/field with lat, lng
+			alert("Lat=" + lat + "; Lng=" + lng);
+
+			break;
+	}
+});
+
+
 
 
 
