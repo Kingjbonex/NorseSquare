@@ -265,7 +265,6 @@ function showFriends(data) {
 		time = $(this).find("time").text(),
 		gid = $(this).find("googleid").text(),
 		url = $(this).find("photourl").text();
-		alert(fname+lname);
 		friendImage = new google.maps.MarkerImage(
 			url,
 			new google.maps.Size(50, 50), // desired size
