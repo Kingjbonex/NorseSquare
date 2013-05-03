@@ -157,13 +157,14 @@ for (polygon in polygonCoords) {
 		fillOpacity: 0.35,
 		polyName: name,
 		category: cat,
-		id: polygon
+		id: polygon,
+		clickable:false
 		
 		 });
 
 		//Set it on the Map
 		//lutherPolygon.setMap(map);
-		lutherPolygon.setVisible(true);
+		//lutherPolygon.setVisible(true);
 		gpolygons.push(lutherPolygon);
 		
 		  

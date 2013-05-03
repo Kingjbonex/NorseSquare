@@ -253,9 +253,9 @@ html, body {
 .list-item-text {
 	position: relative;
 	float: left;
-    width: -moz-calc(100% - 140px);
-    width: -webkit-calc(100% - 140px);
-    width: calc(100% - 140px);
+    width: -moz-calc(100% - 200px);
+    width: -webkit-calc(100% - 200px);
+    width: calc(100% - 200px);
 	height: 100%;
 }
 .list-item-text .name {
@@ -296,12 +296,13 @@ html, body {
 }
 .accept-request {
 	position: relative;
-	float: left;
+	float: right;
 	top: 20px;
+	right: 15px;
 }
 .right-button-icon {
 	position: relative;
-	float: left;
+	float: right;
 	width: 50px;
 	height: 100%;
 	border-radius: 7px;
@@ -323,5 +324,17 @@ html, body {
     left: -moz-calc(50% - 55px);
     left: -webkit-calc(50% - 55px);
 	padding-bottom: 5px;	
+}
+
+/*For Map Context Menu */
+.context_menu{
+	background-color:white;
+	border:1px solid gray;
+}
+.context_menu_item{
+	padding:3px 6px;
+}
+.context_menu_item:hover{
+	background-color:#CCCCCC;
 }
 
