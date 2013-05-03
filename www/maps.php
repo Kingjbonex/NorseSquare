@@ -251,9 +251,11 @@ function acceptRequest(myUid,friendUid){
 
 	}
 
-	$('#header').append('<button id="login-button" onClick="loginFunction();">Login</button>');
+	
+});
 
-})();
+$('#header').append('<button id="login-button" onClick="loginFunction();">Login</button>');
+
 </script>
 
 </head> 
