@@ -157,7 +157,8 @@
 			);		
 		}, 'text');
 
-		$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
+		document.getElementById('show-all-button').innerHTML = "<button id='show-all-friends' onclick='findAll();'>Show all friends</button>";
+
 	}
 	
 
