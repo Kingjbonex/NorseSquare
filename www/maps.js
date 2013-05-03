@@ -205,7 +205,7 @@ function showFriend(fLat,fLong,fPhotourl) {
 
 }
 
-function successFunction(position){
+function successFunction(myLat,myLong){
 	for (var i = 0; i < myPosMarkers.length; i++ ) {
 		myPosMarkers[i].setMap(null);
 	}
@@ -220,8 +220,6 @@ function successFunction(position){
 		new google.maps.Size(50, 50) // scaled size of the entire sprite
 	)
 
-	myLat = position.coords.latitude;
-	myLong = position.coords.longitude;
 	saveLocation(myLat,myLong);
 
 	var myPosition = new google.maps.LatLng(myLat, myLong);
@@ -243,7 +241,7 @@ function errorFunction(position) {
 
 function checkIn(){
 	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(function(position){successFunction(position);}, errorFunction);
+	    navigator.geolocation.getCurrentPosition(function(position){myLat = position.coords.latitude;myLong = position.coords.longitude;successFunction(myLat,myLong);}, errorFunction);
 	} else {
 	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 	}
@@ -327,7 +325,7 @@ google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng
 			var lng = latLng.lng();
 			// populate yor box/field with lat, lng
 			alert("Lat=" + lat + "; Lng=" + lng);
-
+			successFunction(lat,lng);
 			break;
 	}
 });
