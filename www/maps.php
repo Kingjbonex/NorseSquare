@@ -251,8 +251,8 @@ function acceptRequest(myUid,friendUid){
 
 	}
 
-	document.getElementById('header').innerHTML = '<button id="login-button" onClick="loginFunction();">Login</button>';
-	$('#header').innerhtm('<button id="login-button" onClick="loginFunction();">Login</button>');
+
+	$('#header').append('<button id="login-button" onClick="loginFunction();">Login</button>');
 })();
 
 
