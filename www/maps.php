@@ -161,7 +161,7 @@
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button">Accept Request</button></div></div>'); 
 								$(".accept-request").button({
 									text: true
-								}).click(function(){accept();});
+								}).click(function(){acceptRequest(userId,uid);});
 							}
 							else{
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
@@ -199,32 +199,31 @@
 			}, 'text');
 
  
-		;}); 
-	},'text');
 		
-		jQuery.get("./services/users.php", {page:'1'}, function(data){
+			jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					plusUrl = "http://plus.google.com/" + usergid;
-					if (gid != usergid) {
-						$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
-						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+				var xml = data,
+				xmlDoc = $.parseXML( xml ),
+				$xml = $( xmlDoc ),
+				$person = $xml.find( "response person" ).each(
+					function(){
+						var friendImage;
+						var fname = $(this).find("fname").text(),
+						lname = $(this).find("lname").text(),
+						uid = $(this).find("uid").text(),
+						usergid = $(this).find("googleid").text(),
+						friendImage = $(this).find("photourl").text(),
+						plusUrl = "http://plus.google.com/" + usergid;
+						if (gid != usergid) {
+							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
+							$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);});
+						}
 					}
-				}
-			);		
-		}, 'text');
+				);		
+			}, 'text');
 
-
+			;}); 
+		},'text');
 
 	}
 	
