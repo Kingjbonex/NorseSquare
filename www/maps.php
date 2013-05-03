@@ -154,9 +154,18 @@
 						uid = $(this).find("uid").text(),
 						usergid = $(this).find("googleid").text(),
 						friendImage = $(this).find("photourl").text(),
+						pending = $(this).find("pending").text(),
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
-							$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " Pending"+'</span></div></div>'); 
+							if (pending == 1){
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div></div><div class='check-in'><button id='check-in-button'>Accept Request</button></div>'); 
+								$("#check-in-button").button({
+									text: true
+								}).click(function(){accept();});
+							}
+							else{
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
+							}
 						}
 					}
 				);	
