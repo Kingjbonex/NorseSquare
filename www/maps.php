@@ -38,7 +38,8 @@
   }
 
 ?>
-
+   <script type="text/javascript" src="jquery-ui.js"></script>
+   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
   var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
@@ -99,9 +100,9 @@
 			if (lutherPolygon.containsLatLng(coordinate)) {building = name;}
 	 		};
 
-	 	lutherPolygon = new GPolygon([new GLatLng(43.319933,-91.805792), new GLatLng(43.319933,-91.811457), new GLatLng(43.313188,-91.810255), new GLatLng(43.309722,-91.808538), new GLatLng(43.309597,-91.80665), new GLatLng(43.308629,-91.806693), new GLatLng(43.308723,-91.803217), new GLatLng(43.309535,-91.803002), new GLatLng(43.309441,-91.800127), new GLatLng(43.310909,-91.800127), new GLatLng(43.310909,-91.798282), new GLatLng(43.312345,-91.798754), new GLatLng(43.313001,-91.79944), new GLatLng(43.313282,-91.798754), new GLatLng(43.314,-91.798925), new GLatLng(43.313688,-91.799955), new GLatLng(43.315561,-91.801972), new GLatLng(43.316155,-91.798711), new GLatLng(43.317622,-91.798067), new GLatLng(43.318371,-91.799655), new GLatLng(43.318777,-91.801414), new GLatLng(43.317841,-91.803732)],'#FF0000',1,0.6,'#FF0000',0.4);
+	 	lutherPolygon = new google.maps.Polygon([new google.maps.LatLng(43.319933,-91.805792), new google.maps.LatLng(43.319933,-91.811457), new google.maps.LatLng(43.313188,-91.810255), new google.maps.LatLng(43.309722,-91.808538), new google.maps.LatLng(43.309597,-91.80665), new google.maps.LatLng(43.308629,-91.806693), new google.maps.LatLng(43.308723,-91.803217), new google.maps.LatLng(43.309535,-91.803002), new google.maps.LatLng(43.309441,-91.800127), new google.maps.LatLng(43.310909,-91.800127), new google.maps.LatLng(43.310909,-91.798282), new google.maps.LatLng(43.312345,-91.798754), new google.maps.LatLng(43.313001,-91.79944), new google.maps.LatLng(43.313282,-91.798754), new google.maps.LatLng(43.314,-91.798925), new google.maps.LatLng(43.313688,-91.799955), new google.maps.LatLng(43.315561,-91.801972), new google.maps.LatLng(43.316155,-91.798711), new google.maps.LatLng(43.317622,-91.798067), new google.maps.LatLng(43.318371,-91.799655), new google.maps.LatLng(43.318777,-91.801414), new google.maps.LatLng(43.317841,-91.803732)],'#FF0000',1,0.6,'#FF0000',0.4);
 
-	 	if (building == "Off-Campus" && lutherPolygon.contains(coordinate)) {building = "Luther College";}
+	 	if (building == "Off-Campus" && lutherPolygon.containsLatLng(coordinate)) {building = "Luther College";}
 	 		
 	 	return building;
 	}
@@ -259,8 +260,7 @@
     </div>
 </body> 
 
-   <script type="text/javascript" src="jquery-ui.js"></script>
-   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
    <script type="text/javascript" src="polygonContainer.js"></script>
    <script type="text/javascript" src="polygons.js"> </script>
    <script type="text/javascript" src="mapStyles.js"> </script>
