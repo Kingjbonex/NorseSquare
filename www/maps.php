@@ -125,11 +125,11 @@
 	}
 
 function sendRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid}function(){window.location.reload();}, 'text');
+	jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid},function(){window.location.reload();}, 'text');
 }
 
 function acceptRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:'accept', uid:myUid, fuid:friendUid}function(){window.location.reload();}, 'text');
+	jQuery.get("./services/request.php", {type:'accept', uid:myUid, fuid:friendUid},function(){window.location.reload();}, 'text');
 }
 
     //Calling function to create new user
