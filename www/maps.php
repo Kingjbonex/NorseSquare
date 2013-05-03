@@ -138,7 +138,7 @@
 		}, 'text');
 
 
-		jQuery.get("./services/requests.php", {type:'getfriends',uid:gid}, function(data){
+		jQuery.get("./services/request.php", {type:'getpending',uid:gid}, function(data){
 			// get pending friends
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
