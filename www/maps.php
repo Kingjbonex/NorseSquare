@@ -46,6 +46,7 @@
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
   var myPhotourl;
+  var userId;
 </script>
 
 <html> 
@@ -106,11 +107,13 @@
 	 		
 	 	return building;
 	}
+function setUserId(id){
+	userId = id;
+};
 
     //Calling function to create new user
     if(email != "") {
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
-			var userId = '';
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
 			$xml = $( xmlDoc ),
@@ -127,6 +130,7 @@
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
 					userId = $(this).find("uid").text();
+					setUserId(userId);
 					
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
