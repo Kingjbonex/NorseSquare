@@ -88,8 +88,6 @@
     //Calling function to create new user
     if(email != "") {
 
-		$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
-
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
@@ -158,8 +156,10 @@
 				}
 			);		
 		}, 'text');
-		
+
+		$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 	}
+	
 
 })();
 </script>
@@ -190,8 +190,7 @@
                         <li><a href="#users">Users</a></li>
                     </ul>
                     <div id="friends" class="calculated-height">
-                    	<div id="show-all-button">
-                        </div>
+                    	<div id="show-all-button"></div>
                         <div id="friends-list-item-container" class="list-item-container friends-calculated-height"></div>
                     </div><!-- friends -->  
                     <div id="users" class="calculated-height">
