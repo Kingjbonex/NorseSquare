@@ -122,7 +122,7 @@
 					myPhotourl = photo,
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
-					userId = $(this).find("uid");
+					userId = $(this).find("uid").text();
 					alert("User ID: "+userId);
 					
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
