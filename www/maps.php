@@ -121,6 +121,7 @@
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
 					userId = $(this).find("uid");
+					alert("User ID: "+userId);
 					
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
