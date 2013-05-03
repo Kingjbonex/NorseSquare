@@ -139,9 +139,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         	
         }
         
+       // SECTION TO LOG IN 
+        //LOGGING INTO GOOGLE
        //Get authToken for luther.edu account 
        AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
        Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
+       
+      
+       
        
        //new UserInfoAsyncTask(googleAuthToken).execute();
        //Initialize PlusClient
@@ -149,7 +154,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
        mPlusClient = new PlusClient.Builder(this, this, this)
        .setVisibleActivities("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
        .build();
-       
+
        
        
        // Progress bar to be displayed if the connection failure is not resolved.
@@ -166,9 +171,18 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
         
         Log.i(TAG, "OnCreate");
+        
+        
+        
     }
 
-    @Override
+    private void LoginToDatabase() {
+		// TODO Auto-generated method stub
+    	Log.i("hello ppls", me.getGID());
+    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+	}
+
+	@Override
     protected void onResume() 
     {
         super.onResume();
@@ -189,6 +203,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		  
 	  	super.onStart();
 
+	  	
+	  	
 	  	// obtain location manager at restart of activity
 	  	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 	  	
@@ -207,6 +223,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 				//TODO - Find how often this is called, determine if it is too frequent.
 				//updateLocation(location);
 				//Toast.makeText(context, "Location is being updated", Toast.LENGTH_SHORT).show();
+				
 			}
 		
 		
@@ -394,8 +411,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         
         //Retrieve logged in user
         Person p = mPlusClient.getCurrentPerson();
-        
-        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName());
+  
+        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName(),p.getId());
         
         
         //Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
@@ -692,7 +709,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 //    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
-	}
+		
+		try{
+        	LoginToDatabase();
+        }
+       catch(Exception e){
+    	   e.printStackTrace();
+       }
+    }
     
     
 
@@ -832,8 +856,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
-	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in on "+ gtime);
-	        	Log.i("FINDALL",fname);
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in "+ gtime+" ago");
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
             }
@@ -913,6 +936,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 	       catch (Exception e) {
 	    	   e.printStackTrace();
 	       }
+		
 		return authToken;
 	}
 	
@@ -926,6 +950,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 		
         Log.i("GOOGLEAUTH", "Returning Received Google Token");
         googleAuthToken = result;
+        
        
     }
 	
@@ -936,13 +961,15 @@ public class GoogleUser
 	String firstName;
 	String lastName;
 	String accountEmail;
+	String gid;
 	URL pictureURL = null;
 	
-	public GoogleUser(String fn, String ln, String email)
+	public GoogleUser(String fn, String ln, String email,String g)
 	{
 	   firstName = fn;
 	   lastName = ln;
 	   accountEmail = email;
+	   gid = g;
 	   
 	}
 	
@@ -971,6 +998,10 @@ public class GoogleUser
 		pictureURL = u;
 	}
 	
+	public String getGID()
+	{
+		return gid;
+	}
 
 }
 
