@@ -45,6 +45,7 @@
   var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
   var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
   var myPhotourl;
+  var userId;
 </script>
 
 <html> 
@@ -119,6 +120,7 @@
 					myPhotourl = photo,
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
+					userId = %(this).find("uid");
 					
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
@@ -131,7 +133,7 @@
 			},'text');
 
 		
-		jQuery.get("./services/getFriends.php", {uid:gid}, function(data){
+		jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
 			// get already accepted (nonpending) friends
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
@@ -158,7 +160,7 @@
 		}, 'text');
 
 
-		jQuery.get("./services/request.php", {type:'getpending',uid:gid}, function(data){
+		jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
 			// get pending friends
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
