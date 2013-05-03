@@ -289,7 +289,7 @@ function showFriends(data) {
 }
 
 function findAll(id, controlDiv, map) {
-	users = jQuery.post("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
+	users = jQuery.get("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
 }
 
 function loginFunction() {
