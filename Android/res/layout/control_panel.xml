@@ -21,6 +21,7 @@
         android:onClick="showHelpDialog"
         android:text="@string/help_text"
         android:background="#803675ff" 
+        android:textColor="#FFFFFF"
         android:layout_marginLeft="5sp"/>
     
     <!-- <EditText
