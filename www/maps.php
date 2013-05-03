@@ -146,54 +146,61 @@ function setUserId(id){
 				//;});
 			//},'text');
 
-		alert("User ID: "+userId);
-		jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
-			// get already accepted (nonpending) friends
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					friendLat = $(this).find("latitude").text(),
-					friendLong = $(this).find("longitude").text(),
-					friendTime = $(this).find("time").text(),
-					plusUrl = "http://plus.google.com/" + usergid,
-					coordinate = new google.maps.LatLng(friendLat,friendLong),
-					location = getLocation(coordinate);
-					if (gid != usergid) {
-						$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>" + location + "</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
-					}
-				}
-			);	
-		}, 'text');
+			
 
 
-		jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
-			// get pending friends
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					plusUrl = "http://plus.google.com/" + usergid;
-					if (gid != usergid) {
-						$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " Pending"+'</span></div></div>'); 
+			jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
+				// get pending friends
+				var xml = data,
+				xmlDoc = $.parseXML( xml ),
+				$xml = $( xmlDoc ),
+				$person = $xml.find( "response person" ).each(
+					function(){
+						var friendImage;
+						var fname = $(this).find("fname").text(),
+						lname = $(this).find("lname").text(),
+						uid = $(this).find("uid").text(),
+						usergid = $(this).find("googleid").text(),
+						friendImage = $(this).find("photourl").text(),
+						plusUrl = "http://plus.google.com/" + usergid;
+						if (gid != usergid) {
+							$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " Pending"+'</span></div></div>'); 
+						}
 					}
-				}
-			);	
-		}, 'text'); ;}); },'text');
+				);	
+			}, 'text');
+
+
+			alert("User ID: "+userId);
+			jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
+				// get already accepted (nonpending) friends
+				var xml = data,
+				xmlDoc = $.parseXML( xml ),
+				$xml = $( xmlDoc ),
+				$person = $xml.find( "response person" ).each(
+					function(){
+						var friendImage;
+						var fname = $(this).find("fname").text(),
+						lname = $(this).find("lname").text(),
+						uid = $(this).find("uid").text(),
+						usergid = $(this).find("googleid").text(),
+						friendImage = $(this).find("photourl").text(),
+						friendLat = $(this).find("latitude").text(),
+						friendLong = $(this).find("longitude").text(),
+						friendTime = $(this).find("time").text(),
+						plusUrl = "http://plus.google.com/" + usergid,
+						coordinate = new google.maps.LatLng(friendLat,friendLong),
+						location = getLocation(coordinate);
+						if (gid != usergid) {
+							$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>" + location + "</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
+						}
+					}
+				);	
+			}, 'text');
+
+ 
+		;}); 
+	},'text');
 		
 		jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
