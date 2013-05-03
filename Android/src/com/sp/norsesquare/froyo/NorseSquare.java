@@ -172,7 +172,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 
     private void LoginToDatabase() {
 		// TODO Auto-generated method stub
-    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), googleAuthToken).execute();
+    	Log.i("hello ppls", me.getGID());
+    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
 	}
 
 	@Override
@@ -670,7 +671,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 //    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
-	}
+		
+		try{
+        	LoginToDatabase();
+        }
+       catch(Exception e){
+    	   e.printStackTrace();
+       }
+    }
     
     
 
@@ -891,6 +899,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 	       catch (Exception e) {
 	    	   e.printStackTrace();
 	       }
+		
 		return authToken;
 	}
 	
@@ -904,7 +913,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 		
         Log.i("GOOGLEAUTH", "Returning Received Google Token");
         googleAuthToken = result;
-        LoginToDatabase();
+        
        
     }
 	
