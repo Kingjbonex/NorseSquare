@@ -26,13 +26,13 @@ public class AddFriendsAlertDialog extends DialogFragment
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			LayoutInflater inflater = getActivity().getLayoutInflater();
 			//NorseSquare ns = (NorseSquare) this.getActivity();
-		    final View v = inflater.inflate(R.layout.add_friend_alert, null);
+//		    final View v = inflater.inflate(R.layout.add_friend_alert, null);
 		    
-			builder.setView(v);
+//			builder.setView(v);
 			builder.setTitle(R.string.title_add_friend);
 			
-			friendName = (EditText) v.findViewById(R.id.friendName);
-			friendEmail = (EditText) v.findViewById(R.id.friendEmail);
+//			friendName = (EditText) v.findViewById(R.id.friendName);
+//			friendEmail = (EditText) v.findViewById(R.id.friendEmail);
 			
 			
 			builder

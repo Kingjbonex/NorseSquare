@@ -586,6 +586,13 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	eDialog.show(getSupportFragmentManager(), "event_list");
     }
     
+    public void showHelpDialog(View v)
+    {
+    	HelpDialogBox hDialog = new HelpDialogBox();
+    	
+    	hDialog.show(getSupportFragmentManager(), "event_list");
+    }
+    
     public void storeEventMarker(LatLng latlong,String title, String snippet)
     {
     	//Add marker to list of stored markers, making sure that it is not a duplicate
