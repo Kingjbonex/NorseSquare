@@ -112,6 +112,7 @@
 	}
 function setUserId(id){
 	userId = id;
+	alert('in set user '+userId);
 };
 
     //Calling function to create new user
