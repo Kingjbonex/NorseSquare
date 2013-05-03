@@ -166,7 +166,7 @@ function acceptRequest(myUid,friendUid){
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
 							if (pending == 2){
-								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button-"'+i+'>Accept Request</button></div></div>'); 
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button-'+i+'">Accept Request</button></div></div>'); 
 								$(".accept-request"+i).button({
 									text: true
 								}).click(function(){acceptRequest(userId,uid);});
