@@ -103,9 +103,14 @@ public class SlideList extends SherlockListFragment {
 				ns.showHelpDialog(ns.findViewById(R.id.main_map));
 				break;
 			case 4:
+				//ABOUT
+				ns.showAboutDialog(ns.findViewById(R.id.main_map));
+				break;
+			case 5:
 				//EXIT
 				ns.finish();
 				break;
+			
 			default:
 				Log.i(TAG, "SOMETHING ELSE WAS CLICKED WTF");
 			}

@@ -7,7 +7,7 @@
     
     <ImageButton 
         android:id="@+id/button_wifi_locate"
-        android:layout_width="125sp"
+        android:layout_width="100sp"
         android:layout_height="match_parent"
         android:textStyle="italic"
         android:onClick="datCheckIn"
@@ -16,7 +16,7 @@
     
     <Button 
         android:id="@+id/help_button"
-        android:layout_width="125sp"
+        android:layout_width="100sp"
         android:layout_height="match_parent"
         android:onClick="showHelpDialog"
         android:text="@string/help_text"

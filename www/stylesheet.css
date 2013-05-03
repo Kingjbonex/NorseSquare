@@ -287,6 +287,18 @@ html, body {
 	font-size: 75%;
 	color: #413839;
 }
+.list-item-text .request-pending {
+	float: left;
+	margin-top:42px;
+	margin-left:1%;
+	font-size: 75%;
+	color: #413839;
+}
+.accept-request {
+	position: relative;
+	float: left;
+	top: 20px;
+}
 .right-button-icon {
 	position: relative;
 	float: left;
@@ -312,3 +324,4 @@ html, body {
     left: -webkit-calc(50% - 55px);
 	padding-bottom: 5px;	
 }
+
