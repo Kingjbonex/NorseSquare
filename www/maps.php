@@ -151,6 +151,7 @@ function acceptRequest(myUid,friendUid){
 					location = getLocation(coordinate);
 					userId = $(this).find("uid").text();
 					myPhotourl = photo;
+					document.getElementById('header').innerHTML = '<button id="login-button" onClick="loginFunction();">Login</button>';
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll("+userId+");'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>" + location + "</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
