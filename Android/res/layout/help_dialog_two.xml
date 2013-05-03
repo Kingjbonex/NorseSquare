@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:onClick="showHelpDialogThree"
-        android:text="Sweet! What do the things on the map mean?" />
+        android:text="Next: Markers" />
     
     
 

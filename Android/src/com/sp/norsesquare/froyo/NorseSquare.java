@@ -92,6 +92,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     //Dialog Box variables
     CreateEventListView eDialog;
+    AboutDialogBox aDialog;
     HelpDialogBox hDialog;
     HelpDialogBoxTwo h2Dialog;
     HelpDialogBoxThree h3Dialog;
@@ -179,7 +180,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     private void LoginToDatabase() {
 		// TODO Auto-generated method stub
     	Log.i("hello ppls", me.getGID());
-    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+//    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
 	}
 
 	@Override
@@ -510,7 +511,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     }
 
 
-    //Methods called from ControlPanel classes
+    //Methods called from ControlPanel classes and Sliding menu 
     
     public void wifiLocate(View v)
     {
@@ -527,6 +528,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	//Check In after location has been loaded
     	//TODO - uncomment this
     	checkIn();
+    	
     }
     
     public Location returnCurrentWifiLocation()
@@ -609,11 +611,22 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	eDialog.show(getSupportFragmentManager(), "event_list");
     }
     
+    public void showAboutDialog(View v)
+    {
+    	aDialog = new AboutDialogBox();
+    	aDialog.show(getSupportFragmentManager(), "about_dialog");
+    }
+    public void closeAboutDialog(View v)
+    {
+    	aDialog.dismiss();
+    }
+    
     public void showHelpDialog(View v)
     {
     	hDialog = new HelpDialogBox();
     	hDialog.show(getSupportFragmentManager(), "help_dialog_one");
     }
+    
     
     public void showHelpDialogTwo(View v)
     {
@@ -713,9 +726,15 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		try{
         	LoginToDatabase();
         }
-       catch(Exception e){
-    	   e.printStackTrace();
-       }
+        catch(Exception e){
+    	    e.printStackTrace();
+        }
+		
+	
+		
+//		if(storedMarkerList.contains((m.getTitle()==me.getFullName()))){
+//			m.showInfoWindow();
+//		}
     }
     
     
@@ -750,7 +769,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	{
     	   Log.i("Map Marker", "Placing Map Marker");
     	   MapMarker m = (MapMarker) i.next();
-    	   mMap.addMarker(m.getMarkerOptions());
+    	   mMap.addMarker(m.getMarkerOptions()).showInfoWindow();
     	}
     	
         Iterator<EventMarker> h = storedEventList.iterator();
@@ -859,6 +878,9 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in "+ gtime+" ago");
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
+	        	
+	        	
+	        	
             }
           
         	redrawMarkers();

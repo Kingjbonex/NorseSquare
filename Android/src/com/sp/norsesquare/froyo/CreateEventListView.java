@@ -38,7 +38,7 @@ public class CreateEventListView extends DialogFragment
 //		listView.setOnItemClick
 		
 		builder.setView(listView);
-		builder.setTitle("SHIEEEETTT & Events");
+		builder.setTitle("Events");
 		
 //		eventList = (ListView) v.findViewById()
 		
