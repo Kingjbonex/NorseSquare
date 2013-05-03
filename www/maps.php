@@ -41,7 +41,7 @@
 	    }
 	  }
   } else {
-	if ($_COOKIE['email']) {
+	if (array_key_exists('email',$_COOKIE)) {
 		$email = $_COOKIE['email'];
 		$fname = $_COOKIE['fname'];
 		$lname = $_COOKIE['lname'];
