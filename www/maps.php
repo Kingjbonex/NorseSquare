@@ -240,7 +240,7 @@ function acceptRequest(myUid,friendUid){
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
 							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + "</span></div><div class='right-button-icon'><button class='icon-button-" + i + "'/></button></div></div>"); 
-							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);window.location.reload();});
+							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);});
 						}
 						i++;
 					}
