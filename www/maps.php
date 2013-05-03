@@ -40,6 +40,9 @@
 ?>
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   <script type="text/javascript" src="polygonContainer.js"></script>
+   <script type="text/javascript" src="polygons.js"> </script>
+
 <script type="text/javascript">
   var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
   var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
@@ -265,8 +268,6 @@ function setUserId(id){
 </body> 
 
    <script type="text/javascript" src="jquery-ui.js"></script>
-   <script type="text/javascript" src="polygonContainer.js"></script>
-   <script type="text/javascript" src="polygons.js"> </script>
    <script type="text/javascript" src="mapStyles.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
    <script type="text/javascript" src="ui.js"></script>
