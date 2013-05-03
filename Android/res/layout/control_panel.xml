@@ -17,6 +17,7 @@
         android:id="@+id/help_button"
         android:layout_width="125sp"
         android:layout_height="match_parent"
+        android:onClick="showHelpDialog"
         android:text="@string/help_text"/>
     
     <!-- <EditText

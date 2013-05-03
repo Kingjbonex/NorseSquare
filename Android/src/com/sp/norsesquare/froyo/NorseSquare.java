@@ -590,7 +590,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     {
     	HelpDialogBox hDialog = new HelpDialogBox();
     	
-    	hDialog.show(getSupportFragmentManager(), "event_list");
+    	hDialog.show(getSupportFragmentManager(), "help_dialog_one");
+    }
+    
+    public void showHelpDialogTwo(View v)
+    {
+    	HelpDialogBoxTwo hDialog = new HelpDialogBoxTwo();
+    	
+    	hDialog.show(getSupportFragmentManager(), "help_dialog_two");
     }
     
     public void storeEventMarker(LatLng latlong,String title, String snippet)
