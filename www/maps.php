@@ -286,6 +286,7 @@ function acceptRequest(myUid,friendUid){
 
    <script type="text/javascript" src="jquery-ui.js"></script>
    <script type="text/javascript" src="mapStyles.js"> </script>
+   <script type="text/javascript" src="ContextMenu.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
    <script type="text/javascript" src="ui.js"></script>
 
