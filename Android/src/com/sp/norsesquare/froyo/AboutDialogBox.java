@@ -28,6 +28,8 @@ public class AboutDialogBox extends DialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		
+		String bodyText = "Developed by: Tim, David, Joel, Zack" + "\n" + "\n" + "Affiliated with: Luther College" + "\n" + "Version: 2.0" + "\n" + "Version Date: 05/01/2013";
+		
 		context = getActivity();
 				
 		helpView = (View) inflater.inflate(R.layout.about_dialog, null);
@@ -35,15 +37,16 @@ public class AboutDialogBox extends DialogFragment {
 		helpText = (TextView) helpView.findViewById(R.id.aboutTextView);
 		
 		helpText.setMovementMethod(new ScrollingMovementMethod());
+		helpText.setText(bodyText);
 		
 //		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_view_row, R.id.listText, listCont);               
 //		
 //		listView.setAdapter(adapter);
 //		
-//		listView.setOnItemClic
+//		listView.setOnItemClick
 		
 		builder.setView(helpView);
-		builder.setTitle("ABOUT: NORSESQUARE");
+		builder.setTitle("ABOUT NORSESQUARE");
 		
 //		eventList = (ListView) v.findViewById()
 	

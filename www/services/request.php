@@ -38,6 +38,13 @@ $fuid = $_GET['fuid'];
 $Query = 'UPDATE frequests SET pending=0 WHERE (fuid='.$fuid.' AND uid='.$uid.' AND pending=1) OR (fuid='.$uid.' AND uid='.$fuid.' AND pending = 2)';
 echo $Query;
 $result = mysql_query($Query,$connection);
+} else if ( $type == "decline"){
+$uid = $_GET['uid'];
+$fuid = $_GET['fuid'];
+$Query = 'UPDATE frequests SET pending=3 WHERE (fuid='.$fuid.' AND uid='.$uid.' AND pending=1) OR (fuid='.$uid.' AND uid='.$fuid.' AND pending = 2)';
+echo $Query;
+$result = mysql_query($Query,$connection);
+
 
 }else if ( $type == "send"){
 $uid = $_GET['uid'];

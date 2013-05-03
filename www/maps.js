@@ -157,13 +157,14 @@ for (polygon in polygonCoords) {
 		fillOpacity: 0.35,
 		polyName: name,
 		category: cat,
-		id: polygon
+		id: polygon,
+		clickable:false
 		
 		 });
 
 		//Set it on the Map
 		//lutherPolygon.setMap(map);
-		lutherPolygon.setVisible(true);
+		//lutherPolygon.setVisible(true);
 		gpolygons.push(lutherPolygon);
 		
 		  
@@ -205,7 +206,7 @@ function showFriend(fLat,fLong,fPhotourl) {
 
 }
 
-function successFunction(position){
+function successFunction(myLat,myLong){
 	for (var i = 0; i < myPosMarkers.length; i++ ) {
 		myPosMarkers[i].setMap(null);
 	}
@@ -220,8 +221,6 @@ function successFunction(position){
 		new google.maps.Size(50, 50) // scaled size of the entire sprite
 	)
 
-	myLat = position.coords.latitude;
-	myLong = position.coords.longitude;
 	saveLocation(myLat,myLong);
 
 	var myPosition = new google.maps.LatLng(myLat, myLong);
@@ -243,7 +242,7 @@ function errorFunction(position) {
 
 function checkIn(){
 	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(function(position){successFunction(position);}, errorFunction);
+	    navigator.geolocation.getCurrentPosition(function(position){myLat = position.coords.latitude;myLong = position.coords.longitude;successFunction(myLat,myLong);}, errorFunction);
 	} else {
 	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 	}
@@ -266,7 +265,7 @@ function showFriends(data) {
 		time = $(this).find("time").text(),
 		gid = $(this).find("googleid").text(),
 		url = $(this).find("photourl").text();
-
+		alert(fname+lname);
 		friendImage = new google.maps.MarkerImage(
 			url,
 			new google.maps.Size(50, 50), // desired size
@@ -290,8 +289,8 @@ function showFriends(data) {
 		
 }
 
-function findAll(controlDiv, map) {
-	users = jQuery.post("./services/findAll.php",{}, function(data){showFriends(data);},'text');
+function findAll(id, controlDiv, map) {
+	users = jQuery.post("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
 }
 
 function loginFunction() {
@@ -326,8 +325,7 @@ google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng
 			var lat = latLng.lat();
 			var lng = latLng.lng();
 			// populate yor box/field with lat, lng
-			alert("Lat=" + lat + "; Lng=" + lng);
-
+			successFunction(lat,lng);
 			break;
 	}
 });
