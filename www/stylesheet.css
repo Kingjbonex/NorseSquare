@@ -282,8 +282,9 @@ html, body {
 	color: #413839;
 }
 .list-item-text .check-in-date {
-	float: left;
-	top: 52px;
+	position: absolute;
+	top: 57px;
+	left: 18px;
 	font-size: 75%;
 	color: #413839;
 }
