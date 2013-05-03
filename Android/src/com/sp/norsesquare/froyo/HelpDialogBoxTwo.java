@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-public class HelpDialogBox extends DialogFragment {
+public class HelpDialogBoxTwo extends DialogFragment {
 //	ListView listView;
 	
 	View helpView;
@@ -30,9 +30,9 @@ public class HelpDialogBox extends DialogFragment {
 		
 		context = getActivity();
 				
-		helpView = (View) inflater.inflate(R.layout.help_dialog_one, null);
+		helpView = (View) inflater.inflate(R.layout.help_dialog_two, null);
 		
-		helpText = (TextView) helpView.findViewById(R.id.helpTextView);
+		helpText = (TextView) helpView.findViewById(R.id.helpTextViewTwo);
 		
 		helpText.setMovementMethod(new ScrollingMovementMethod());
 		
@@ -43,7 +43,7 @@ public class HelpDialogBox extends DialogFragment {
 //		listView.setOnItemClic
 		
 		builder.setView(helpView);
-		builder.setTitle("HELP: CHECK IN");
+		builder.setTitle("HELP: MENU");
 		
 //		eventList = (ListView) v.findViewById()
 	
