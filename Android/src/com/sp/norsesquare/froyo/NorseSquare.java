@@ -133,9 +133,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         	
         }
         
+       // SECTION TO LOG IN 
+        //LOGGING INTO GOOGLE
        //Get authToken for luther.edu account 
        AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
        Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
+       
+      
+       
        
        //new UserInfoAsyncTask(googleAuthToken).execute();
        //Initialize PlusClient
@@ -160,9 +165,18 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
         
         Log.i(TAG, "OnCreate");
+        
+        
+        
     }
 
-    @Override
+    private void LoginToDatabase() {
+		// TODO Auto-generated method stub
+    	Log.i("hello ppls", me.getGID());
+    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+	}
+
+	@Override
     protected void onResume() 
     {
         super.onResume();
@@ -183,6 +197,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		  
 	  	super.onStart();
 
+	  	
+	  	
 	  	// obtain location manager at restart of activity
 	  	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 	  	
@@ -656,7 +672,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 //    	storeMarker(new LatLng(locate.getLatitude(),locate.getLongitude()),me.getFirstName(),"I have checked in.");
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
-	}
+		
+		try{
+        	LoginToDatabase();
+        }
+       catch(Exception e){
+    	   e.printStackTrace();
+       }
+    }
     
     
 
@@ -796,8 +819,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	        	
 	        	//Create new marker with user's information. Add to storedMarkerList.
 	        	LatLng locP = new LatLng(latitude,longitude);
-	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "Checked in "+ gtime + " ago.");
-	        	Log.i("FINDALL",fname);
+	        	MapMarker newmark = new MapMarker(locP, fname+" "+lname, "checked in "+ gtime+" ago");
 	        	//Toast.makeText(this, "Adding found to Marker List", Toast.LENGTH_SHORT).show();
 	        	storedMarkerList.add(newmark);
             }
@@ -877,6 +899,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 	       catch (Exception e) {
 	    	   e.printStackTrace();
 	       }
+		
 		return authToken;
 	}
 	
@@ -890,6 +913,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 		
         Log.i("GOOGLEAUTH", "Returning Received Google Token");
         googleAuthToken = result;
+        
        
     }
 	
