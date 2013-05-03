@@ -158,13 +158,13 @@
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
 							if (pending == 1){
-								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div></div><div class='check-in'><button id='check-in-button'>Accept Request</button></div>'); 
-								$("#check-in-button").button({
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div></div><div class='accept-request'><button id='accept-request-button'>"Accept Request"</button></div>'); 
+								$(".accept-request").button({
 									text: true
 								}).click(function(){accept();});
 							}
 							else{
-								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">"Request Pending"</span></div></div>');
 							}
 						}
 					}
