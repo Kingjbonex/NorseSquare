@@ -968,7 +968,14 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
         googleAuthToken = result;
         
       //LOG INTO DATABASE
-       	LoginToDatabase(); 
+       	try {
+       		LoginToDatabase(); 	
+       	}
+       	catch(Exception e)
+       	{
+       		e.printStackTrace();
+       	}
+        
        
     }
 	
