@@ -88,6 +88,8 @@
     //Calling function to create new user
     if(email != "") {
 
+		$('#personal-status').append("<button id='show-all-friends' onclick='findAll();">Show all friends</button>");
+
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
 			var xml = data,
 			xmlDoc = $.parseXML( xml ),
