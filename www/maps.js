@@ -298,12 +298,47 @@ function loginFunction() {
     $('#janrainLink').click();
 }
 
-google.maps.event.addListener(map, "rightclick", function(event) {
-    var lat = event.latLng.lat();
-    var lng = event.latLng.lng();
-    // populate yor box/field with lat, lng
-    alert("Lat=" + lat + "; Lng=" + lng);
+
+
+
+var contextMenuOptions={};
+contextMenuOptions.classNames={menu:'context_menu', menuSeparator:'context_menu_separator'};
+
+//	create an array of ContextMenuItem objects
+var menuItems=[];
+menuItems.push({className:'context_menu_item', eventName:'zoom_in_click', label:'Zoom in'});
+menuItems.push({className:'context_menu_item', eventName:'zoom_out_click', label:'Zoom out'});
+//	a menuItem with no properties will be rendered as a separator
+menuItems.push({});
+menuItems.push({className:'context_menu_item', eventName:'center_map_click', label:'Center map here'});
+contextMenuOptions.menuItems=menuItems;
+
+//	create the ContextMenu object
+var contextMenu=new ContextMenu(map, contextMenuOptions);
+
+//	display the ContextMenu on a Map right click
+google.maps.event.addListener(map, 'rightclick', function(mouseEvent){
+	contextMenu.show(mouseEvent.latLng);
 });
+
+//	listen for the ContextMenu 'menu_item_selected' event
+google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng, eventName){
+	//	latLng is the position of the ContextMenu
+	//	eventName is the eventName defined for the clicked ContextMenuItem in the ContextMenuOptions
+	switch(eventName){
+		case 'zoom_in_click':
+			map.setZoom(map.getZoom()+1);
+			break;
+		case 'zoom_out_click':
+			map.setZoom(map.getZoom()-1);
+			break;
+		case 'center_map_click':
+			map.panTo(latLng);
+			break;
+	}
+});
+
+
 
 
 

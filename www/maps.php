@@ -111,6 +111,13 @@
 	 	return building;
 	}
 
+function sendRequest(myUid,friendUid){
+	jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid});
+}
+
+function acceptRequest(myUid,friendUid){
+	jQuery.get("./services/request.php", {type:'accept', uid:myUid, fuid:friendUid});
+}
 
     //Calling function to create new user
     if(email != "") {
@@ -144,6 +151,7 @@
 			jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
 				// get pending friends
 				var xml = data,
+				i = 1,
 				xmlDoc = $.parseXML( xml ),
 				$xml = $( xmlDoc ),
 				$person = $xml.find( "response person" ).each(
@@ -158,10 +166,10 @@
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
 							if (pending == 2){
-								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button">Accept Request</button></div></div>'); 
-								$(".accept-request").button({
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button-'+i+'">Accept Request</button></div></div>'); 
+								$(".accept-request"+i).button({
 									text: true
-								}).click(function(){accept();});
+								}).click(function(){acceptRequest(userId,uid);});
 							}
 							else{
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
@@ -199,32 +207,34 @@
 			}, 'text');
 
  
-		;}); 
-	},'text');
 		
-		jQuery.get("./services/users.php", {page:'1'}, function(data){
+			jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					plusUrl = "http://plus.google.com/" + usergid;
-					if (gid != usergid) {
-						$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
-						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+				var xml = data,
+				i = 1,
+				xmlDoc = $.parseXML( xml ),
+				$xml = $( xmlDoc ),
+				$person = $xml.find( "response person" ).each(
+					function(){
+
+						var friendImage;
+						var fname = $(this).find("fname").text(),
+						lname = $(this).find("lname").text(),
+						uid = $(this).find("uid").text(),
+						usergid = $(this).find("googleid").text(),
+						friendImage = $(this).find("photourl").text(),
+						plusUrl = "http://plus.google.com/" + usergid;
+						if (gid != usergid) {
+							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + "</span></div><div class='right-button-icon'><button class='icon-button-" + i + "'/></button></div></div>"); 
+							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);});
+						}
+						i++;
 					}
-				}
-			);		
-		}, 'text');
+				);		
+			}, 'text');
 
-
+			;}); 
+		},'text');
 
 	}
 	
@@ -277,6 +287,7 @@
 
    <script type="text/javascript" src="jquery-ui.js"></script>
    <script type="text/javascript" src="mapStyles.js"> </script>
+   <script type="text/javascript" src="ContextMenu.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
    <script type="text/javascript" src="ui.js"></script>
 
