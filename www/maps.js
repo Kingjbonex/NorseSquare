@@ -157,13 +157,14 @@ for (polygon in polygonCoords) {
 		fillOpacity: 0.35,
 		polyName: name,
 		category: cat,
-		id: polygon
+		id: polygon,
+		clickable:false
 		
 		 });
 
 		//Set it on the Map
 		//lutherPolygon.setMap(map);
-		lutherPolygon.setVisible(true);
+		//lutherPolygon.setVisible(true);
 		gpolygons.push(lutherPolygon);
 		
 		  
@@ -288,8 +289,8 @@ function showFriends(data) {
 		
 }
 
-function findAll(controlDiv, map) {
-	users = jQuery.post("./services/findAll.php",{}, function(data){showFriends(data);},'text');
+function findAll(id) {
+	users = jQuery.post("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
 }
 
 function loginFunction() {
