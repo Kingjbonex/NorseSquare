@@ -7,7 +7,7 @@ if (!$connection)
 	echo "Could not connect: " . mysql_error();
 }
 mysql_select_db(DB_NAME, $connection);
-$Query = 'SELECT users.uid,fname,lname,googleid,photourl FROM users INNER JOIN frequests AS a ON users.uid=a.uid WHERE a.fuid='.$uid.' AND (a.pending=0)';//echo $Query;
+$Query = 'SELECT users.uid,fname,lname,googleid,photourl,latitude,longitude FROM users INNER JOIN frequests AS a ON users.uid=a.uid WHERE a.fuid='.$uid.' AND (a.pending=0)';//echo $Query;
 $result = mysql_query($Query,$connection);
 $gotarray = mysql_fetch_array($result);
 

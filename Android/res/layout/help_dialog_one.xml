@@ -16,13 +16,13 @@
         android:id="@+id/helpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" This ^^^ is a button!"
+        android:text="This the check-in button. Use it to update your location and find your friends."
         android:textAppearance="?android:attr/textAppearanceLarge" />
     <Button 
         android:id="@+id/help_next_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:onClick="showHelpDialogTwo"
-        android:text="Ok, I got it. Show me more!" />
+        android:text="Next: The Menu" />
 
 </LinearLayout>

@@ -253,9 +253,9 @@ html, body {
 .list-item-text {
 	position: relative;
 	float: left;
-    width: -moz-calc(100% - 140px);
-    width: -webkit-calc(100% - 140px);
-    width: calc(100% - 140px);
+    width: -moz-calc(100% - 200px);
+    width: -webkit-calc(100% - 200px);
+    width: calc(100% - 200px);
 	height: 100%;
 }
 .list-item-text .name {
@@ -287,6 +287,18 @@ html, body {
 	font-size: 75%;
 	color: #413839;
 }
+.list-item-text .request-pending {
+	float: left;
+	margin-top:42px;
+	margin-left:1%;
+	font-size: 75%;
+	color: #413839;
+}
+.accept-request {
+	position: relative;
+	float: left;
+	top: 20px;
+}
 .right-button-icon {
 	position: relative;
 	float: left;
@@ -312,3 +324,4 @@ html, body {
     left: -webkit-calc(50% - 55px);
 	padding-bottom: 5px;	
 }
+

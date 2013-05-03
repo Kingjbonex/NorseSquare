@@ -6,12 +6,18 @@
     android:scrollbars="vertical"
     android:maxLines="10"  >
 	
-    <!-- <ImageView  
-        android:id="@+id/dummy_locate_button"
+    <ImageView  
+        android:id="@+id/red_icon"
         android:layout_width="125sp"
         android:layout_height="match_parent"
         android:layout_marginTop="5sp"
-        android:src="@drawable/ic_launcher"/> -->
+        android:src="@drawable/redicon"/> 
+    <ImageView  
+        android:id="@+id/green_icon"
+        android:layout_width="125sp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5sp"
+        android:src="@drawable/greenicon"/> 
     
     <TextView
         android:id="@+id/helpTextViewThree"
@@ -30,8 +36,8 @@
         android:id="@+id/help_next_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        
-        android:text="Third" />
+        android:onClick="closeHelpDialogThree"
+        android:text="Done. I understand fully." />
     
     
 
