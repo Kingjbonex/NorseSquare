@@ -110,10 +110,7 @@
 	 		
 	 	return building;
 	}
-function setUserId(id){
-	userId = id;
-	alert('in set user '+userId);
-};
+
 
     //Calling function to create new user
     if(email != "") {
@@ -134,7 +131,6 @@ function setUserId(id){
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
 					userId = $(this).find("uid").text();
-					setUserId(userId);
 					
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
@@ -143,9 +139,6 @@ function setUserId(id){
 						icons: { primary: "ui-icon-circle-check" },
 						text: true
 					}).click(function(){checkIn();});
-				//;});
-			//},'text');
-
 			
 
 
@@ -171,7 +164,6 @@ function setUserId(id){
 			}, 'text');
 
 
-			alert("User ID: "+userId);
 			jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
 				// get already accepted (nonpending) friends
 				var xml = data,
