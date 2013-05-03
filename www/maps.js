@@ -306,14 +306,6 @@ google.maps.event.addListener(map, "rightclick", function(event) {
 });
 
 
-function acceptRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:accept, uid:myUid, fuid:friendUid});
-}
-
-function sendRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:send, uid:myUid, fuid:friendUid});
-}
-
 
 var here = 'outside';
 var friendImage;

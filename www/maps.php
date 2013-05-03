@@ -112,9 +112,12 @@
 	}
 
 function sendRequest(myUid,friendUid){
-	jQuery.get("./services/request.php", {type:send, uid:myUid, fuid:friendUid});
+	jQuery.get("./services/request.php", {type:'send', uid:myUid, fuid:friendUid});
 }
 
+function acceptRequest(myUid,friendUid){
+	jQuery.get("./services/request.php", {type:'accept', uid:myUid, fuid:friendUid});
+}
 
     //Calling function to create new user
     if(email != "") {
