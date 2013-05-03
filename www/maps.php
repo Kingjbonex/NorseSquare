@@ -88,7 +88,7 @@
     //Calling function to create new user
     if(email != "") {
 
-		$('#personal-status').append("<button id='show-all-friends' onclick='findAll();">Show all friends</button>");
+		$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 
 		jQuery.get("./services/login.php", {fname:fname, lname:lname, email:email, gid:gid}, function(data){
 			var xml = data,
@@ -184,15 +184,13 @@
             
             <div id="primary-content-container">
                 <div id="tabs">
-                    <div id="personal-status"></div><!--personal-status -->
-                    
+                    <div id="personal-status"></div><!--personal-status -->                    
                     <ul>
                         <li><a href="#friends">Friends</a></li>
                         <li><a href="#users">Users</a></li>
                     </ul>
                     <div id="friends" class="calculated-height">
                     	<div id="show-all-button">
-                    		<button id="show-all-friends" onClick="findAll();">Show all friends</button>
                         </div>
                         <div id="friends-list-item-container" class="list-item-container friends-calculated-height"></div>
                     </div><!-- friends -->  
