@@ -14,9 +14,6 @@ $(function() {
 		icons: { primary: "ui-icon-locked" },
 		text: true
 	});
-	$("#show-all-friends").button({ 
-		text: true 
-	});
 });
 
 $(function() {
