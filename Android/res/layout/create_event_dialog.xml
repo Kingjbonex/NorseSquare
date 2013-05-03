@@ -14,6 +14,16 @@
         <requestFocus />
     </EditText>
     
+   <DatePicker
+       android:id="@+id/eventDatePicker"
+       android:layout_width="match_parent"
+       android:spinnersShown="true"
+       />
+   
+   <ExpandableListView
+       android:id="@+id/eventLocationDropDown" 
+       />
+    
     <EditText
         android:id="@+id/eventDescription"
         android:layout_width="match_parent"
