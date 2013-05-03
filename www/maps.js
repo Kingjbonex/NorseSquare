@@ -288,8 +288,8 @@ function showFriends(data) {
 		
 }
 
-function findAll(controlDiv, map) {
-	users = jQuery.post("./services/findAll.php",{}, function(data){showFriends(data);},'text');
+function findAll(id,controlDiv, map) {
+	users = jQuery.post("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
 }
 
 function loginFunction() {
