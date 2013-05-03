@@ -123,7 +123,6 @@
 					coordinate = new google.maps.LatLng(lat,long),
 					location = getLocation(coordinate);
 					userId = $(this).find("uid").text();
-					alert("User ID: "+userId);
 					
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
@@ -135,7 +134,7 @@
 				;});
 			},'text');
 
-		
+		alert("User ID: "+userId);
 		jQuery.get("./services/getFriends.php", {uid:userId}, function(data){
 			// get already accepted (nonpending) friends
 			var xml = data,
