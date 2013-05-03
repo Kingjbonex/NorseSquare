@@ -33,8 +33,21 @@
 	      $fname = $auth_info['profile']['name']['givenName'];
 	      $lname = $auth_info['profile']['name']['familyName'];
 	      $gid = $auth_info['profile']['googleUserId'];
+	      setcookie('email', $email, time() + 60*60*24, '/');
+		 setcookie('fname', $fname, time() + 60*60*24, '/');
+		 setcookie('lname', $lname, time() + 60*60*24, '/');
+		 setcookie('gid', $gid, time() + 60*60*24, '/');
+	      	      	      	      
 	    }
 	  }
+  } else {
+	if (isset($_COOKIE)) {
+		$email = $_COOKIE['email'];
+		$fname = $_COOKIE['fname'];
+		$lname = $_COOKIE['lname'];
+		$gid = $_COOKIE['gid'];
+
+	}
   }
 
 ?>
@@ -44,10 +57,10 @@
    <script type="text/javascript" src="polygons.js"> </script>
 
 <script type="text/javascript">
-  var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
-  var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
-  var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
-  var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
+  var email = "<?php   if(isset($_POST['token'])){Print($email);} else {if (isset($_COOKIE)) {Print($email);}}?>";
+  var fname = "<?php   if(isset($_POST['token'])){Print($fname);} else {if (isset($_COOKIE)) {Print($fname);}}?>";
+  var lname = "<?php   if(isset($_POST['token'])){Print($lname);} else {if (isset($_COOKIE)) {Print($lname);}}?>";
+  var gid = "<?php   if(isset($_POST['token'])){Print($gid);} else {if (isset($_COOKIE)) {Print($gid);}} ?>";
   var myPhotourl;
   var userId;
 </script>
@@ -138,6 +151,7 @@ function acceptRequest(myUid,friendUid){
 					location = getLocation(coordinate);
 					userId = $(this).find("uid").text();
 					myPhotourl = photo;
+					document.getElementById('header').innerHTML = '<button id="login-button" onClick="loginFunction();">Login</button>';
 					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll("+userId+");'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>" + location + "</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
@@ -169,7 +183,7 @@ function acceptRequest(myUid,friendUid){
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button class="accept-request-button-'+i+'">Accept Request</button></div></div>'); 
 								$(".accept-request-button-"+i).button({
 									text: true
-								}).click(function(){acceptRequest(userId,uid);});
+								}).click(function(){acceptRequest(userId,uid);window.location.reload();});
 							}
 							else{
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
@@ -226,7 +240,7 @@ function acceptRequest(myUid,friendUid){
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
 							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + "</span></div><div class='right-button-icon'><button class='icon-button-" + i + "'/></button></div></div>"); 
-							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);});
+							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);window.location.reload();});
 						}
 						i++;
 					}
@@ -237,9 +251,13 @@ function acceptRequest(myUid,friendUid){
 		},'text');
 
 	}
-	
 
+
+	$('#header').append('<button id="login-button" onClick="loginFunction();">Login</button>');
 })();
+
+
+
 </script>
 
 </head> 
@@ -247,7 +265,6 @@ function acceptRequest(myUid,friendUid){
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-	   <button id="login-button" onClick="loginFunction();">Login</button>
     </div><!--header-->   
 
     <div id="main-page-container">        	

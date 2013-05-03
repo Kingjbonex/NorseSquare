@@ -261,30 +261,31 @@ html, body {
 .list-item-text .name {
 	position: absolute;
 	width: 100%;
-	margin-top: 20px;
+	top: 15px;
 	font-size: 125%;
 	font-weight: bold;
 	color: #595454;
 }
 .list-item-text .ui-icon-clock {
 	position: absolute;
-	top: 55px;
+	top: 50px;
 	left: -1px;	
 }
 .list-item-text .ui-icon-flag {
-	float: left;
-	margin-top: 40px;
+	position: absolute;
+	top: 35px;
 }
 .list-item-text .location {
-	float: left;
-	margin-top: 42px;
+	position: absolute;
+	top: 37px;
+	left: 20px;
 	font-size: 75%;
 	color: #413839;
 }
 .list-item-text .check-in-date {
 	position: absolute;
-	top: 57px;
-	left: 18px;
+	top: 52px;
+	left: 21px;
 	font-size: 75%;
 	color: #413839;
 }
