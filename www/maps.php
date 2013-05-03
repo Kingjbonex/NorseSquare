@@ -151,6 +151,7 @@ function acceptRequest(myUid,friendUid){
 			jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
 				// get pending friends
 				var xml = data,
+				i = 1,
 				xmlDoc = $.parseXML( xml ),
 				$xml = $( xmlDoc ),
 				$person = $xml.find( "response person" ).each(
@@ -165,8 +166,8 @@ function acceptRequest(myUid,friendUid){
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
 							if (pending == 2){
-								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button">Accept Request</button></div></div>'); 
-								$(".accept-request").button({
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button id="accept-request-button-"'+i+'>Accept Request</button></div></div>'); 
+								$(".accept-request"+i).button({
 									text: true
 								}).click(function(){acceptRequest(userId,uid);});
 							}
@@ -224,7 +225,7 @@ function acceptRequest(myUid,friendUid){
 						friendImage = $(this).find("photourl").text(),
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
-							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button-' + i + '"/></button></div></div>'); 
+							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + "</span></div><div class='right-button-icon'><button class='icon-button-" + i + "'/></button></div></div>"); 
 							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);});
 						}
 						i++;
