@@ -87,6 +87,7 @@
     s.parentNode.insertBefore(e, s);
 
 	function getLocation(coordinate) {
+		var building = "Luther College";
 		for (polygon in polygonCoords) {
 			var name = polygonCoords[polygon][0];
 			var coords = polygonCoords[polygon][1];
@@ -98,6 +99,7 @@
 			 });
 			if (lutherPolygon.containsLatLng(coordinate)) {building = name;}
 	 		};
+	 		
 	 	return building;
 	}
 
@@ -154,7 +156,7 @@
 					coordinate = new google.maps.LatLng(friendLat,friendLong),
 					location = getLocation(coordinate);
 					if (gid != usergid) {
-						$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>Luther College</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
+						$('#friends-list-item-container').append('<div class="list-item" onclick=showFriend("' + friendLat + '","' + friendLong + '","' + friendImage + '")><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span><span class="ui-icon ui-icon-flag"></span>' + "<span class='location'>" + location + "</span>" + '</span><span class="ui-icon ui-icon-clock"></span><span class="check-in-date">' + friendTime + '</span></div></div>');
 					}
 				}
 			);	
