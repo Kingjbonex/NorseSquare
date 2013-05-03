@@ -324,7 +324,6 @@ google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng
 			var lat = latLng.lat();
 			var lng = latLng.lng();
 			// populate yor box/field with lat, lng
-			alert("Lat=" + lat + "; Lng=" + lng);
 			successFunction(lat,lng);
 			break;
 	}
