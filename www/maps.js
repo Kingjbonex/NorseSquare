@@ -163,8 +163,8 @@ for (polygon in polygonCoords) {
 
 		//Set it on the Map
 		//lutherPolygon.setMap(map);
-		lutherPolygon.setVisible(true);
-		//gpolygons.push(lutherPolygon);
+		//lutherPolygon.setVisible(true);
+		gpolygons.push(lutherPolygon);
 		
 		  
 };
