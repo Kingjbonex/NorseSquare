@@ -182,7 +182,7 @@ function acceptRequest(myUid,friendUid){
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button class="accept-request-button-'+i+'">Accept Request</button></div></div>'); 
 								$(".accept-request-button-"+i).button({
 									text: true
-								}).click(function(){acceptRequest(userId,uid);location.reload();});
+								}).click(function(){acceptRequest(userId,uid);window.location.reload();});
 							}
 							else{
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
@@ -239,7 +239,7 @@ function acceptRequest(myUid,friendUid){
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
 							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + "</span></div><div class='right-button-icon'><button class='icon-button-" + i + "'/></button></div></div>"); 
-							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);location.reload();});
+							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);window.location.reload();});
 						}
 						i++;
 					}
