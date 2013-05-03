@@ -148,7 +148,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
        mPlusClient = new PlusClient.Builder(this, this, this)
        .setVisibleActivities("http://schemas.google.com/AddActivity", "http://schemas.google.com/BuyActivity")
        .build();
-       
+
        
        
        // Progress bar to be displayed if the connection failure is not resolved.
@@ -403,8 +403,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         
         //Retrieve logged in user
         Person p = mPlusClient.getCurrentPerson();
-        
-        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName());
+  
+        me = new GoogleUser(p.getName().getGivenName(),p.getName().getFamilyName(),mPlusClient.getAccountName(),p.getId());
         
         
         //Toast.makeText(this,((p.getName().getFamilyName())) + " is now connected",Toast.LENGTH_SHORT).show();
@@ -605,7 +605,14 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     {
     	HelpDialogBox hDialog = new HelpDialogBox();
     	
-    	hDialog.show(getSupportFragmentManager(), "event_list");
+    	hDialog.show(getSupportFragmentManager(), "help_dialog_one");
+    }
+    
+    public void showHelpDialogTwo(View v)
+    {
+    	HelpDialogBoxTwo hDialog = new HelpDialogBoxTwo();
+    	
+    	hDialog.show(getSupportFragmentManager(), "help_dialog_two");
     }
     
     public void storeEventMarker(LatLng latlong,String title, String snippet)
@@ -908,13 +915,15 @@ public class GoogleUser
 	String firstName;
 	String lastName;
 	String accountEmail;
+	String gid;
 	URL pictureURL = null;
 	
-	public GoogleUser(String fn, String ln, String email)
+	public GoogleUser(String fn, String ln, String email,String g)
 	{
 	   firstName = fn;
 	   lastName = ln;
 	   accountEmail = email;
+	   gid = g;
 	   
 	}
 	
@@ -943,6 +952,10 @@ public class GoogleUser
 		pictureURL = u;
 	}
 	
+	public String getGID()
+	{
+		return gid;
+	}
 
 }
 
