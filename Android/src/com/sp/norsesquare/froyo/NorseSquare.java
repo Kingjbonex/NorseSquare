@@ -168,7 +168,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         
         setUpMap();
-        Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
     
         
         Log.i(TAG, "OnCreate");
@@ -407,7 +407,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     @Override
     public void onConnected() {
         String accountName = mPlusClient.getAccountName();
-        Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
         
         //Retrieve logged in user
         Person p = mPlusClient.getCurrentPerson();
