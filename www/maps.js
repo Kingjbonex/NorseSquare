@@ -1,4 +1,4 @@
-function starter() {
+function starter() { //setting up google maps map size
 	var winH = 460;
 	if (document.body && document.body.offsetWidth) {
 	    winH = document.body.offsetHeight;
@@ -20,7 +20,7 @@ function starter() {
 	map.setZoom( map.getZoom() );
  }
 
-$(window).resize( function() {
+$(window).resize( function() { //calculates map height on resize of window
 	var winH = 460;
 	
 	if (document.body && document.body.offsetWidth) {
@@ -42,7 +42,7 @@ $(window).resize( function() {
 	map.setZoom( map.getZoom() );	
 });
 
-function toggleBox(id){
+function toggleBox(id){ //toggles friend pane
 	if (document.getElementById(id).style.display == "") {
 		show = "none";
 	} else {
@@ -107,7 +107,7 @@ google.maps.event.addListener(map, 'zoom_changed', function() {
 });
 
 
-//START OF lutherPolygon
+//START OF polygons
 
 //Event called on selection event
 function showArrays(event) {
@@ -157,13 +157,14 @@ for (polygon in polygonCoords) {
 		fillOpacity: 0.35,
 		polyName: name,
 		category: cat,
-		id: polygon
+		id: polygon,
+		clickable:false
 		
 		 });
 
 		//Set it on the Map
 		//lutherPolygon.setMap(map);
-		lutherPolygon.setVisible(true);
+		//lutherPolygon.setVisible(true);
 		gpolygons.push(lutherPolygon);
 		
 		  
@@ -173,10 +174,12 @@ for (polygon in polygonCoords) {
 function saveLocation(lat, long)
 {
 
+	//call to checkin php service
 	jQuery.post("./services/checkIn.php", {lat:lat,long:long,email:email}, function(data){/*alert(data)*/});
 
 }
 
+//shows users friends on map
 function showFriend(fLat,fLong,fPhotourl) {
 	for (var i = 0; i < myPosMarkers.length; i++ ) {
 		myPosMarkers[i].setMap(null);
@@ -205,7 +208,8 @@ function showFriend(fLat,fLong,fPhotourl) {
 
 }
 
-function successFunction(position){
+//shows points on successful retreival of geolocation coordinates
+function successFunction(myLat,myLong){
 	for (var i = 0; i < myPosMarkers.length; i++ ) {
 		myPosMarkers[i].setMap(null);
 	}
@@ -220,8 +224,6 @@ function successFunction(position){
 		new google.maps.Size(50, 50) // scaled size of the entire sprite
 	)
 
-	myLat = position.coords.latitude;
-	myLong = position.coords.longitude;
 	saveLocation(myLat,myLong);
 
 	var myPosition = new google.maps.LatLng(myLat, myLong);
@@ -237,18 +239,21 @@ function successFunction(position){
 
 }
 
+//displayed when geolocation fails
 function errorFunction(position) {
     alert('Error! Your computer hates you. (And geolocation is not working!)');
 }
 
+//called when user hits check in button
 function checkIn(){
 	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	    navigator.geolocation.getCurrentPosition(function(position){myLat = position.coords.latitude;myLong = position.coords.longitude;successFunction(myLat,myLong);}, errorFunction);
 	} else {
 	    alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 	}
 };
 
+//shows a users friends on the map
 function showFriends(data) {
     for (var i = 0; i < myPosMarkers.length; i++ ) {
     	myPosMarkers[i].setMap(null);
@@ -266,7 +271,6 @@ function showFriends(data) {
 		time = $(this).find("time").text(),
 		gid = $(this).find("googleid").text(),
 		url = $(this).find("photourl").text();
-
 		friendImage = new google.maps.MarkerImage(
 			url,
 			new google.maps.Size(50, 50), // desired size
@@ -290,13 +294,50 @@ function showFriends(data) {
 		
 }
 
-function findAll(controlDiv, map) {
-	users = jQuery.post("./services/findAll.php",{}, function(data){showFriends(data);},'text');
+//makes php service call to find all friends
+function findAll(id, controlDiv, map) {
+	users = jQuery.get("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
 }
 
+//clicks janrain link when login clicked
 function loginFunction() {
     $('#janrainLink').click();
 }
+
+
+
+
+var contextMenuOptions={};
+contextMenuOptions.classNames={menu:'context_menu', menuSeparator:'context_menu_separator'};
+
+//	create an array of ContextMenuItem objects
+var menuItems=[];
+menuItems.push({className:'context_menu_item', eventName:'checkIn_here', label:'Check-In Here'});
+contextMenuOptions.menuItems=menuItems;
+
+//	create the ContextMenu object
+var contextMenu=new ContextMenu(map, contextMenuOptions);
+
+//	display the ContextMenu on a Map right click
+google.maps.event.addListener(map, 'rightclick', function(mouseEvent){
+	contextMenu.show(mouseEvent.latLng);
+});
+
+//	listen for the ContextMenu 'menu_item_selected' event
+google.maps.event.addListener(contextMenu, 'menu_item_selected', function(latLng, eventName){
+	//	latLng is the position of the ContextMenu
+	//	eventName is the eventName defined for the clicked ContextMenuItem in the ContextMenuOptions
+	switch(eventName){
+		case 'checkIn_here':
+			var lat = latLng.lat();
+			var lng = latLng.lng();
+			// populate yor box/field with lat, lng
+			successFunction(lat,lng);
+			break;
+	}
+});
+
+
 
 
 

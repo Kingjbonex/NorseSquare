@@ -7,11 +7,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class EventMarker extends MapMarker
 {
+   String date;
 	
-	
-   public EventMarker(LatLng ll,String t,String s)
+   public EventMarker(LatLng ll,String t,String s,String d)
    {
 	   super(ll,t,s);
+	   date = d;
    }
    
    @Override
@@ -20,8 +21,9 @@ public class EventMarker extends MapMarker
 	   return (new MarkerOptions()
        .position(latlong)
        .title(title)
-       .snippet(snippet)
+       .snippet("Date: " + date + " - " +  snippet)
        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+       .draggable(true)
        );
    }
 }

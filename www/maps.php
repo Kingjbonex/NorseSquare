@@ -33,8 +33,21 @@
 	      $fname = $auth_info['profile']['name']['givenName'];
 	      $lname = $auth_info['profile']['name']['familyName'];
 	      $gid = $auth_info['profile']['googleUserId'];
+	      setcookie('email', $email, time() + 60*60*24, '/');
+		 setcookie('fname', $fname, time() + 60*60*24, '/');
+		 setcookie('lname', $lname, time() + 60*60*24, '/');
+		 setcookie('gid', $gid, time() + 60*60*24, '/');
+	      	      	      	      
 	    }
 	  }
+  } else {
+	if (array_key_exists('email',$_COOKIE)) {
+		$email = $_COOKIE['email'];
+		$fname = $_COOKIE['fname'];
+		$lname = $_COOKIE['lname'];
+		$gid = $_COOKIE['gid'];
+
+	}
   }
 
 ?>
@@ -44,10 +57,10 @@
    <script type="text/javascript" src="polygons.js"> </script>
 
 <script type="text/javascript">
-  var email = "<?php   if(isset($_POST['token'])){Print($email);} ?>";
-  var fname = "<?php   if(isset($_POST['token'])){Print($fname);} ?>";
-  var lname = "<?php   if(isset($_POST['token'])){Print($lname);} ?>";
-  var gid = "<?php   if(isset($_POST['token'])){Print($gid);} ?>";
+  var email = "<?php   if(isset($_POST['token'])){Print($email);} else {if (isset($_COOKIE)) {Print($email);}}?>";
+  var fname = "<?php   if(isset($_POST['token'])){Print($fname);} else {if (isset($_COOKIE)) {Print($fname);}}?>";
+  var lname = "<?php   if(isset($_POST['token'])){Print($lname);} else {if (isset($_COOKIE)) {Print($lname);}}?>";
+  var gid = "<?php   if(isset($_POST['token'])){Print($gid);} else {if (isset($_COOKIE)) {Print($gid);}} ?>";
   var myPhotourl;
   var userId;
 </script>
@@ -91,7 +104,7 @@
     s.parentNode.insertBefore(e, s);
 
 	function getLocation(coordinate) {
-		var building = "Off-Campus";
+		var building = "Luther College";
 		for (polygon in polygonCoords) {
 			var name = polygonCoords[polygon][0];
 			var coords = polygonCoords[polygon][1];
@@ -106,11 +119,26 @@
 
 	 	lutherPolygon = new google.maps.Polygon([new google.maps.LatLng(43.319933,-91.805792), new google.maps.LatLng(43.319933,-91.811457), new google.maps.LatLng(43.313188,-91.810255), new google.maps.LatLng(43.309722,-91.808538), new google.maps.LatLng(43.309597,-91.80665), new google.maps.LatLng(43.308629,-91.806693), new google.maps.LatLng(43.308723,-91.803217), new google.maps.LatLng(43.309535,-91.803002), new google.maps.LatLng(43.309441,-91.800127), new google.maps.LatLng(43.310909,-91.800127), new google.maps.LatLng(43.310909,-91.798282), new google.maps.LatLng(43.312345,-91.798754), new google.maps.LatLng(43.313001,-91.79944), new google.maps.LatLng(43.313282,-91.798754), new google.maps.LatLng(43.314,-91.798925), new google.maps.LatLng(43.313688,-91.799955), new google.maps.LatLng(43.315561,-91.801972), new google.maps.LatLng(43.316155,-91.798711), new google.maps.LatLng(43.317622,-91.798067), new google.maps.LatLng(43.318371,-91.799655), new google.maps.LatLng(43.318777,-91.801414), new google.maps.LatLng(43.317841,-91.803732)],'#FF0000',1,0.6,'#FF0000',0.4);
 
-	 	if (building == "Off-Campus" && lutherPolygon.containsLatLng(coordinate)) {building = "Luther College";}
+	 	if (lutherPolygon.containsLatLng(coordinate)) {building = "Off-Campus";}
 	 		
 	 	return building;
 	}
 
+function sendRequest(myUid,friendUid){
+	jQuery.ajax({
+		url:"./services/request.php?fuid="+friendUid+"&uid="+myUid+"&type=send",
+		async: false
+	});
+	window.location.reload();
+}
+
+function acceptRequest(myUid,friendUid){
+	jQuery.ajax({
+		url:"./services/request.php?fuid="+friendUid+"&uid="+myUid+"&type=accept",
+		async: false
+	});
+	window.location.reload();
+}
 
     //Calling function to create new user
     if(email != "") {
@@ -131,7 +159,9 @@
 					location = getLocation(coordinate);
 					userId = $(this).find("uid").text();
 					myPhotourl = photo;
-					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll();'>Show all friends</button>");
+					document.getElementById('login-button-container').innerHTML = '<button id="login-button" onClick="location.href=&quot;./services/logout.php&quot;">Logout</button>';
+					$("#login-button").button({icons: { primary: "ui-icon-locked" },text: true});
+					$('#show-all-button').append("<button id='show-all-friends' onclick='findAll("+userId+");'>Show all friends</button>");
 					$('#show-all-friends').button({ text: true });
 					$('#personal-status').append("<div class='personal-image'><img src='" + photo + "'/></div><div class='personal-text'> <span class='name'>" + fname + " " + lname + "</span><span class='ui-icon ui-icon-flag'></span><span class='location'>" + location + "</span><span class='ui-icon ui-icon-clock'></span><span class='check-in-date'>" + time + "</span></div><div class='check-in'><button id='check-in-button'>Check-in</button></div>");
 					$("#check-in-button").button({
@@ -144,6 +174,7 @@
 			jQuery.get("./services/request.php", {type:'getpending',uid:userId}, function(data){
 				// get pending friends
 				var xml = data,
+				i = 1,
 				xmlDoc = $.parseXML( xml ),
 				$xml = $( xmlDoc ),
 				$person = $xml.find( "response person" ).each(
@@ -157,11 +188,11 @@
 						pending = $(this).find("pending").text(),
 						plusUrl = "http://plus.google.com/" + usergid;
 						if (gid != usergid) {
-							if (pending == 1){
-								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div></div><div class='check-in'><button id='check-in-button'>Accept Request</button></div>'); 
-								$("#check-in-button").button({
+							if (pending == 2){
+								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span></div><div class="accept-request"><button class="accept-request-button-'+i+'">Accept Request</button></div></div>'); 
+								$(".accept-request-button-"+i).button({
 									text: true
-								}).click(function(){accept();});
+								}).click(function(){acceptRequest(userId,uid);});
 							}
 							else{
 								$('#friends-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + " "+'</span><span class="request-pending">Request Pending</span></div></div>');
@@ -199,37 +230,40 @@
 			}, 'text');
 
  
-		;}); 
-	},'text');
 		
-		jQuery.get("./services/users.php", {page:'1'}, function(data){
+			jQuery.get("./services/users.php", {page:'1'}, function(data){
 			
-			var xml = data,
-			xmlDoc = $.parseXML( xml ),
-			$xml = $( xmlDoc ),
-			$person = $xml.find( "response person" ).each(
-				function(){
-					var friendImage;
-					var fname = $(this).find("fname").text(),
-					lname = $(this).find("lname").text(),
-					uid = $(this).find("uid").text(),
-					usergid = $(this).find("googleid").text(),
-					friendImage = $(this).find("photourl").text(),
-					plusUrl = "http://plus.google.com/" + usergid;
-					if (gid != usergid) {
-						$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + '</span></div><div class="right-button-icon"><button class="icon-button"/></button></div></div>'); 
-						$(".icon-button").button({ icons: { primary: "ui-icon-circle-plus" }, text: false });
+				var xml = data,
+				i = 1,
+				xmlDoc = $.parseXML( xml ),
+				$xml = $( xmlDoc ),
+				$person = $xml.find( "response person" ).each(
+					function(){
+
+						var friendImage;
+						var fname = $(this).find("fname").text(),
+						lname = $(this).find("lname").text(),
+						uid = $(this).find("uid").text(),
+						usergid = $(this).find("googleid").text(),
+						friendImage = $(this).find("photourl").text(),
+						plusUrl = "http://plus.google.com/" + usergid;
+						if (gid != usergid) {
+							$('#users-list-item-container').append('<div class="list-item"><div class="profile-image"><a href="' + plusUrl + '" target="_blank"><img src="' + friendImage + '"></a></div><div class="list-item-text"><span class="name">'+ fname + " " + lname + "</span></div><div class='right-button-icon'><button class='icon-button-" + i + "'/></button></div></div>"); 
+							$(".icon-button-"+i).button({ icons: { primary: "ui-icon-circle-plus" }, text: false }).click(function(){sendRequest(userId,uid);});
+						}
+						i++;
 					}
-				}
-			);		
-		}, 'text');
+				);		
+			}, 'text');
 
-
+			;}); 
+		},'text');
 
 	}
-	
-
 })();
+
+
+
 </script>
 
 </head> 
@@ -237,7 +271,7 @@
 
     <div id="header">
         <a id="norse-square-logo" href="/"><img src="NorseSquareLogo.png" alt="NorseSquare Logo" /></a>
-	   <button id="login-button" onClick="loginFunction();">Login</button>
+        <div id="login-button-container"><button id="login-button" onClick="loginFunction();">Login</button></div>
     </div><!--header-->   
 
     <div id="main-page-container">        	
@@ -277,6 +311,7 @@
 
    <script type="text/javascript" src="jquery-ui.js"></script>
    <script type="text/javascript" src="mapStyles.js"> </script>
+   <script type="text/javascript" src="ContextMenu.js"> </script>
    <script type="text/javascript" src="maps.js"></script>
    <script type="text/javascript" src="ui.js"></script>
 

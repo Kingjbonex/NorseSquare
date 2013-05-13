@@ -1,5 +1,9 @@
 package com.sp.norsesquare.froyo;
 
+//this is essentially the same as the aboutDialog and the other dialogs, except with a listview
+// inside it instead of textviews, etc.
+
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,21 +39,10 @@ public class CreateEventListView extends DialogFragment
 		
 		listView.setAdapter(adapter);
 		
-//		listView.setOnItemClick
-		
 		builder.setView(listView);
-		builder.setTitle("SHIEEEETTT & Events");
-		
-//		eventList = (ListView) v.findViewById()
-		
-		
-		
-		
-		
-		
+		builder.setTitle("Events");
 		
 		return builder.create();
-//		return super.onCreateDialog(savedInstanceState);
 	}
 
 }

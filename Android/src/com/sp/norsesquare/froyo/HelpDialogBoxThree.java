@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-public class HelpDialogBox extends DialogFragment {
+public class HelpDialogBoxThree extends DialogFragment {
 //	ListView listView;
 	
 	View helpView;
@@ -28,24 +28,26 @@ public class HelpDialogBox extends DialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		
-//		grab the current context
 		context = getActivity();
 				
-//		inflate the view.
-		helpView = (View) inflater.inflate(R.layout.help_dialog_one, null);
+		helpView = (View) inflater.inflate(R.layout.help_dialog_three, null);
 		
-//		get the view
-		helpText = (TextView) helpView.findViewById(R.id.helpTextView);
+		helpText = (TextView) helpView.findViewById(R.id.helpTextViewThree);
 		
-//		set up the scrolling.
 		helpText.setMovementMethod(new ScrollingMovementMethod());
 		
-//		Show the view with the builder
-		builder.setView(helpView);
-		builder.setTitle("HELP: CHECK IN");
-		
-
+//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_view_row, R.id.listText, listCont);               
 //		
+//		listView.setAdapter(adapter);
+//		
+//		listView.setOnItemClic
+		
+		builder.setView(helpView);
+		builder.setTitle("HELP: MARKERS");
+		
+//		eventList = (ListView) v.findViewById()
+	
 		return builder.create();
+//		return super.onCreateDialog(savedInstanceState);
 	}
 }

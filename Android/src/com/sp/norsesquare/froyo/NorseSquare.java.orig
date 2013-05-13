@@ -121,10 +121,10 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         super.setUpSlidingMenu();
        
         storedEventList = new ArrayList<EventMarker>();
-        storedEventList.add(new EventMarker(PREUS,"Study Paideia","Wisdom in Community.","5/02/2013"));
-        storedEventList.add(new EventMarker(BRUNSDALE,"Birthday Party","The cake is, sadly, a lie.","5/19/2013"));
-        storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH","5/07/2013"));
-        storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME.","5/04/2013"));
+//        storedEventList.add(new EventMarker(PREUS,"Study Session for Paideia","Wisdom in Community."));
+//        storedEventList.add(new EventMarker(BRUNSDALE,"Birthday Party for Sheila","The cake is, sadly, a lie."));
+//        storedEventList.add(new EventMarker(LIBRARY_LAWN,"QUIDDITCH","FREAKING QUIDDITCH"));
+//        storedEventList.add(new EventMarker(CFL,"LCSO Concert","GET SOME."));
 //        
         
         //TODO Make a case that handles if there is no luther.edu account on the phone.
@@ -146,8 +146,9 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
        //Get authToken for luther.edu account 
        AsyncTask<String, Void, String> LoginTask = new LoginAsyncTask(lutherAccount,this).execute();
        Log.i("GOOGLEAUTH","AuthToken is: " + googleAuthToken);   
- 
-        
+       
+      
+       
        
        //new UserInfoAsyncTask(googleAuthToken).execute();
        //Initialize PlusClient
@@ -168,7 +169,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         
         setUpMap();
-        //Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Map has been set up.", Toast.LENGTH_SHORT).show();
     
         
         Log.i(TAG, "OnCreate");
@@ -180,7 +181,11 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     private void LoginToDatabase() {
 		// TODO Auto-generated method stub
     	Log.i("hello ppls", me.getGID());
-    	AsyncTask<String, Void, String> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+<<<<<<< HEAD
+//    	AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+=======
+    	//AsyncTask<String, Void, Integer> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
+>>>>>>> 25f8ce53156e7cfde44865b1ee39a5c7c4976736
 	}
 
 	@Override
@@ -407,7 +412,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     @Override
     public void onConnected() {
         String accountName = mPlusClient.getAccountName();
-       // Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
         
         //Retrieve logged in user
         Person p = mPlusClient.getCurrentPerson();
@@ -722,7 +727,12 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 		
 		new CheckinTask(Double.toString(locate.getLatitude()),Double.toString(locate.getLongitude()),lutherAccount).execute((String[])null);
 		
-		
+		try{
+        	LoginToDatabase();
+        }
+        catch(Exception e){
+    	    e.printStackTrace();
+        }
 		
 	
 		
@@ -763,7 +773,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	{
     	   Log.i("Map Marker", "Placing Map Marker");
     	   MapMarker m = (MapMarker) i.next();
-    	   mMap.addMarker(m.getMarkerOptions());
+    	   mMap.addMarker(m.getMarkerOptions()).showInfoWindow();
     	}
     	
         Iterator<EventMarker> h = storedEventList.iterator();
@@ -966,15 +976,6 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 		
         Log.i("GOOGLEAUTH", "Returning Received Google Token");
         googleAuthToken = result;
-        
-      //LOG INTO DATABASE
-       	try {
-       		LoginToDatabase(); 	
-       	}
-       	catch(Exception e)
-       	{
-       		e.printStackTrace();
-       	}
         
        
     }

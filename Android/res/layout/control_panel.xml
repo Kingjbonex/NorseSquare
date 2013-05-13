@@ -7,18 +7,22 @@
     
     <ImageButton 
         android:id="@+id/button_wifi_locate"
-        android:layout_width="125sp"
+        android:layout_width="100sp"
         android:layout_height="match_parent"
         android:textStyle="italic"
         android:onClick="datCheckIn"
-        android:src="@drawable/gps" />
+        android:src="@drawable/gps" 
+        android:background="#803675ff" />
     
     <Button 
         android:id="@+id/help_button"
-        android:layout_width="125sp"
+        android:layout_width="100sp"
         android:layout_height="match_parent"
         android:onClick="showHelpDialog"
-        android:text="@string/help_text"/>
+        android:text="@string/help_text"
+        android:background="#803675ff" 
+        android:textColor="#FFFFFF"
+        android:layout_marginLeft="5sp"/>
     
     <!-- <EditText
         android:id="@+id/text_box"

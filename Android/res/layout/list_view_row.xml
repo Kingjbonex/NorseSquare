@@ -4,26 +4,16 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="left" 
-    android:background="#0D4F8B">
-
-<!--     <ImageView
-		android:contentDescription="This is a thing." 	    
-	    android:id="@+id/row_icon"
-	    android:layout_width="50dp"
-	    android:layout_height="50dp"
-	    android:padding="10dp"
-	    android:src="@drawable/ic_launcher" /> -->
+    android:background="#993675ff">
 
     <TextView
         android:id="@+id/listText"
         android:layout_width="wrap_content"
         android:layout_height="55sp"
-        android:layout_marginTop="5sp"
-        android:layout_marginBottom="5sp"
+        android:layout_marginLeft="5sp"
         android:text="@string/text_v1"
         android:textSize="35sp"
         android:textStyle="bold"
-        android:background="#0D4F8B"
         
         android:textColor="#FFFFFF"/>
 
