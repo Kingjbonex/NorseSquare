@@ -28,26 +28,24 @@ public class HelpDialogBox extends DialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		
+//		grab the current context
 		context = getActivity();
 				
+//		inflate the view.
 		helpView = (View) inflater.inflate(R.layout.help_dialog_one, null);
 		
+//		get the view
 		helpText = (TextView) helpView.findViewById(R.id.helpTextView);
 		
+//		set up the scrolling.
 		helpText.setMovementMethod(new ScrollingMovementMethod());
 		
-//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_view_row, R.id.listText, listCont);               
-//		
-//		listView.setAdapter(adapter);
-//		
-//		listView.setOnItemClic
-		
+//		Show the view with the builder
 		builder.setView(helpView);
 		builder.setTitle("HELP: CHECK IN");
 		
-//		eventList = (ListView) v.findViewById()
-	
+
+//		
 		return builder.create();
-//		return super.onCreateDialog(savedInstanceState);
 	}
 }
