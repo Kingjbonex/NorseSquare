@@ -1,3 +1,7 @@
+//File that requests all the users from the database.
+//Returns all the info on the users that the database has.
+//currently used to populate the map with markers
+
 package com.sp.norsesquare.froyo;
 
 import java.util.ArrayList;
@@ -34,7 +38,8 @@ public class DatabaseTask extends AsyncTask<String, Void, String>
 	@Override
 	protected String doInBackground(String... args)
 	{
-		// TODO Add database calls, differentiation.
+		//try an http request that calls the findAll.php to return info from the database.
+		//converts the xml return value to a string and sends it back to NorseSquare.java
 	    	try {
 	            HttpClient client = new DefaultHttpClient();  
 	            String postURL = "http://norsesquare.luther.edu/services/findAll.php";

@@ -1,3 +1,5 @@
+//This file updates the database with the device users current location
+
 package com.sp.norsesquare.froyo;
 
 import java.util.ArrayList;
@@ -48,7 +50,8 @@ public class CheckinTask extends AsyncTask<String, Void, Integer>
 	@Override
 	protected Integer doInBackground(String... args)
 	{
-		// TODO Add database calls, differentiation.
+		//call to checIn.php with the users lat, long and email to update the database on the user
+		//does not return anything of value
 	    	try {
 	            HttpClient client = new DefaultHttpClient();  
 	            String postURL = "http://norsesquare.luther.edu/services/checkIn.php";

@@ -1,3 +1,7 @@
+//File that handles calls to the database to 'login'
+//this will create new users if the user is not currently in the database.
+//logging in returns the users id which can be used to determine friends
+
 package com.sp.norsesquare.froyo;
 
 import java.util.ArrayList;
@@ -25,7 +29,7 @@ import android.view.View;
 public class LoginDatabaseTask extends AsyncTask<String, Void, String>
 {
 	
-	
+	//variable construction to define parameters for logging in
 	String fname;
 	String lname;
 	String email;
@@ -51,7 +55,8 @@ public class LoginDatabaseTask extends AsyncTask<String, Void, String>
 	@Override
 	protected String doInBackground(String... args)
 	{
-		// TODO Add database calls, differentiation.
+		// try to call to the url that is created from the current user. allowing to login and get info from the database
+		//uses simple http requests. does not return anything.
 	    	try {
 	            HttpClient client = new DefaultHttpClient();  
 	            String postURL = "http://norsesquare.luther.edu/services/login.php";
@@ -60,11 +65,10 @@ public class LoginDatabaseTask extends AsyncTask<String, Void, String>
 	            HttpResponse responseGet = client.execute(get);
 	            HttpEntity resentity = responseGet.getEntity();
 	            if (resentity != null) {    
-	               // Log.i("RESPONSE",EntityUtils.toString(resentity));
 	                Log.i("DEBUG","Debugging,am i there??");
 	                return EntityUtils.toString(resentity);
 	            }
-            else{Log.i("wft", "i dont know what the fuck is oging on");}
+            else{Log.i("wft", "i dont know what is oging on");}
 	           
 	            
 	        } catch (Exception e) {
