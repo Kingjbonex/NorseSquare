@@ -4,6 +4,11 @@ import com.google.android.gms.maps.model.*;
 
 public class MapMarker
 {
+	/* Custom wrapper class to extend capability of google maps marker. 
+	 * Allows for easier marker modification and for dynamic addition of markers to the map
+	 * on redraws.
+	 * 
+	 */
 	LatLng latlong;
 	String title;
 	String snippet;

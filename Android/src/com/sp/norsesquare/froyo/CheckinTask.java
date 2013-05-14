@@ -20,7 +20,7 @@ import android.util.Log;
 import android.view.View;
 
 
-/*Class to allow for backround database calls to be made in alternate threads */
+/*Class to allow for async checkins, updates database using builtin PHP calls and authenticated user credentials */
 public class CheckinTask extends AsyncTask<String, Void, Integer>
 {
 	

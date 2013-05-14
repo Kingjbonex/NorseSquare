@@ -14,7 +14,8 @@ public class AddFriendsAlertDialog extends DialogFragment
 {
 
 
-		//Dialog to allow the user to dynamically create new events to be shared with their friends
+		//Dialog to allow the user to dynamically create new events to be shared with their friends, then redrawn on map fragment.
+	
 		public EditText friendName;
 		public EditText friendEmail;
 		

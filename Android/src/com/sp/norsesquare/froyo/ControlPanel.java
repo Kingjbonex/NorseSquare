@@ -15,7 +15,7 @@ import android.widget.ListAdapter;
 import android.widget.Toast;
 import static android.view.View.*;
 
-/*UI interface class to allow user interaction with critical map functions. Will be able to be hidden on offscreen swipe */
+/*UI interface class to allow user interaction with critical map functions. Allows for floating UI elements over the principle Google Maps fragment. */
 
 
 public class ControlPanel extends SherlockFragment implements OnGestureListener

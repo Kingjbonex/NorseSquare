@@ -20,7 +20,7 @@ import android.util.Log;
 import android.view.View;
 
 
-/*Class to allow for backround database calls to be made in alternate threads */
+/*Class to allow for background database calls to be made in alternate threads */
 public class DatabaseTask extends AsyncTask<String, Void, String>
 {
 	/**

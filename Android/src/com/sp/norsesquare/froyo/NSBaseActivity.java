@@ -13,7 +13,10 @@ import com.actionbarsherlock.view.MenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
-
+/* Base class required to create the necessary inheritance for the sliding menu, allow NorseSquare.java to
+ * use sliding menu features without blowing up. 
+ * 
+ */
 
 public abstract class NSBaseActivity extends SlidingFragmentActivity {
 

@@ -51,6 +51,13 @@ import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.model.people.Person;
 
 
+
+/*
+ * Main class for the NS app, handles instantiation of all other fragments and activities and serves as the principle launch pad for all UI elements.
+ * Also defines a number of inner classes, asynctasks and helper classes, that are used to provide database tie-ins and more convenient work
+ * environments for a variety of user elements.
+ */
+
 public class NorseSquare extends NSBaseActivity implements View.OnClickListener,
 ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 {
@@ -108,6 +115,12 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     @Override
 	public void onCreate(Bundle savedInstanceState) 
     {
+    	
+    	/*Main initialization and creation is done here, including enumerating accounts, setting up stored layouts, and creating 
+    	 * the lists needed to store markers during the user session. The GooglePlusClient is also instantiated here, giving the user the option of using any Google account
+    	 * on their device to login to the NS service. 
+    	 * 
+    	 */
          	
     	
         super.onCreate(savedInstanceState);
@@ -178,7 +191,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     }
 
     private void LoginToDatabase() {
-		// TODO Auto-generated method stub
+		// Instantiate and execute database task to login to NS database
     	Log.i("hello ppls", me.getGID());
     	AsyncTask<String, Void, String> LoginDatabase = new LoginDatabaseTask(me.getFirstName(), me.getLastName(), me.getEmail(), me.getGID()).execute();
 	}
@@ -186,6 +199,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	@Override
     protected void onResume() 
     {
+		
+		//Setup map and re-add location manager after resumption of app focus
         super.onResume();
         
         //Get location manager
@@ -201,6 +216,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	public void onStart()
 	{
 		  //Get location manager, check if wifi and gps are enabled.
+    	  //Connect google plus client and re-add the location listener required by the location manager.
 		  
 	  	super.onStart();
 
@@ -231,21 +247,21 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 			@Override
 			public void onProviderDisabled(String arg0)
 			{
-				// TODO Auto-generated method stub
+				
 			
 			}
 		
 			@Override
 			public void onProviderEnabled(String arg0)
 			{
-				// TODO Auto-generated method stub
+				
 			
 			}
 		
 			@Override
 			public void onStatusChanged(String arg0, int arg1, Bundle arg2)
 			{
-				// TODO Auto-generated method stub
+				
 			
 			}
 	  		
@@ -314,6 +330,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	//Functions for Event Creation Dialog
     public void doPositiveClick(String en,String ed,String d)
     {
+    	//Called when user clicks Create Event button in dialog, takes passed in user fields and adds to new EventMarker, then forces redraw of map to show changes.
+    	
     	String eventName = en;
     	String eventDescription = ed;
     	String date = d;
@@ -385,7 +403,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 	@Override
 	public void onClick(View view)
 	{
-		// TODO Auto-generated method stub
+	
 		
 	}
 
@@ -406,6 +424,8 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 
     @Override
     public void onConnected() {
+    	//Listener for GooglePlusClient, called when account is connected.
+    	
         String accountName = mPlusClient.getAccountName();
        // Toast.makeText(this, accountName + " is connected.", Toast.LENGTH_LONG).show();
         
@@ -432,7 +452,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     private String[] getAccountNames() 
     {
     	
-    	//Enumerate all Google accounts on a device
+    	//Enumerate all Google accounts on a device, this will be used to determine which account the Google Plus client should use.
         mAccountManager = AccountManager.get(this);
         
         Account[] accounts = mAccountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
@@ -450,10 +470,12 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     void setUpMap()
     {
-        // Do a null check to confirm that we have not already instantiated the map.
+    	
+    	//Instantiate main map fragment and add to view, add camera listeners to allow for map movement during location updates.
+        
         if (mMap == null)
         {
-            // Try to obtain the map from the SupportMapFragment.
+            
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.main_map)).getMap();
             
             
@@ -525,14 +547,15 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	updateLocation(coarseLocation);
     	
     	//Check In after location has been loaded
-    	//TODO - uncomment this
+    
     	checkIn();
     	
     }
     
     public Location returnCurrentWifiLocation()
         {
-          //Get and return the current location from Wifi. 
+          //Get and return the current location from Wifi. this is needed to give the correct location to 
+    	  //Certain functions for which it would be inappropriate to move the map to current user location and avoid redundancies.
           
           locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 25, locationListener);
           Location coarseLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -590,6 +613,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     public void createEvent(View v)
     {
     	//Instantiate a CreateEventAlertDialog, which will add an appropriate marker to the stored marker list 
+    	//based on user input.
     	
     	CreateEventAlertDialog eDialog = new CreateEventAlertDialog();
 //    	View v = ((View) findViewById(R.id.RelativeMapLayout));
@@ -609,6 +633,10 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     	
     	eDialog.show(getSupportFragmentManager(), "event_list");
     }
+    
+    
+    //All of the following dialog functions are used to instantiate and show supportfragment dialog boxes to show 
+    //the help and about dialog boxes, including allowing the user to move back and forth amongst help dialogs.
     
     public void showAboutDialog(View v)
     {
@@ -736,6 +764,7 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
 
 	public void placeSingleMarker(View v,LatLng latlong)
     {
+		//Old function that placed a single marker created from the latlong passed by an old version of checkin().
     	//------------DEPRECATED------------- - All further uses should store markers in storedMarkersList and use placeStoreMarkers()
     	mMap.clear();
     	
@@ -751,6 +780,10 @@ ConnectionCallbacks, OnConnectionFailedListener, DialogInterface.OnClickListener
     
     public void placeStoredMarkers()
     {
+    	/*Iterates through all stored marker lists (events and map markers) and places them on the map. This function should be called whenever the map needs \
+    	 * to be cleared and redrawn for any reason, as it allows persistence of the markers during a user session.
+    	 */
+    	
         //Toast.makeText(this, "Placing Stored Markers", Toast.LENGTH_SHORT).show();
     	
     	Iterator i = storedMarkerList.iterator();

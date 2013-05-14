@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class AboutDialogBox extends DialogFragment {
-//	ListView listView;
+//	Dialog box used to show basic app version and contact information. Info is hardcoded, should be relative to manifest settings at some point.
 	
 	View helpView;
 	
