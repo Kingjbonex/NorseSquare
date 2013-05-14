@@ -1,8 +1,0 @@
-<<<<<<< HEAD
-User-agent: *
-Disallow: /
-=======
-User-agent: *
-Disallow: /
->>>>>>> 184ae4515bb0bfda4cef950d4afb793eec6006a7
-Allow: /main

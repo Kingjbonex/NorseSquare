@@ -1,4 +1,4 @@
-function starter() {
+function starter() { //setting up google maps map size
 	var winH = 460;
 	if (document.body && document.body.offsetWidth) {
 	    winH = document.body.offsetHeight;
@@ -20,7 +20,7 @@ function starter() {
 	map.setZoom( map.getZoom() );
  }
 
-$(window).resize( function() {
+$(window).resize( function() { //calculates map height on resize of window
 	var winH = 460;
 	
 	if (document.body && document.body.offsetWidth) {
@@ -42,7 +42,7 @@ $(window).resize( function() {
 	map.setZoom( map.getZoom() );	
 });
 
-function toggleBox(id){
+function toggleBox(id){ //toggles friend pane
 	if (document.getElementById(id).style.display == "") {
 		show = "none";
 	} else {
@@ -107,7 +107,7 @@ google.maps.event.addListener(map, 'zoom_changed', function() {
 });
 
 
-//START OF lutherPolygon
+//START OF polygons
 
 //Event called on selection event
 function showArrays(event) {
@@ -174,10 +174,12 @@ for (polygon in polygonCoords) {
 function saveLocation(lat, long)
 {
 
+	//call to checkin php service
 	jQuery.post("./services/checkIn.php", {lat:lat,long:long,email:email}, function(data){/*alert(data)*/});
 
 }
 
+//shows users friends on map
 function showFriend(fLat,fLong,fPhotourl) {
 	for (var i = 0; i < myPosMarkers.length; i++ ) {
 		myPosMarkers[i].setMap(null);
@@ -206,6 +208,7 @@ function showFriend(fLat,fLong,fPhotourl) {
 
 }
 
+//shows points on successful retreival of geolocation coordinates
 function successFunction(myLat,myLong){
 	for (var i = 0; i < myPosMarkers.length; i++ ) {
 		myPosMarkers[i].setMap(null);
@@ -236,10 +239,12 @@ function successFunction(myLat,myLong){
 
 }
 
+//displayed when geolocation fails
 function errorFunction(position) {
     alert('Error! Your computer hates you. (And geolocation is not working!)');
 }
 
+//called when user hits check in button
 function checkIn(){
 	if (navigator.geolocation) {
 	    navigator.geolocation.getCurrentPosition(function(position){myLat = position.coords.latitude;myLong = position.coords.longitude;successFunction(myLat,myLong);}, errorFunction);
@@ -248,6 +253,7 @@ function checkIn(){
 	}
 };
 
+//shows a users friends on the map
 function showFriends(data) {
     for (var i = 0; i < myPosMarkers.length; i++ ) {
     	myPosMarkers[i].setMap(null);
@@ -288,10 +294,12 @@ function showFriends(data) {
 		
 }
 
+//makes php service call to find all friends
 function findAll(id, controlDiv, map) {
 	users = jQuery.get("./services/getFriends.php",{uid:id}, function(data){showFriends(data);},'text');
 }
 
+//clicks janrain link when login clicked
 function loginFunction() {
     $('#janrainLink').click();
 }

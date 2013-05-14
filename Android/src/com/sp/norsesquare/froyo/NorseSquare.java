@@ -940,6 +940,10 @@ private String parsetime(String gtime) {
 
 
 /*Class to allow for background database calls to be made in alternate threads */
+
+//Async task that logs the user into the Google+ account. Allows for us to find info about the user 
+//such as their name so we can update the database.
+//Google authentication is a little tricky.
 public class LoginAsyncTask extends AsyncTask<String, Void, String>
 {
 	String lutherEmail;
@@ -963,6 +967,12 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 	
 	protected String doInBackground(String... args)
 	{
+		
+		//try to get a authentication token from google. Provided the user is logged in on the device.
+		//if not the device throws an error which can be fixed by the user where a screen will appear
+		//asking the user to select an account.
+		//this allows us to get google tokens which gives us info about the user
+		//returns the token back to the main thread
 		try 
 		{
 			authToken = GoogleAuthUtil.getToken(context, lutherEmail, "oauth2:"+"https://www.googleapis.com/auth/userinfo.profile", bundle);
@@ -996,6 +1006,10 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String>
 	
 	protected void onPostExecute(String result) 
 	{
+		
+		//on close this thread attempts to login to the database once we have info on the user
+		//this must be done here due to the fact that login requires info that this task gets
+		//therefore placing the call here guarantees that login is done after this task
 		
         Log.i("GOOGLEAUTH", "Returning Received Google Token");
         googleAuthToken = result;

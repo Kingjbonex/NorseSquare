@@ -68,9 +68,7 @@ public class ControlPanel extends SherlockFragment implements OnGestureListener
 		ns = (NorseSquare) this.getActivity();
 	}
 	
-//	public void datCheckIn() {
-//		ns.datCheckIn();
-//	}
+
 	
 	public void wifiLocate()
 	{
@@ -83,15 +81,6 @@ public class ControlPanel extends SherlockFragment implements OnGestureListener
 		ns.findAll(this.getView());
 	}
 	
-	/*joel is fiddling with these methods.*/
-//	this isn't necessary anymore - since the control panel .xml file calls the norsesquare.java
-//	public void popUp()
-//	{
-//		//pops up toast full of text from textbox.
-////		EditText text = (EditText)findViewById(R.id.text_box);
-////		String value = text.getText().toString();
-////		ns.popUp(this.getView());s
-//	}
 
 	/*Methods for gesture detection*/
 	
